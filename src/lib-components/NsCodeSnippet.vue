@@ -116,13 +116,16 @@ export default {
       }
     },
     expandButtonText() {
-      return this.expanded ? this.lessText : this.moreText;
+      return this.isExpanded ? this.lessText : this.moreText;
     },
   },
   watch: {
     expanded: function() {
       this.isExpanded = this.expanded;
     },
+  },
+  created() {
+    this.isExpanded = this.expanded;
   },
   methods: {
     toggleExpand() {

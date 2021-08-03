@@ -21,6 +21,7 @@ import Chip20 from "@carbon/icons-vue/es/chip/20";
 import Save20 from "@carbon/icons-vue/es/save/20";
 import Copy20 from "@carbon/icons-vue/es/copy/20";
 import Application32 from "@carbon/icons-vue/es/application/32";
+import EdgeNode20 from "@carbon/icons-vue/es/edge-node/20";
 import EdgeNode32 from "@carbon/icons-vue/es/edge-node/32";
 import Cube32 from "@carbon/icons-vue/es/cube/32";
 
@@ -51,6 +52,7 @@ export default {
       Save20,
       Copy20,
       Application32, // used for apps, module instances and software center
+      EdgeNode20, // used for cluster nodes
       EdgeNode32, // used for cluster nodes
       Cube32, // used for systemd services
     };

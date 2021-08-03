@@ -129,7 +129,7 @@ export default {
 
       for (const category of app.categories) {
         if (category === "unknown") {
-          return "-";
+          return "";
         }
 
         i18nCategories.push(

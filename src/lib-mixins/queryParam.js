@@ -3,11 +3,13 @@ export default {
   methods: {
     // used by NS8 core and external apps to dynamically register a watch for every object inside data.q
     watchQueryData(context) {
-      Object.keys(context.q).forEach((dataItem) => {
-        context.$watch("q." + dataItem, function() {
-          this.dataToQueryParams(context);
+      if (context.q) {
+        Object.keys(context.q).forEach((dataItem) => {
+          context.$watch("q." + dataItem, function() {
+            this.dataToQueryParams(context);
+          });
         });
-      });
+      }
     },
     // used only by external apps to sync UI status with URL query parameters
     initUrlBindingForApp(context, page) {
@@ -73,11 +75,13 @@ export default {
       return page;
     },
     queryParamsToDataForCore(context, queryParams) {
-      Object.keys(context.q).forEach((dataItem) => {
-        if (typeof queryParams[dataItem] !== "undefined") {
-          context.q[dataItem] = this.getTypedValue(queryParams[dataItem]);
-        }
-      });
+      if (context.q) {
+        Object.keys(context.q).forEach((dataItem) => {
+          if (typeof queryParams[dataItem] !== "undefined") {
+            context.q[dataItem] = this.getTypedValue(queryParams[dataItem]);
+          }
+        });
+      }
     },
     // used to map a query string parameter value to its typed value
     getTypedValue(stringValue) {
@@ -95,11 +99,13 @@ export default {
     queryParamsToDataForApp(context) {
       let queryParams = this.getQueryParamsForApp();
 
-      Object.keys(context.q).forEach((dataItem) => {
-        if (typeof queryParams[dataItem] !== "undefined") {
-          context.q[dataItem] = this.getTypedValue(queryParams[dataItem]);
-        }
-      });
+      if (context.q) {
+        Object.keys(context.q).forEach((dataItem) => {
+          if (typeof queryParams[dataItem] !== "undefined") {
+            context.q[dataItem] = this.getTypedValue(queryParams[dataItem]);
+          }
+        });
+      }
     },
     // used only by NS8 core to extract query parameters from URL
     getQueryParamsForCore() {
