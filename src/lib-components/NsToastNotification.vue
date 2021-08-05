@@ -7,7 +7,7 @@
         `${carbonPrefix}--toast-notification--${kind.toLowerCase()}`,
         { [`${carbonPrefix}--toast-notification--low-contrast`]: lowContrast },
         `notification`,
-        { 'notification-read': read },
+        { 'notification-read': isRead },
       ]"
       v-on="$listeners"
       :role="isAlert ? 'alert' : undefined"
@@ -107,8 +107,7 @@ export default {
     },
     actionLabel: String,
     action: Object,
-    //// rename to isRead
-    read: {
+    isRead: {
       type: Boolean,
       default: false,
     },
