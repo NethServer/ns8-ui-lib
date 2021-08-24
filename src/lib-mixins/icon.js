@@ -24,6 +24,11 @@ import Application32 from "@carbon/icons-vue/es/application/32";
 import EdgeNode20 from "@carbon/icons-vue/es/edge-node/20";
 import EdgeNode32 from "@carbon/icons-vue/es/edge-node/32";
 import Cube32 from "@carbon/icons-vue/es/cube/32";
+import EdgeCluster32 from "@carbon/icons-vue/es/edge-cluster/32";
+import EdgeCluster20 from "@carbon/icons-vue/es/edge-cluster/20";
+import Connect32 from "@carbon/icons-vue/es/connect/32";
+import Connect20 from "@carbon/icons-vue/es/connect/20";
+import Edit20 from "@carbon/icons-vue/es/edit/20";
 
 export default {
   name: "IconService",
@@ -55,6 +60,11 @@ export default {
       EdgeNode20, // used for cluster nodes
       EdgeNode32, // used for cluster nodes
       Cube32, // used for systemd services
+      EdgeCluster32, // used for cluster
+      EdgeCluster20, // used for cluster
+      Connect32, // used for join cluster
+      Connect20, // used for join cluster
+      Edit20,
     };
   },
 };

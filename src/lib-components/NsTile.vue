@@ -5,7 +5,7 @@
       `cv-tile ${carbonPrefix}--tile`,
       { [`${carbonPrefix}--tile--light`]: isLight },
       'ns-tile',
-      { 'pad-bottom': icon },
+      { 'pad-bottom': footerIcon },
     ]"
     :checked="selected"
     :expanded="expanded"
@@ -13,12 +13,17 @@
     v-on="$listeners"
     ref="tile"
   >
-    <template>
-      <slot></slot>
-    </template>
+    <div :class="['container', { large: large, centered: centered || icon }]">
+      <!-- icon -->
+      <NsSvg v-if="icon" :svg="icon" class="tile-icon" />
 
-    <!-- icon -->
-    <NsSvg v-if="icon" :svg="icon" class="tile-icon" />
+      <template>
+        <slot></slot>
+      </template>
+    </div>
+
+    <!-- footer icon -->
+    <NsSvg v-if="footerIcon" :svg="footerIcon" class="tile-footer-icon" />
   </component>
 </template>
 
@@ -57,6 +62,18 @@ export default {
         return val.render !== null;
       },
     },
+    footerIcon: {
+      type: [String, Object],
+      default: undefined,
+      validator(val) {
+        if (!val || typeof val === "string") {
+          return true;
+        }
+        return val.render !== null;
+      },
+    },
+    centered: Boolean,
+    large: Boolean,
     light: Boolean,
   },
   computed: {
@@ -75,7 +92,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.ns-tile {
+  margin-bottom: 1rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+.large {
+  min-height: 10rem;
+}
+
 .tile-icon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+.tile-footer-icon {
   position: absolute;
   right: 1rem;
   bottom: 1rem;
