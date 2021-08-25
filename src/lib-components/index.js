@@ -11,6 +11,7 @@ export { default as NsToastNotification } from "./NsToastNotification.vue";
 export { default as NsInfoCard } from "./NsInfoCard.vue";
 export { default as NsStatusCard } from "./NsStatusCard.vue";
 export { default as NsSystemdServiceCard } from "./NsSystemdServiceCard.vue";
+export { default as NsPasswordInput } from "./NsPasswordInput.vue";
 
 // Pictograms
 export { default as ExclamationMark } from "./pictograms/ExclamationMark.vue";
