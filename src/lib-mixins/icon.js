@@ -17,6 +17,7 @@ import Information20 from "@carbon/icons-vue/es/information/20";
 import Application20 from "@carbon/icons-vue/es/application/20";
 import Add20 from "@carbon/icons-vue/es/add/20";
 import Rocket20 from "@carbon/icons-vue/es/rocket/20";
+import Rocket32 from "@carbon/icons-vue/es/rocket/32";
 import Chip20 from "@carbon/icons-vue/es/chip/20";
 import Save20 from "@carbon/icons-vue/es/save/20";
 import Copy20 from "@carbon/icons-vue/es/copy/20";
@@ -29,6 +30,9 @@ import EdgeCluster20 from "@carbon/icons-vue/es/edge-cluster/20";
 import Connect32 from "@carbon/icons-vue/es/connect/32";
 import Connect20 from "@carbon/icons-vue/es/connect/20";
 import Edit20 from "@carbon/icons-vue/es/edit/20";
+import Password20 from "@carbon/icons-vue/es/password/20";
+import Star20 from "@carbon/icons-vue/es/star/20";
+import Checkmark20 from "@carbon/icons-vue/es/checkmark/20";
 
 export default {
   name: "IconService",
@@ -53,6 +57,7 @@ export default {
       Application20, // used for apps, module instances and software center
       Add20,
       Rocket20,
+      Rocket32,
       Chip20,
       Save20,
       Copy20,
@@ -65,6 +70,9 @@ export default {
       Connect32, // used for join cluster
       Connect20, // used for join cluster
       Edit20,
+      Password20,
+      Star20,
+      Checkmark20,
     };
   },
 };
