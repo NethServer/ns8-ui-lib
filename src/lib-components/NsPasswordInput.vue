@@ -1,73 +1,112 @@
 <template>
   <div class="ns-password-input">
-    <cv-text-input
-      :value="value"
-      @input="onInput"
-      type="password"
-      :helperText="helperText"
-      :invalid-message="invalidMessage"
-      :label="label"
-      :passwordHideLabel="passwordHideLabel"
-      :passwordShowLabel="passwordShowLabel"
-      :passwordVisible="passwordVisible"
-      :light="light"
-      class="password-input"
-    >
-    </cv-text-input>
-    <div class="password-meter">
-      <span
-        :class="[
-          'requirement',
-          { 'requirement-ok': isLengthOk, 'requirement-light': light },
-        ]"
-        >{{ lengthLabel }}</span
+    <div class="new-password-container">
+      <cv-text-input
+        :value="value"
+        @input="onInput"
+        type="password"
+        :helperText="newPaswordHelperText"
+        :invalidMessage="newPasswordInvalidMessage"
+        :label="newPasswordLabel"
+        :passwordHideLabel="passwordHideLabel"
+        :passwordShowLabel="passwordShowLabel"
+        :passwordVisible="newPasswordVisible"
+        :light="light"
+        class="new-password"
+        ref="newPassword"
       >
-      <span
-        :class="[
-          'requirement',
-          { 'requirement-ok': isLowercaseOk, 'requirement-light': light },
-        ]"
-        >{{ lowercaseLabel }}</span
+      </cv-text-input>
+      <div class="password-meter">
+        <span
+          :class="[
+            'requirement',
+            { 'requirement-ok': isLengthOk, 'requirement-light': light },
+          ]"
+          >{{ lengthLabel }}</span
+        >
+        <span
+          :class="[
+            'requirement',
+            { 'requirement-ok': isLowercaseOk, 'requirement-light': light },
+          ]"
+          >{{ lowercaseLabel }}</span
+        >
+        <span
+          :class="[
+            'requirement',
+            { 'requirement-ok': isUppercaseOk, 'requirement-light': light },
+          ]"
+          >{{ uppercaseLabel }}</span
+        >
+        <span
+          :class="[
+            'requirement',
+            { 'requirement-ok': isNumberOk, 'requirement-light': light },
+          ]"
+          >{{ numberLabel }}</span
+        >
+        <span
+          :class="[
+            'requirement',
+            { 'requirement-ok': isSymbolOk, 'requirement-light': light },
+          ]"
+          >{{ symbolLabel }}</span
+        >
+      </div>
+    </div>
+    <div class="confirm-password-container">
+      <cv-text-input
+        v-model="confirmPassword"
+        type="password"
+        :helperText="confirmPaswordHelperText"
+        :invalidMessage="confirmPasswordInvalidMessage"
+        :label="confirmPasswordLabel"
+        :passwordHideLabel="passwordHideLabel"
+        :passwordShowLabel="passwordShowLabel"
+        :passwordVisible="confirmPasswordVisible"
+        :light="light"
+        class="confirm-password"
+        ref="confirmPassword"
       >
-      <span
-        :class="[
-          'requirement',
-          { 'requirement-ok': isUppercaseOk, 'requirement-light': light },
-        ]"
-        >{{ uppercaseLabel }}</span
-      >
-      <span
-        :class="[
-          'requirement',
-          { 'requirement-ok': isNumberOk, 'requirement-light': light },
-        ]"
-        >{{ numberLabel }}</span
-      >
-      <span
-        :class="[
-          'requirement',
-          { 'requirement-ok': isSymbolOk, 'requirement-light': light },
-        ]"
-        >{{ symbolLabel }}</span
-      >
+      </cv-text-input>
+      <div class="password-meter">
+        <span
+          :class="[
+            'requirement',
+            { 'requirement-ok': isEqualOk, 'requirement-light': light },
+          ]"
+          >{{ equalLabel }}</span
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { CvTextInput } from "@carbon/vue";
+import UtilService from "../lib-mixins/util.js";
 
 export default {
   name: "NsPasswordInput",
   components: CvTextInput,
+  mixins: [UtilService],
   props: {
     value: String,
-    helperText: { type: String, default: undefined },
-    invalidMessage: { type: String, default: undefined },
-    label: String,
+    newPaswordHelperText: { type: String, default: undefined },
+    confirmPaswordHelperText: { type: String, default: undefined },
+    newPasswordInvalidMessage: { type: String, default: undefined },
+    confirmPasswordInvalidMessage: { type: String, default: undefined },
+    newPasswordLabel: { type: String, default: "New password" },
+    confirmPasswordLabel: { type: String, default: "Re-enter new password" },
     passwordHideLabel: { type: String, default: "Hide password" },
     passwordShowLabel: { type: String, default: "Show password" },
-    passwordVisible: Boolean,
+    newPasswordVisible: Boolean,
+    confirmPasswordVisible: Boolean,
+    // set this prop to focus new password or confirm password inputs (e.g.: { element: "newPassword" })
+    focus: {
+      type: Object,
+      default: undefined,
+    },
     light: Boolean,
     minLength: {
       type: Number,
@@ -93,6 +132,15 @@ export default {
       type: String,
       default: "Symbol",
     },
+    equalLabel: {
+      type: String,
+      default: "Equal",
+    },
+  },
+  data() {
+    return {
+      confirmPassword: "",
+    };
   },
   computed: {
     isLengthOk() {
@@ -109,6 +157,9 @@ export default {
     },
     isSymbolOk() {
       return /\W|_/.test(this.value);
+    },
+    isEqualOk() {
+      return this.value.length && this.value === this.confirmPassword;
     },
   },
   watch: {
@@ -127,26 +178,51 @@ export default {
     isSymbolOk: function() {
       this.emitPasswordValidity();
     },
+    isEqualOk: function() {
+      this.emitPasswordValidity();
+    },
+    focus: function() {
+      if (this.focus && this.focus.element) {
+        this.focusElement(this.focus.element);
+      }
+    },
   },
   methods: {
     onInput(event) {
       this.$emit("input", event);
     },
     emitPasswordValidity() {
-      const isPasswordValid =
-        this.isLengthOk &&
-        this.isLowercaseOk &&
-        this.isUppercaseOk &&
-        this.isNumberOk &&
-        this.isSymbolOk;
-      this.$emit("passwordValidation", isPasswordValid);
+      const validation = {
+        isLengthOk: this.isLengthOk,
+        isLowercaseOk: this.isLowercaseOk,
+        isUppercaseOk: this.isUppercaseOk,
+        isNumberOk: this.isNumberOk,
+        isSymbolOk: this.isSymbolOk,
+        isEqualOk: this.isEqualOk,
+        isValid:
+          this.isLengthOk &&
+          this.isLowercaseOk &&
+          this.isUppercaseOk &&
+          this.isNumberOk &&
+          this.isSymbolOk &&
+          this.isEqualOk,
+      };
+      this.$emit("passwordValidation", validation);
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.password-input {
+.new-password-container {
+  margin-bottom: 1rem;
+}
+
+.new-password {
+  margin-bottom: 0.25rem;
+}
+
+.confirm-password {
   margin-bottom: 0.25rem;
 }
 
