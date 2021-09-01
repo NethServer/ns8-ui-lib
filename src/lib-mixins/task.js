@@ -140,14 +140,14 @@ export default {
           return "";
       }
     },
-    createTaskErrorNotification(err, message) {
+    createErrorNotification(err, message) {
       console.error(err);
-      this.$root.$emit("createTaskErrorNotification", err, message);
+      this.$root.$emit("createErrorNotification", err, message);
     },
-    createTaskErrorNotificationForApp(err, message) {
+    createErrorNotificationForApp(err, message) {
       console.error(err);
       window.parent.ns8.$root.$emit(
-        "createTaskErrorNotification",
+        "createErrorNotification",
         err,
         message
       );
