@@ -2,12 +2,13 @@ export default {
   name: "UtilService",
   methods: {
     getErrorMessage(error) {
-      if (
-        error.message === "Network Error" ||
-        /^timeout of .+ exceeded$/.test(error.message)
-      ) {
-        // network issues or axios timeout reached
+      if (error.message === "Network Error") {
         return this.$t("error.network_error");
+      }
+
+      if (/^timeout of .+ exceeded$/.test(error.message)) {
+        // axios timeout reached
+        return this.$t("error.network_timeout");
       }
 
       if (error.response) {

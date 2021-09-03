@@ -1,9 +1,5 @@
 <template>
-  <cv-tile
-    kind="standard"
-    :light="light"
-    :class="['info-card', { 'min-height': minHeight }]"
-  >
+  <cv-tile kind="standard" :light="light" class="info-card">
     <!-- icon -->
     <div v-if="icon" class="row">
       <NsSvg :svg="icon" />
@@ -42,7 +38,6 @@ export default {
       },
     },
     light: Boolean,
-    minHeight: Boolean,
   },
 };
 </script>
@@ -53,11 +48,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   min-height: 7rem;
-}
-
-.min-height {
-  // use same value as others Ns*Card components
-  min-height: 9rem;
 }
 
 .row {

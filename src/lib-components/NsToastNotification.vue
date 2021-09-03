@@ -177,22 +177,41 @@ export default {
   cursor: pointer;
 }
 
-.notification-drawer
-  .cv-notifiation.bx--toast-notification.notification.notification-read {
-  // following rule uses branding color so it's inside core _ns8.scss
-  // border-color: $ui-04;
-  background-color: #555555;
+.notification-read {
+  border-color: #8d8d8d;
+  color: #c6c6c6;
 }
 
-.notification-drawer
-  .cv-notifiation.bx--toast-notification.notification.notification-read
-  .bx--toast-notification__title {
+.notification-read svg {
+  // gray icon for read notifications
+  fill: currentColor;
+}
+
+.notification-read .bx--toast-notification__subtitle {
+  color: #c6c6c6;
+}
+
+.notification-read .bx--toast-notification__title {
   font-weight: normal;
 }
 
-.timestamp {
+.cv-notifiation .timestamp {
   margin-bottom: 0.75rem;
   line-height: 1.29;
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.cv-notifiation .timestamp button {
+  color: #c6c6c6;
+}
+
+.bx--tooltip__trigger:not(.bx--btn--icon-only) {
+  font-size: inherit;
+}
+
+.cv-notifiation .timestamp .bx--tooltip__trigger::before {
+  border-bottom-color: #161616;
 }
 
 div.row:last-child {
@@ -201,5 +220,16 @@ div.row:last-child {
 
 .bx--toast-notification__details {
   flex-grow: 1;
+}
+</style>
+
+<style lang="scss">
+// global styles
+
+.cv-notifiation .timestamp button span {
+  background-color: #161616 !important;
+  border-left: 1px solid #393939;
+  border-right: 1px solid #393939;
+  border-bottom: 1px solid #393939;
 }
 </style>
