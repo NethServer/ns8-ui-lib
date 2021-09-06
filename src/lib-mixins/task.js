@@ -33,7 +33,7 @@ export default {
       const token = this.getFromStorage("loginInfo")
         ? this.getFromStorage("loginInfo").token
         : "";
-      return this.axios.get(`${this.$root.apiUrl}/tasks/cluster`, {
+      return this.axios.get(`${this.$root.apiUrl}/cluster/tasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -146,11 +146,7 @@ export default {
     },
     createErrorNotificationForApp(err, message) {
       console.error(err);
-      window.parent.ns8.$root.$emit(
-        "createErrorNotification",
-        err,
-        message
-      );
+      window.parent.ns8.$root.$emit("createErrorNotification", err, message);
     },
   },
 };

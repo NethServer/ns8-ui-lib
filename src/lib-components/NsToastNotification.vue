@@ -182,7 +182,7 @@ export default {
   color: #c6c6c6;
 }
 
-.notification-read svg {
+.notification-read .bx--toast-notification__icon {
   // gray icon for read notifications
   fill: currentColor;
 }
