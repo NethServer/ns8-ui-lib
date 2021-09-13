@@ -19,6 +19,7 @@ import Add20 from "@carbon/icons-vue/es/add/20";
 import Rocket20 from "@carbon/icons-vue/es/rocket/20";
 import Rocket32 from "@carbon/icons-vue/es/rocket/32";
 import Chip20 from "@carbon/icons-vue/es/chip/20";
+import Chip32 from "@carbon/icons-vue/es/chip/32";
 import Save20 from "@carbon/icons-vue/es/save/20";
 import Copy20 from "@carbon/icons-vue/es/copy/20";
 import Application32 from "@carbon/icons-vue/es/application/32";
@@ -33,6 +34,7 @@ import Edit20 from "@carbon/icons-vue/es/edit/20";
 import Password20 from "@carbon/icons-vue/es/password/20";
 import Star20 from "@carbon/icons-vue/es/star/20";
 import Checkmark20 from "@carbon/icons-vue/es/checkmark/20";
+import ZoomIn20 from "@carbon/icons-vue/es/zoom--in/20";
 
 export default {
   name: "IconService",
@@ -58,12 +60,13 @@ export default {
       Add20,
       Rocket20,
       Rocket32,
-      Chip20,
+      Chip20, // used for cluster nodes
+      Chip32, // used for cluster nodes
       Save20,
       Copy20,
       Application32, // used for apps, module instances and software center
-      EdgeNode20, // used for cluster nodes
-      EdgeNode32, // used for cluster nodes
+      EdgeNode20,
+      EdgeNode32,
       Cube32, // used for systemd services
       EdgeCluster32, // used for cluster
       EdgeCluster20, // used for cluster
@@ -73,6 +76,7 @@ export default {
       Password20,
       Star20,
       Checkmark20,
+      ZoomIn20, // used to open details
     };
   },
 };
