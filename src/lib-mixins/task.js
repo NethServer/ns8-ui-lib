@@ -77,6 +77,20 @@ export default {
         }
       );
     },
+    createNodeTask(nodeId, taskData) {
+      const token = this.getFromStorage("loginInfo")
+        ? this.getFromStorage("loginInfo").token
+        : "";
+      return this.axios.post(
+        `${this.$root.apiUrl}/node/${nodeId}/tasks`,
+        taskData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    },
     getTaskTitle(task) {
       if (
         task &&
