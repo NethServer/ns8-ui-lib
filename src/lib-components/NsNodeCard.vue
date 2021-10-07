@@ -32,35 +32,35 @@
             </cv-tooltip>
           </div>
           <div class="td">
-            <span :class="{ warning: load1Min >= cpuLoadWarningTh }">{{
-              load1Min
-            }}</span>
+            <span :class="{ warning: load1Min >= cpuLoadWarningTh }"
+              >{{ load1Min }}%</span
+            >
             /
-            <span :class="{ warning: load5Min >= cpuLoadWarningTh }">{{
-              load5Min
-            }}</span>
+            <span :class="{ warning: load5Min >= cpuLoadWarningTh }"
+              >{{ load5Min }}%</span
+            >
             /
-            <span :class="{ warning: load15Min >= cpuLoadWarningTh }">{{
-              load15Min
-            }}</span>
+            <span :class="{ warning: load15Min >= cpuLoadWarningTh }"
+              >{{ load15Min }}%</span
+            >
           </div>
         </div>
         <div class="tr">
-          <div class="td label">{{ memoryUsedLabel }}</div>
-          <div :class="['td', { warning: memoryUsed >= memoryWarningTh }]">
-            {{ memoryUsed }}%
+          <div class="td label">{{ memoryUsageLabel }}</div>
+          <div :class="['td', { warning: memoryUsage >= memoryWarningTh }]">
+            {{ memoryUsage }}%
           </div>
         </div>
         <div class="tr">
-          <div class="td label">{{ swapUsedLabel }}</div>
-          <div :class="['td', { warning: swapUsed >= swapWarningTh }]">
-            {{ swapUsed }}%
+          <div class="td label">{{ swapUsageLabel }}</div>
+          <div :class="['td', { warning: swapUsage >= swapWarningTh }]">
+            {{ swapUsage }}%
           </div>
         </div>
-        <div class="tr" v-for="(disk, index) in disksUsed" :key="index">
-          <div class="td label">{{ disk.name }} {{ diskUsedLabel }}</div>
-          <div :class="['td', { warning: disk.used >= diskWarningTh }]">
-            {{ disk.used }}%
+        <div class="tr" v-for="(disk, index) in disksUsage" :key="index">
+          <div class="td label">{{ disk.diskId }} {{ diskUsageLabel }}</div>
+          <div :class="['td', { warning: disk.usage >= diskWarningTh }]">
+            {{ disk.usage }}%
           </div>
         </div>
       </div>
@@ -109,17 +109,17 @@ export default {
       type: String,
       default: "CPU average load of last 1 / 5 / 15 minutes",
     },
-    memoryUsedLabel: {
+    memoryUsageLabel: {
       type: String,
-      default: "Memory used",
+      default: "Memory usage",
     },
-    swapUsedLabel: {
+    swapUsageLabel: {
       type: String,
-      default: "Swap used",
+      default: "Swap usage",
     },
-    diskUsedLabel: {
+    diskUsageLabel: {
       type: String,
-      default: "used",
+      default: "usage",
     },
     cpuUsage: Number,
     cpuUsageWarningTh: {
@@ -131,19 +131,19 @@ export default {
     load15Min: Number,
     cpuLoadWarningTh: {
       type: Number,
-      default: 1,
+      default: 90,
     },
-    memoryUsed: Number,
+    memoryUsage: Number,
     memoryWarningTh: {
       type: Number,
       default: 80,
     },
-    swapUsed: Number,
+    swapUsage: Number,
     swapWarningTh: {
       type: Number,
       default: 80,
     },
-    disksUsed: Array,
+    disksUsage: Array,
     diskWarningTh: {
       type: Number,
       default: 80,
