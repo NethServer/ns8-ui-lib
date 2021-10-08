@@ -124,7 +124,7 @@ export default {
     cpuUsage: Number,
     cpuUsageWarningTh: {
       type: Number,
-      default: 80,
+      default: 90,
     },
     load1Min: Number,
     load5Min: Number,
@@ -136,17 +136,17 @@ export default {
     memoryUsage: Number,
     memoryWarningTh: {
       type: Number,
-      default: 80,
+      default: 90,
     },
     swapUsage: Number,
     swapWarningTh: {
       type: Number,
-      default: 80,
+      default: 90,
     },
     disksUsage: Array,
     diskWarningTh: {
       type: Number,
-      default: 80,
+      default: 90,
     },
     light: Boolean,
   },

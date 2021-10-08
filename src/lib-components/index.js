@@ -30,3 +30,6 @@ export { default as IconService } from "../lib-mixins/icon.js";
 export { default as DateTimeService } from "../lib-mixins/dateTime.js";
 export { default as DataTableService } from "../lib-mixins/dataTable.js";
 export { default as PageTitleService } from "../lib-mixins/pageTitle.js";
+
+// Filters
+export { default as Filters } from "../lib-filters/filters.js";
