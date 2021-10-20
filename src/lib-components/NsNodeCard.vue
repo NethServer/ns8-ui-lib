@@ -11,7 +11,10 @@
       <cv-tag v-if="isLeader" kind="green" :label="leaderLabel"></cv-tag>
       <cv-tag v-else kind="blue" :label="workerLabel"></cv-tag>
     </div>
-    <div class="table-wrapper">
+    <div v-if="loading" class="row node-card-skeleton">
+      <cv-skeleton-text :paragraph="true" :line-count="5"></cv-skeleton-text>
+    </div>
+    <div v-else class="table-wrapper">
       <div class="table">
         <div class="tr">
           <div class="td label">{{ cpuUsageLabel }}</div>
@@ -148,6 +151,7 @@ export default {
       type: Number,
       default: 90,
     },
+    loading: Boolean,
     light: Boolean,
   },
   data() {
@@ -171,6 +175,10 @@ export default {
   align-items: center;
   justify-content: center;
   margin-bottom: 0.25rem;
+}
+
+.node-card-skeleton {
+  margin: 1rem 3rem;
 }
 
 .label {
