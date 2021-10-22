@@ -93,7 +93,7 @@ export default {
 
 <style scoped lang="scss">
 .ns-tile {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .container {
