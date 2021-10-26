@@ -7,8 +7,12 @@
     <div class="row">
       <h3 class="title">{{ title }}</h3>
     </div>
-    <div class="row">
+    <div v-if="description" class="row">
       <div class="description">{{ description }}</div>
+    </div>
+    <div class="row slot">
+      <!-- Extra content -->
+      <slot></slot>
     </div>
   </cv-tile>
 </template>
@@ -65,5 +69,9 @@ export default {
 .description {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+}
+
+.slot {
+  margin-top: 0.5rem;
 }
 </style>
