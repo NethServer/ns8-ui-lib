@@ -14,6 +14,8 @@ export { default as NsSystemdServiceCard } from "./NsSystemdServiceCard.vue";
 export { default as NsPasswordInput } from "./NsPasswordInput.vue";
 export { default as NsNodeCard } from "./NsNodeCard.vue";
 export { default as NsIconMenu } from "./NsIconMenu.vue";
+export { default as NsMeterChart } from "./NsMeterChart.vue";
+export { default as NsPieChart } from "./NsPieChart.vue";
 
 // Pictograms
 export { default as ExclamationMark } from "./pictograms/ExclamationMark.vue";
