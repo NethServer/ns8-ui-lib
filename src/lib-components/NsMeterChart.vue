@@ -6,12 +6,13 @@
 import Vue from "vue";
 import "@carbon/charts/styles.css";
 import chartsVue from "@carbon/charts-vue";
+import { CcvMeterChart } from "@carbon/charts-vue";
 
 Vue.use(chartsVue);
 
 export default {
   name: "NsMeterChart",
-  components: {},
+  components: { CcvMeterChart },
   props: {
     title: { type: String, default: "" },
     label: { type: String, default: "" },
@@ -27,7 +28,7 @@ export default {
     };
   },
   watch: {
-    value: function () {
+    value: function() {
       this.data[0].value = this.value;
     },
   },
