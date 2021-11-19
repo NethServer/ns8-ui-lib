@@ -1,6 +1,15 @@
 <template>
   <div class="empty-state">
-    <NsPictogram title="empty state" class="image">
+    <NsLottieAnimation
+      v-if="animationData"
+      :animationData="animationData"
+      :refName="animationTitle"
+      :animateOnHover="true"
+      :loop="1"
+      :autoPlay="true"
+      class="animation image"
+    />
+    <NsPictogram v-else title="empty state" class="image">
       <template v-if="hasPictogramSlot">
         <slot name="pictogram"></slot>
       </template>
@@ -20,16 +29,19 @@
 
 <script>
 import NsPictogram from "./NsPictogram.vue";
+import NsLottieAnimation from "./NsLottieAnimation";
 import ExclamationMark from "./pictograms/ExclamationMark";
 
 export default {
   name: "NsEmptyState",
-  components: { NsPictogram, ExclamationMark },
+  components: { NsPictogram, ExclamationMark, NsLottieAnimation },
   props: {
     title: {
       type: String,
       required: true,
     },
+    animationData: Object,
+    animationTitle: String,
   },
   computed: {
     hasPictogramSlot() {
@@ -54,5 +66,11 @@ export default {
 
 .empty-state .description {
   margin-top: 1rem;
+}
+
+.animation {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
 }
 </style>
