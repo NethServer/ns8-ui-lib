@@ -64,6 +64,9 @@ export default {
 .title {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .description {
