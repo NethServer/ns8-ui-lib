@@ -35,6 +35,8 @@ import Password20 from "@carbon/icons-vue/es/password/20";
 import Star20 from "@carbon/icons-vue/es/star/20";
 import Checkmark20 from "@carbon/icons-vue/es/checkmark/20";
 import ZoomIn20 from "@carbon/icons-vue/es/zoom--in/20";
+import Events32 from "@carbon/icons-vue/es/events/32";
+import Link32 from "@carbon/icons-vue/es/link/32";
 
 export default {
   name: "IconService",
@@ -77,6 +79,8 @@ export default {
       Star20,
       Checkmark20,
       ZoomIn20, // used to open details
+      Events32, // used for domains
+      Link32, // used for external domain providers
     };
   },
 };
