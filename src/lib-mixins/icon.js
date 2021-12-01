@@ -13,6 +13,8 @@ import Upgrade20 from "@carbon/icons-vue/es/upgrade/20";
 import Settings20 from "@carbon/icons-vue/es/settings/20";
 import ChevronDown20 from "@carbon/icons-vue/es/chevron--down/20";
 import ChevronUp20 from "@carbon/icons-vue/es/chevron--up/20";
+import ChevronLeft20 from "@carbon/icons-vue/es/chevron--left/20";
+import ChevronRight20 from "@carbon/icons-vue/es/chevron--right/20";
 import Information20 from "@carbon/icons-vue/es/information/20";
 import Application20 from "@carbon/icons-vue/es/application/20";
 import Add20 from "@carbon/icons-vue/es/add/20";
@@ -59,6 +61,8 @@ export default {
       Settings20,
       ChevronDown20,
       ChevronUp20,
+      ChevronLeft20,
+      ChevronRight20,
       Information20,
       Application20, // used for apps, module instances and software center
       Add20,
