@@ -12,6 +12,7 @@
         :passwordShowLabel="passwordShowLabel"
         :passwordVisible="newPasswordVisible"
         :light="light"
+        :disabled="disabled"
         class="new-password"
         ref="newPassword"
       >
@@ -65,6 +66,7 @@
         :passwordShowLabel="passwordShowLabel"
         :passwordVisible="confirmPasswordVisible"
         :light="light"
+        :disabled="disabled"
         class="confirm-password"
         ref="confirmPassword"
       >
@@ -136,6 +138,7 @@ export default {
       type: String,
       default: "Equal",
     },
+    disabled: Boolean,
   },
   data() {
     return {
@@ -163,25 +166,25 @@ export default {
     },
   },
   watch: {
-    isLengthOk: function() {
+    isLengthOk: function () {
       this.emitPasswordValidity();
     },
-    isLowercaseOk: function() {
+    isLowercaseOk: function () {
       this.emitPasswordValidity();
     },
-    isUppercaseOk: function() {
+    isUppercaseOk: function () {
       this.emitPasswordValidity();
     },
-    isNumberOk: function() {
+    isNumberOk: function () {
       this.emitPasswordValidity();
     },
-    isSymbolOk: function() {
+    isSymbolOk: function () {
       this.emitPasswordValidity();
     },
-    isEqualOk: function() {
+    isEqualOk: function () {
       this.emitPasswordValidity();
     },
-    focus: function() {
+    focus: function () {
       if (this.focus && this.focus.element) {
         this.focusElement(this.focus.element);
       }
