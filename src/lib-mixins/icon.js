@@ -41,6 +41,8 @@ import Events32 from "@carbon/icons-vue/es/events/32";
 import Link32 from "@carbon/icons-vue/es/link/32";
 import WarningAlt32 from "@carbon/icons-vue/es/warning--alt/32";
 import Tools32 from "@carbon/icons-vue/es/tools/32";
+import Network_220 from "@carbon/icons-vue/es/network--2/20";
+import Network_232 from "@carbon/icons-vue/es/network--2/32";
 
 export default {
   name: "IconService",
@@ -89,6 +91,8 @@ export default {
       Link32, // used for external domain providers
       WarningAlt32,
       Tools32,
+      Network_220,
+      Network_232,
     };
   },
 };
