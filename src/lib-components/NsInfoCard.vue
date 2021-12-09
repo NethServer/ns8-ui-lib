@@ -1,5 +1,7 @@
 <template>
   <cv-tile kind="standard" :light="light" class="info-card">
+    <!-- overflow menu -->
+    <slot v-if="showOverflowMenu" name="menu"></slot>
     <!-- icon -->
     <div v-if="icon" class="row">
       <NsSvg :svg="icon" />
@@ -12,7 +14,7 @@
     </div>
     <div class="row slot">
       <!-- Extra content -->
-      <slot></slot>
+      <slot name="content"></slot>
     </div>
   </cv-tile>
 </template>
@@ -41,6 +43,10 @@ export default {
         return val.render !== null;
       },
     },
+    showOverflowMenu: {
+      type: Boolean,
+      default: false,
+    },
     light: Boolean,
   },
 };
@@ -52,6 +58,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   min-height: 7rem;
+  // needed for abosulute positioning of overflow menu
+  position: relative;
 }
 
 .row {
