@@ -91,6 +91,8 @@ export default {
   watch: {
     isShown: function () {
       if (this.isShown) {
+        this.userInput = "";
+
         setTimeout(() => {
           this.focusElement("userInput");
         }, 300);
