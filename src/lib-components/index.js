@@ -17,6 +17,7 @@ export { default as NsMeterChart } from "./NsMeterChart.vue";
 export { default as NsPieChart } from "./NsPieChart.vue";
 export { default as NsLottieAnimation } from "./NsLottieAnimation.vue";
 export { default as NsDangerDeleteModal } from "./NsDangerDeleteModal.vue";
+export { default as NsCircleTimer } from "./NsCircleTimer.vue";
 
 // Pictograms
 export { default as ExclamationMark } from "./pictograms/ExclamationMark.vue";

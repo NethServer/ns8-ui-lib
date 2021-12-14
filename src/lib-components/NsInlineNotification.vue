@@ -27,11 +27,19 @@
           v-if="description"
           :class="[
             `${carbonPrefix}--inline-notification__subtitle`,
-            { 'mg-right': loading },
+            { 'mg-right': loading || timer },
           ]"
           v-html="description"
         ></p>
         <p v-if="loading" class="loader"></p>
+        <p v-if="timer">
+          <NsCircleTimer
+            :timeLimit="timer"
+            :size="16"
+            :strokeWidth="20"
+            color="white"
+          />
+        </p>
       </div>
     </div>
     <button
@@ -62,10 +70,12 @@
 
 <script>
 import { CvInlineNotification } from "@carbon/vue";
+import NsCircleTimer from "./NsCircleTimer.vue";
 
 export default {
   name: "NsInlineNotification",
   extends: CvInlineNotification,
+  components: { NsCircleTimer },
   props: {
     showCloseButton: {
       type: Boolean,
@@ -83,6 +93,9 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    timer: {
+      type: Number,
     },
   },
 };
