@@ -5,7 +5,7 @@
       :animationData="animationData"
       :refName="animationTitle"
       :animateOnHover="true"
-      :loop="1"
+      :loop="loop"
       :autoPlay="true"
       class="animation image"
     />
@@ -42,6 +42,10 @@ export default {
     },
     animationData: Object,
     animationTitle: String,
+    loop: {
+      type: [Boolean, Number],
+      default: 1,
+    },
   },
   computed: {
     hasPictogramSlot() {

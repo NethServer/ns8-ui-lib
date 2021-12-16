@@ -92,6 +92,8 @@ export default {
 .title {
   margin-right: 0.75rem;
   margin-bottom: 0.2rem;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
 }
 
 .mg-right {
@@ -106,5 +108,10 @@ export default {
 // place close button on the right
 .bx--inline-notification__close-button {
   position: absolute !important;
+}
+
+.bx--inline-notification__text-wrapper p {
+  // needed for inline notifications inside modal
+  padding-right: 0 !important;
 }
 </style>

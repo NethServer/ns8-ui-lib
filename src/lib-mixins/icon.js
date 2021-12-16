@@ -13,6 +13,8 @@ import Upgrade20 from "@carbon/icons-vue/es/upgrade/20";
 import Settings20 from "@carbon/icons-vue/es/settings/20";
 import ChevronDown20 from "@carbon/icons-vue/es/chevron--down/20";
 import ChevronUp20 from "@carbon/icons-vue/es/chevron--up/20";
+import ChevronLeft20 from "@carbon/icons-vue/es/chevron--left/20";
+import ChevronRight20 from "@carbon/icons-vue/es/chevron--right/20";
 import Information20 from "@carbon/icons-vue/es/information/20";
 import Application20 from "@carbon/icons-vue/es/application/20";
 import Add20 from "@carbon/icons-vue/es/add/20";
@@ -35,6 +37,13 @@ import Password20 from "@carbon/icons-vue/es/password/20";
 import Star20 from "@carbon/icons-vue/es/star/20";
 import Checkmark20 from "@carbon/icons-vue/es/checkmark/20";
 import ZoomIn20 from "@carbon/icons-vue/es/zoom--in/20";
+import Events32 from "@carbon/icons-vue/es/events/32";
+import Link32 from "@carbon/icons-vue/es/link/32";
+import WarningAlt32 from "@carbon/icons-vue/es/warning--alt/32";
+import WarningAlt20 from "@carbon/icons-vue/es/warning--alt/20";
+import Tools32 from "@carbon/icons-vue/es/tools/32";
+import Network_220 from "@carbon/icons-vue/es/network--2/20";
+import Network_232 from "@carbon/icons-vue/es/network--2/32";
 
 export default {
   name: "IconService",
@@ -55,6 +64,8 @@ export default {
       Settings20,
       ChevronDown20,
       ChevronUp20,
+      ChevronLeft20,
+      ChevronRight20,
       Information20,
       Application20, // used for apps, module instances and software center
       Add20,
@@ -77,6 +88,13 @@ export default {
       Star20,
       Checkmark20,
       ZoomIn20, // used to open details
+      Events32, // used for domains
+      Link32, // used for external domain providers
+      WarningAlt32,
+      WarningAlt20,
+      Tools32,
+      Network_220,
+      Network_232,
     };
   },
 };

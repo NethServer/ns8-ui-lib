@@ -33,11 +33,12 @@ export default {
     return {
       progressLine: {
         width: this.value + "%",
+        transition: "width 0.3s",
       },
     };
   },
   watch: {
-    value: function() {
+    value: function () {
       this.progressLine.width = this.value + "%";
     },
   },

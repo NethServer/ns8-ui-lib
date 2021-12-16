@@ -16,6 +16,7 @@ export { default as NsIconMenu } from "./NsIconMenu.vue";
 export { default as NsMeterChart } from "./NsMeterChart.vue";
 export { default as NsPieChart } from "./NsPieChart.vue";
 export { default as NsLottieAnimation } from "./NsLottieAnimation.vue";
+export { default as NsDangerDeleteModal } from "./NsDangerDeleteModal.vue";
 
 // Pictograms
 export { default as ExclamationMark } from "./pictograms/ExclamationMark.vue";
@@ -23,6 +24,7 @@ export { default as Gear } from "./pictograms/Gear.vue";
 export { default as Love } from "./pictograms/Love.vue";
 export { default as Warning } from "./pictograms/Warning.vue";
 export { default as Bulldozer } from "./pictograms/Bulldozer.vue";
+export { default as Group } from "./pictograms/Group.vue";
 
 // Mixins
 export { default as UtilService } from "../lib-mixins/util.js";
@@ -33,6 +35,7 @@ export { default as IconService } from "../lib-mixins/icon.js";
 export { default as DateTimeService } from "../lib-mixins/dateTime.js";
 export { default as DataTableService } from "../lib-mixins/dataTable.js";
 export { default as PageTitleService } from "../lib-mixins/pageTitle.js";
+export { default as LottieService } from "../lib-mixins/lottie.js";
 
 // Filters
 export { default as Filters } from "../lib-filters/filters.js";
