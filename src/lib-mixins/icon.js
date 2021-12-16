@@ -44,6 +44,10 @@ import WarningAlt20 from "@carbon/icons-vue/es/warning--alt/20";
 import Tools32 from "@carbon/icons-vue/es/tools/32";
 import Network_220 from "@carbon/icons-vue/es/network--2/20";
 import Network_232 from "@carbon/icons-vue/es/network--2/32";
+import DataBase20 from "@carbon/icons-vue/es/data--base/20";
+import DataBase32 from "@carbon/icons-vue/es/data--base/32";
+import DataBackup20 from "@carbon/icons-vue/es/data-backup/20";
+import DataBackup32 from "@carbon/icons-vue/es/data-backup/32";
 
 export default {
   name: "IconService",
@@ -95,6 +99,10 @@ export default {
       Tools32,
       Network_220,
       Network_232,
+      DataBase20,
+      DataBase32,
+      DataBackup20,
+      DataBackup32,
     };
   },
 };

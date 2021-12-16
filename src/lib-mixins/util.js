@@ -1,5 +1,10 @@
 export default {
   name: "UtilService",
+  data() {
+    return {
+      DELETE_DELAY: 7000, // you have 7 seconds to cancel object deletion
+    };
+  },
   methods: {
     getErrorMessage(error) {
       if (error.message === "Network Error") {
@@ -34,7 +39,7 @@ export default {
      *
      */
     sortByProperty(property) {
-      return function(a, b) {
+      return function (a, b) {
         if (a[property] < b[property]) {
           return -1;
         }
@@ -49,7 +54,7 @@ export default {
      *
      */
     sortModuleInstances() {
-      return function(instance1, instance2) {
+      return function (instance1, instance2) {
         const instance1Name = instance1.id.split(/[0-9]+/)[0];
         const instance1Number = parseInt(
           instance1.id.substring(instance1Name.length)
