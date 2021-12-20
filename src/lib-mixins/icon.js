@@ -23,6 +23,7 @@ import Rocket32 from "@carbon/icons-vue/es/rocket/32";
 import Chip20 from "@carbon/icons-vue/es/chip/20";
 import Chip32 from "@carbon/icons-vue/es/chip/32";
 import Save20 from "@carbon/icons-vue/es/save/20";
+import Save32 from "@carbon/icons-vue/es/save/32";
 import Copy20 from "@carbon/icons-vue/es/copy/20";
 import Application32 from "@carbon/icons-vue/es/application/32";
 import EdgeNode20 from "@carbon/icons-vue/es/edge-node/20";
@@ -38,9 +39,11 @@ import Star20 from "@carbon/icons-vue/es/star/20";
 import Checkmark20 from "@carbon/icons-vue/es/checkmark/20";
 import ZoomIn20 from "@carbon/icons-vue/es/zoom--in/20";
 import Events32 from "@carbon/icons-vue/es/events/32";
+import Link20 from "@carbon/icons-vue/es/link/20";
 import Link32 from "@carbon/icons-vue/es/link/32";
 import WarningAlt32 from "@carbon/icons-vue/es/warning--alt/32";
 import WarningAlt20 from "@carbon/icons-vue/es/warning--alt/20";
+import Tools20 from "@carbon/icons-vue/es/tools/20";
 import Tools32 from "@carbon/icons-vue/es/tools/32";
 import Network_220 from "@carbon/icons-vue/es/network--2/20";
 import Network_232 from "@carbon/icons-vue/es/network--2/32";
@@ -48,6 +51,8 @@ import DataBase20 from "@carbon/icons-vue/es/data--base/20";
 import DataBase32 from "@carbon/icons-vue/es/data--base/32";
 import DataBackup20 from "@carbon/icons-vue/es/data-backup/20";
 import DataBackup32 from "@carbon/icons-vue/es/data-backup/32";
+import ArrowDown20 from "@carbon/icons-vue/es/arrow--down/20";
+import ArrowDown32 from "@carbon/icons-vue/es/arrow--down/32";
 
 export default {
   name: "IconService",
@@ -78,6 +83,7 @@ export default {
       Chip20, // used for cluster nodes
       Chip32, // used for cluster nodes
       Save20,
+      Save32,
       Copy20,
       Application32, // used for apps, module instances and software center
       EdgeNode20,
@@ -93,9 +99,11 @@ export default {
       Checkmark20,
       ZoomIn20, // used to open details
       Events32, // used for domains
-      Link32, // used for external domain providers
+      Link32, // used for URLs and external domain providers
+      Link20, // used for URLs and external domain providers
       WarningAlt32,
       WarningAlt20,
+      Tools20,
       Tools32,
       Network_220,
       Network_232,
@@ -103,6 +111,8 @@ export default {
       DataBase32,
       DataBackup20,
       DataBackup32,
+      ArrowDown20,
+      ArrowDown32,
     };
   },
 };

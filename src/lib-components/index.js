@@ -26,6 +26,7 @@ export { default as Love } from "./pictograms/Love.vue";
 export { default as Warning } from "./pictograms/Warning.vue";
 export { default as Bulldozer } from "./pictograms/Bulldozer.vue";
 export { default as Group } from "./pictograms/Group.vue";
+export { default as HardDrive } from "./pictograms/HardDrive.vue";
 
 // Mixins
 export { default as UtilService } from "../lib-mixins/util.js";
