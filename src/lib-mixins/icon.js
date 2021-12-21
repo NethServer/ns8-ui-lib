@@ -53,6 +53,10 @@ import DataBackup20 from "@carbon/icons-vue/es/data-backup/20";
 import DataBackup32 from "@carbon/icons-vue/es/data-backup/32";
 import ArrowDown20 from "@carbon/icons-vue/es/arrow--down/20";
 import ArrowDown32 from "@carbon/icons-vue/es/arrow--down/32";
+import Time20 from "@carbon/icons-vue/es/time/20";
+import Time32 from "@carbon/icons-vue/es/time/32";
+import Hourglass20 from "@carbon/icons-vue/es/hourglass/20";
+import Hourglass32 from "@carbon/icons-vue/es/hourglass/32";
 
 export default {
   name: "IconService",
@@ -113,6 +117,10 @@ export default {
       DataBackup32,
       ArrowDown20,
       ArrowDown32,
+      Time20,
+      Time32,
+      Hourglass20,
+      Hourglass32,
     };
   },
 };
