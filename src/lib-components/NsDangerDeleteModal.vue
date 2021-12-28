@@ -32,14 +32,13 @@
 
 <script>
 import UtilService from "../lib-mixins/util.js";
-import IconService from "../lib-mixins/util.js";
 import NsInlineNotification from "./NsInlineNotification.vue";
 
 export default {
   name: "NsDangerDeleteModal",
   //component added for storybook to work
   components: { NsInlineNotification },
-  mixins: [UtilService, IconService],
+  mixins: [UtilService],
   props: {
     isShown: {
       type: Boolean,
