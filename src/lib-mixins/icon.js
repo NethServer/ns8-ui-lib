@@ -58,6 +58,15 @@ import Time20 from "@carbon/icons-vue/es/time/20";
 import Time32 from "@carbon/icons-vue/es/time/32";
 import Hourglass20 from "@carbon/icons-vue/es/hourglass/20";
 import Hourglass32 from "@carbon/icons-vue/es/hourglass/32";
+import CheckmarkFilled16 from "@carbon/icons-vue/es/checkmark--filled/16";
+import CheckmarkFilled20 from "@carbon/icons-vue/es/checkmark--filled/20";
+import CheckmarkFilled32 from "@carbon/icons-vue/es/checkmark--filled/32";
+import ErrorFilled16 from "@carbon/icons-vue/es/error--filled/16";
+import ErrorFilled20 from "@carbon/icons-vue/es/error--filled/20";
+import ErrorFilled32 from "@carbon/icons-vue/es/error--filled/32";
+import Warning16 from "@carbon/icons-vue/es/warning--filled/16";
+import Warning20 from "@carbon/icons-vue/es/warning--filled/20";
+import Warning32 from "@carbon/icons-vue/es/warning--filled/32";
 
 export default {
   name: "IconService",
@@ -123,6 +132,15 @@ export default {
       Time32,
       Hourglass20,
       Hourglass32,
+      CheckmarkFilled16,
+      CheckmarkFilled20,
+      CheckmarkFilled32,
+      ErrorFilled16,
+      ErrorFilled20,
+      ErrorFilled32,
+      Warning16,
+      Warning20,
+      Warning32,
     };
   },
 };
