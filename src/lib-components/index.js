@@ -19,6 +19,7 @@ export { default as NsLottieAnimation } from "./NsLottieAnimation.vue";
 export { default as NsDangerDeleteModal } from "./NsDangerDeleteModal.vue";
 export { default as NsCircleTimer } from "./NsCircleTimer.vue";
 export { default as NsDropdownAction } from "./NsDropdownAction.vue";
+export { default as NsTextInput } from "./NsTextInput.vue";
 
 // Pictograms
 export { default as ExclamationMark } from "./pictograms/ExclamationMark.vue";

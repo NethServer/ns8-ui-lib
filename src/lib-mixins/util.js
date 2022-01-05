@@ -3,6 +3,9 @@ export default {
   data() {
     return {
       DELETE_DELAY: 7000, // you have 7 seconds to cancel object deletion
+      time24HourPattern: /([01]\d|2[0-3]):?([0-5]\d)/,
+      time24HourPatternString: "([01]\\d|2[0-3]):?([0-5]\\d)",
+      time24HourPlaceholder: "hh:mm",
     };
   },
   methods: {
@@ -143,6 +146,14 @@ export default {
         );
       }
       return i18nCategories.join(", ");
+    },
+    /**
+     * Used in views and components containing an accordion
+     */
+    toggleAccordion(ev) {
+      this.$refs.accordion.state.map(
+        (item, index) => index === ev.changedIndex
+      );
     },
   },
 };

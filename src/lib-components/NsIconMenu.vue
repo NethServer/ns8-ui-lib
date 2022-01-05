@@ -72,8 +72,6 @@
 <script>
 import { CvOverflowMenu } from "@carbon/vue";
 
-//// move to ns8-ui-lib
-
 export default {
   name: "NsIconMenu",
   extends: CvOverflowMenu,
