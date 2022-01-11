@@ -78,9 +78,25 @@
               <div class="td label">{{ completedLabel }}</div>
               <div class="td">
                 <span v-if="status[backup.id] && status[backup.id].end">
-                  {{
-                    (status[backup.id].end * 1000) | date("yyyy-MM-dd HH:mm:ss")
-                  }}
+                  <cv-tooltip
+                    alignment="center"
+                    direction="bottom"
+                    :tip="
+                      (status[backup.id].end * 1000)
+                        | date('yyyy-MM-dd HH:mm:ss')
+                    "
+                    class="info tooltip-with-text-trigger"
+                  >
+                    {{
+                      formatDateDistance(
+                        status[backup.id].end * 1000,
+                        new Date(),
+                        {
+                          addSuffix: true,
+                        }
+                      )
+                    }}
+                  </cv-tooltip>
                 </span>
                 <span v-else>-</span>
               </div>
@@ -147,10 +163,11 @@
 
 <script>
 import IconService from "../lib-mixins/icon.js";
+import DateTimeService from "../lib-mixins/dateTime.js";
 
 export default {
   name: "NsBackupCard",
-  mixins: [IconService],
+  mixins: [IconService, DateTimeService],
   props: {
     title: {
       type: String,
@@ -274,7 +291,7 @@ export default {
       }
     },
     goToBackup() {
-      if (this.coreContext) {
+      if (this.coreContext && this.coreContext.$router) {
         this.coreContext.$router.push("/backup");
       }
     },
