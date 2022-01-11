@@ -91,38 +91,38 @@ export default {
       ChevronLeft20,
       ChevronRight20,
       Information20,
-      Application20, // used for apps, module instances and software center
+      Application20, // apps, module instances and software center
+      Application32,
       Add20,
       Rocket20,
       Rocket32,
-      Chip20, // used for cluster nodes
-      Chip32, // used for cluster nodes
-      Save20,
+      Chip20, // cluster nodes
+      Chip32,
+      Save20, // save buttons and backups
       Save32,
       Copy20,
-      Application32, // used for apps, module instances and software center
       EdgeNode20,
       EdgeNode32,
-      Cube32, // used for systemd services
-      EdgeCluster32, // used for cluster
-      EdgeCluster20, // used for cluster
-      Connect32, // used for join cluster
-      Connect20, // used for join cluster
+      Cube32, // systemd services
+      EdgeCluster20, // cluster
+      EdgeCluster32,
+      Connect32, // join cluster
+      Connect20,
       Edit20,
       Password20,
       Star20,
       Checkmark20,
       ZoomIn20, // used to open details
-      Events32, // used for domains
-      Link32, // used for URLs and external domain providers
-      Link20, // used for URLs and external domain providers
-      WarningAlt32,
+      Events32, // domains
+      Link20, // URLs and external domain providers
+      Link32,
       WarningAlt20,
+      WarningAlt32,
       Tools20,
       Tools32,
       Network_220,
       Network_232,
-      DataBase20,
+      DataBase20, // backup repositories
       DataBase32,
       DataBackup20,
       DataBackup32,
@@ -132,13 +132,13 @@ export default {
       Time32,
       Hourglass20,
       Hourglass32,
-      CheckmarkFilled16,
+      CheckmarkFilled16, // success
       CheckmarkFilled20,
       CheckmarkFilled32,
-      ErrorFilled16,
+      ErrorFilled16, // error
       ErrorFilled20,
       ErrorFilled32,
-      Warning16,
+      Warning16, // warning
       Warning20,
       Warning32,
     };
