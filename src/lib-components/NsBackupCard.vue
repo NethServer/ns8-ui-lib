@@ -27,121 +27,83 @@
       </div>
     </template>
     <template v-else>
-      <div v-for="backup in backupsContainingInstance" :key="backup.id">
-        <div class="row">
-          <h5
-            v-if="backupsContainingInstance.length > 1"
-            class="title mg-top-sm"
-          >
-            {{ backup.name }}
-          </h5>
-        </div>
-        <div class="table-wrapper">
-          <div class="table">
-            <!-- status -->
-            <div class="tr">
-              <div class="td label">{{ statusLabel }}</div>
-              <div class="td status">
-                <span v-if="!backup.enabled" class="ns-warning">
-                  {{ backupDisabledLabel }}
-                </span>
-                <span
-                  v-else-if="
-                    status[backup.id] && status[backup.id].success == true
-                  "
-                  class="ns-success"
-                >
-                  <span>{{ statusSuccessLabel }}</span>
-                </span>
-                <span
-                  v-else-if="
-                    status[backup.id] && status[backup.id].success == false
-                  "
-                  class="ns-error"
-                >
-                  {{ statusErrorLabel }}
-                </span>
-                <span v-else class="ns-warning">
-                  {{ statusNotRunLabel }}
-                </span>
-              </div>
-            </div>
-            <!-- repository -->
-            <div class="tr">
-              <div class="td label">{{ repositoryLabel }}</div>
-              <div class="td">
-                {{ backup.repoName }}
-              </div>
-            </div>
-            <!-- completed -->
-            <div class="tr">
-              <div class="td label">{{ completedLabel }}</div>
-              <div class="td">
-                <span v-if="status[backup.id] && status[backup.id].end">
-                  <cv-tooltip
-                    alignment="center"
-                    direction="bottom"
-                    :tip="
-                      (status[backup.id].end * 1000)
-                        | date('yyyy-MM-dd HH:mm:ss')
+      <div class="backups">
+        <div
+          v-for="backup in backupsContainingInstance"
+          :key="backup.id"
+          class="backup"
+        >
+          <div class="row">
+            <h5
+              v-if="backupsContainingInstance.length > 1"
+              class="title mg-top-sm"
+            >
+              {{ backup.name }}
+            </h5>
+          </div>
+          <div class="table-wrapper">
+            <div class="table">
+              <!-- status -->
+              <div class="tr">
+                <div class="td label">{{ statusLabel }}</div>
+                <div class="td status">
+                  <span v-if="!backup.enabled" class="ns-warning">
+                    {{ backupDisabledLabel }}
+                  </span>
+                  <span
+                    v-else-if="
+                      status[backup.id] && status[backup.id].success == true
                     "
-                    class="info tooltip-with-text-trigger"
+                    class="ns-success"
                   >
-                    {{
-                      formatDateDistance(
-                        status[backup.id].end * 1000,
-                        new Date(),
-                        {
-                          addSuffix: true,
-                        }
-                      )
-                    }}
-                  </cv-tooltip>
-                </span>
-                <span v-else>-</span>
+                    <span>{{ statusSuccessLabel }}</span>
+                  </span>
+                  <span
+                    v-else-if="
+                      status[backup.id] && status[backup.id].success == false
+                    "
+                    class="ns-error"
+                  >
+                    {{ statusErrorLabel }}
+                  </span>
+                  <span v-else class="ns-warning">
+                    {{ statusNotRunLabel }}
+                  </span>
+                </div>
               </div>
+              <NsBackupCardDetails
+                v-if="backupsContainingInstance.length == 1"
+                :backup="backup"
+                :status="status"
+                :repositoryLabel="repositoryLabel"
+                :completedLabel="completedLabel"
+                :durationLabel="durationLabel"
+                :totalSizeLabel="totalSizeLabel"
+                :totalFileCountLabel="totalFileCountLabel"
+              />
             </div>
-            <!-- duration -->
-            <div class="tr">
-              <div class="td label">{{ durationLabel }}</div>
-              <div class="td">
-                <span
-                  v-if="
-                    status[backup.id] &&
-                    status[backup.id].end &&
-                    status[backup.id].start
-                  "
-                >
-                  {{
-                    (status[backup.id].end - status[backup.id].start)
-                      | secondsFormat
-                  }}
-                </span>
-                <span v-else>-</span>
-              </div>
-            </div>
-            <!-- total size -->
-            <div class="tr">
-              <div class="td label">{{ totalSizeLabel }}</div>
-              <div class="td">
-                <span v-if="status[backup.id] && status[backup.id].total_size">
-                  {{ status[backup.id].total_size | byteFormat }}
-                </span>
-                <span v-else>-</span>
-              </div>
-            </div>
-            <!-- total file count -->
-            <div class="tr">
-              <div class="td label">{{ totalFileCountLabel }}</div>
-              <div class="td">
-                <span
-                  v-if="status[backup.id] && status[backup.id].total_file_count"
-                >
-                  {{ status[backup.id].total_file_count | humanFormat }}
-                  ({{ status[backup.id].total_file_count }})
-                </span>
-                <span v-else>-</span>
-              </div>
+          </div>
+          <div class="table-wrapper">
+            <div class="table">
+              <cv-accordion
+                v-if="backupsContainingInstance.length > 1"
+                ref="accordion"
+              >
+                <cv-accordion-item :open="toggleAccordion[0]">
+                  <template slot="title">{{ showMoreLabel }}</template>
+                  <template slot="content">
+                    <NsBackupCardDetails
+                      :backup="backup"
+                      :status="status"
+                      :repositoryLabel="repositoryLabel"
+                      :completedLabel="completedLabel"
+                      :durationLabel="durationLabel"
+                      :totalSizeLabel="totalSizeLabel"
+                      :totalFileCountLabel="totalFileCountLabel"
+                    />
+                  </template>
+                </cv-accordion-item>
+              </cv-accordion>
             </div>
           </div>
         </div>
@@ -163,11 +125,13 @@
 
 <script>
 import IconService from "../lib-mixins/icon.js";
-import DateTimeService from "../lib-mixins/dateTime.js";
-
+import UtilService from "../lib-mixins/util.js";
+// import DateTimeService from "../lib-mixins/dateTime.js"; ////
+import NsBackupCardDetails from "./NsBackupCardDetails";
 export default {
   name: "NsBackupCard",
-  mixins: [IconService, DateTimeService],
+  components: { NsBackupCardDetails },
+  mixins: [IconService, UtilService],
   props: {
     title: {
       type: String,
@@ -224,6 +188,10 @@ export default {
     backupDisabledLabel: {
       type: String,
       default: "Disabled",
+    },
+    showMoreLabel: {
+      type: String,
+      default: "Show more",
     },
     moduleId: {
       type: String,
@@ -307,6 +275,14 @@ export default {
   min-height: 7rem;
 }
 
+.backup {
+  margin-bottom: 1rem;
+}
+
+.backup:last-child {
+  margin-bottom: 0;
+}
+
 .row {
   display: flex;
   align-items: center;
@@ -353,5 +329,13 @@ export default {
 
 .backup-status-icon {
   margin-right: 0.25rem;
+}
+</style>
+
+<style lang="scss">
+// global styles
+
+.ns-backup-card .bx--accordion--start .bx--accordion__content {
+  margin-left: 0;
 }
 </style>
