@@ -67,6 +67,8 @@ import ErrorFilled32 from "@carbon/icons-vue/es/error--filled/32";
 import Warning16 from "@carbon/icons-vue/es/warning--filled/16";
 import Warning20 from "@carbon/icons-vue/es/warning--filled/20";
 import Warning32 from "@carbon/icons-vue/es/warning--filled/32";
+import Power20 from "@carbon/icons-vue/es/power/20";
+import Power32 from "@carbon/icons-vue/es/power/32";
 
 export default {
   name: "IconService",
@@ -83,7 +85,7 @@ export default {
       RowCollapse20,
       Reset20,
       Download20,
-      Launch20,
+      Launch20, // open app, open external link
       Upgrade20,
       Settings20,
       ChevronDown20,
@@ -94,7 +96,7 @@ export default {
       Application20, // apps, module instances and software center
       Application32,
       Add20,
-      Rocket20,
+      Rocket20, // run
       Rocket32,
       Chip20, // cluster nodes
       Chip32,
@@ -110,7 +112,7 @@ export default {
       Connect20,
       Edit20,
       Password20,
-      Star20,
+      Star20, // favorite apps
       Checkmark20,
       ZoomIn20, // used to open details
       Events32, // domains
@@ -141,6 +143,8 @@ export default {
       Warning16, // warning
       Warning20,
       Warning32,
+      Power20, // enable, disable
+      Power32,
     };
   },
 };

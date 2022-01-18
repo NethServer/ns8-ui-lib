@@ -22,6 +22,8 @@ export { default as NsDropdownAction } from "./NsDropdownAction.vue";
 export { default as NsTextInput } from "./NsTextInput.vue";
 export { default as NsBackupCard } from "./NsBackupCard.vue";
 export { default as NsWizard } from "./NsWizard.vue";
+export { default as NsMenuItem } from "./NsMenuItem.vue";
+export { default as NsMenuDivider } from "./NsMenuDivider.vue";
 
 // Pictograms
 export { default as ExclamationMark } from "./pictograms/ExclamationMark.vue";
