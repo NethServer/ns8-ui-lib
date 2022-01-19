@@ -50,6 +50,7 @@
         `${carbonPrefix}--btn`,
         `${carbonPrefix}--btn--sm`,
         `${carbonPrefix}--btn--ghost`,
+        'action-button',
       ]"
       type="button"
     >
@@ -116,6 +117,10 @@ export default {
 // place action button next to description
 .details {
   flex-grow: 0;
+}
+
+.action-button {
+  margin-right: 0.5rem;
 }
 
 // place close button on the right

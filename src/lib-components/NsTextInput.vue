@@ -24,7 +24,7 @@
       <cv-interactive-tooltip
         :alignment="tooltipAlignment"
         :direction="tooltipDirection"
-        class="tooltip"
+        class="tooltip info"
       >
         <template slot="content">
           <slot name="tooltip"></slot>
