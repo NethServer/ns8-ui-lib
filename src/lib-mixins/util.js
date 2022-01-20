@@ -155,5 +155,50 @@ export default {
         (item, index) => index === ev.changedIndex
       );
     },
+    /**
+     * Used in Backup section
+     * */
+    getBackupScheduleDescription(schedule) {
+      if (!schedule) {
+        return "-";
+      }
+
+      switch (schedule.interval) {
+        case "hourly":
+          if (schedule.minute == 0) {
+            return this.$t("backup.every_hour");
+          } else {
+            return this.$tc("backup.minutes_past_the_hour", schedule.minute, {
+              minutes: schedule.minute,
+            });
+          }
+        case "daily":
+          if (this.time24HourPattern.test(schedule.time)) {
+            return this.$t("backup.every_day_at", { time: schedule.time });
+          } else {
+            return "-";
+          }
+        case "weekly":
+          if (this.time24HourPattern.test(schedule.time)) {
+            return this.$t("backup.every_weekday_at_hour", {
+              weekDay: this.$t("calendar." + schedule.weekDay),
+              time: schedule.time,
+            });
+          } else {
+            return "-";
+          }
+        case "monthly":
+          if (this.time24HourPattern.test(schedule.time)) {
+            return this.$t("backup.every_month_at_time", {
+              dayNum: schedule.monthDay,
+              time: schedule.time,
+            });
+          } else {
+            return "-";
+          }
+        default:
+          return "-";
+      }
+    },
   },
 };
