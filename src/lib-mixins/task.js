@@ -95,10 +95,10 @@ export default {
       if (
         task &&
         task.context &&
-        task.context.data &&
-        task.context.data.title
+        task.context.extra &&
+        task.context.extra.title
       ) {
-        return task.context.data.title;
+        return task.context.extra.title;
       } else {
         return "";
       }
@@ -130,25 +130,37 @@ export default {
       }
     },
     getTaskStatusDescription(task, rootTask = true) {
-      const taskAction = task.context.action;
+      let taskLabel = task.context.action;
+
+      // use taskName instead of action, if available
+      if (task.context.extra && task.context.extra.taskName) {
+        taskLabel = task.context.extra.taskName;
+      }
+
       const taskOrSubtask = rootTask ? "task" : "subtask";
+      let taskPrefix = "";
+
+      if (task.result && task.result.file) {
+        taskPrefix = task.result.file.split("task/")[0];
+      }
+      taskLabel = taskPrefix + taskLabel;
 
       switch (task.status) {
         case "aborted":
           return this.$t("task." + taskOrSubtask + "_failed", {
-            action: taskAction,
+            task: taskLabel,
           });
         case "validation-failed":
           return this.$t("task." + taskOrSubtask + "_failed_validation", {
-            action: taskAction,
+            task: taskLabel,
           });
         case "completed":
           return this.$t("task." + taskOrSubtask + "_completed", {
-            action: taskAction,
+            task: taskLabel,
           });
         case "pending":
           return this.$t("task." + taskOrSubtask + "_pending", {
-            action: taskAction,
+            task: taskLabel,
           });
         default:
           return "";
