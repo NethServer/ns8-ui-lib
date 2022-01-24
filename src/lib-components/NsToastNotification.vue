@@ -140,7 +140,7 @@ export default {
 }
 
 .bx--toast-notification .bx--inline-notification__action-button.bx--btn--ghost {
-  // following rule uses branding color so it's inside core _ns8.scss
+  // following rule uses branding color so it's inside core _core.scss
   // color: $inverse-link;
   margin-left: -16px;
 }

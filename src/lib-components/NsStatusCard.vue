@@ -119,19 +119,19 @@ export default {
 }
 
 .success-icon {
-  // following rule uses variable color so it's inside core _ns8.scss
+  // following rule uses variable color so it's inside core _core.scss
   // color: $support-02;
   margin-right: 0.25rem;
 }
 
 .error-icon {
-  // following rule uses variable color so it's inside core _ns8.scss
+  // following rule uses variable color so it's inside core _core.scss
   // color: $danger-01;
   margin-right: 0.25rem;
 }
 
 .warning-icon {
-  // following rule uses variable color so it's inside core _ns8.scss
+  // following rule uses variable color so it's inside core _core.scss
   // color: $support-03;
   margin-right: 0.25rem;
 }

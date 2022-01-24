@@ -11,7 +11,7 @@ export default {
   created() {
     const pageTitle = getPageTitle(this);
     if (pageTitle) {
-      // window.document would be ok for NS8 core, but with window.parent.document we support external apps too (window.parent == window, if it's the root window)
+      // window.document would be ok for core, but with window.parent.document we support external apps too (window.parent == window, if it's the root window)
       window.parent.document.title = pageTitle;
     }
   },

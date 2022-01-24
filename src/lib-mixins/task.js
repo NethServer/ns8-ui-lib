@@ -54,7 +54,7 @@ export default {
         ? this.getFromStorage("loginInfo").token
         : "";
       return this.axios.post(
-        `${window.parent.ns8.$root.apiUrl}/cluster/tasks`,
+        `${window.parent.core.$root.apiUrl}/cluster/tasks`,
         taskData,
         {
           headers: {
@@ -68,7 +68,7 @@ export default {
         ? this.getFromStorage("loginInfo").token
         : "";
       return this.axios.post(
-        `${window.parent.ns8.$root.apiUrl}/module/${moduleId}/tasks`,
+        `${window.parent.core.$root.apiUrl}/module/${moduleId}/tasks`,
         taskData,
         {
           headers: {
@@ -172,7 +172,7 @@ export default {
     },
     createErrorNotificationForApp(err, message) {
       console.error(err);
-      window.parent.ns8.$root.$emit("createErrorNotification", err, message);
+      window.parent.core.$root.$emit("createErrorNotification", err, message);
     },
   },
 };

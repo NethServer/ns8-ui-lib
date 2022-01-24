@@ -259,7 +259,7 @@ export default {
 
 @media (min-width: 672px) {
   .password-meter {
-    // same max-width as _ns8.scss for: // limit form fields width on large devices
+    // same max-width as _core.scss for: // limit form fields width on large devices
     max-width: 38rem;
   }
 }

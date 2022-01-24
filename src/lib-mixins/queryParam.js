@@ -1,11 +1,11 @@
 export default {
   name: "QueryParamService",
   methods: {
-    // used by NS8 core and external apps to dynamically register a watch for every object inside data.q
+    // used by core and external apps to dynamically register a watch for every object inside data.q
     watchQueryData(context) {
       if (context.q) {
         Object.keys(context.q).forEach((dataItem) => {
-          context.$watch("q." + dataItem, function() {
+          context.$watch("q." + dataItem, function () {
             this.dataToQueryParams(context);
           });
         });
@@ -37,10 +37,10 @@ export default {
       }
 
       const urlWithParams =
-        window.parent.ns8.$route.path + "?" + queryParams.join("&");
+        window.parent.core.$route.path + "?" + queryParams.join("&");
 
-      if (window.parent.ns8.$route.fullPath != urlWithParams) {
-        window.parent.ns8.$router.replace(urlWithParams);
+      if (window.parent.core.$route.fullPath != urlWithParams) {
+        window.parent.core.$router.replace(urlWithParams);
       }
     },
     // used only by external apps to sync UI status with URL query parameters
@@ -107,7 +107,7 @@ export default {
         });
       }
     },
-    // used only by NS8 core to extract query parameters from URL
+    // used only by core to extract query parameters from URL
     getQueryParamsForCore() {
       if (
         !window.location.hash.includes("?") ||

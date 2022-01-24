@@ -118,7 +118,7 @@ export default {
       });
     },
     /**
-     * Get app description using the locale of NS8 core context
+     * Get app description using the locale of core context
      */
     getAppDescription(app, coreContext) {
       const langCode = coreContext.$root.$i18n.locale;
@@ -131,7 +131,7 @@ export default {
       return description;
     },
     /**
-     * Get app categories using the locale of NS8 core context
+     * Get app categories using the locale of core context
      */
     getAppCategories(app, coreContext) {
       let i18nCategories = [];
