@@ -65,8 +65,7 @@
       <div class="td label">{{ totalFileCountLabel }}</div>
       <div class="td">
         <span v-if="status[backup.id] && status[backup.id].total_file_count">
-          {{ status[backup.id].total_file_count | humanFormat }}
-          ({{ status[backup.id].total_file_count }})
+          {{ status[backup.id].total_file_count }}
         </span>
         <span v-else>-</span>
       </div>
