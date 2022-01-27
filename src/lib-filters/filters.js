@@ -1,5 +1,5 @@
 export default {
-  byteFormat: function(size) {
+  byteFormat: function (size) {
     var result;
 
     switch (true) {
@@ -29,7 +29,7 @@ export default {
 
     return result;
   },
-  humanFormat: function(number, decimals = false) {
+  humanFormat: function (number, decimals = false) {
     var result;
 
     switch (true) {
@@ -74,7 +74,40 @@ export default {
     }
     return result;
   },
-  secondsFormat: function(value) {
+  secondsFormat: function (value) {
+    if (value < 0) {
+      return "-";
+    }
+
+    let hours = parseInt(Math.floor(value / 3600));
+    let minutes = parseInt(Math.floor((value - hours * 3600) / 60));
+    let seconds = parseInt((value - (hours * 3600 + minutes * 60)) % 60);
+
+    let duration = "";
+
+    if (hours > 0) {
+      duration += hours + "h ";
+    }
+
+    if (minutes > 0) {
+      duration += minutes + "m ";
+    }
+
+    if (seconds > 0) {
+      duration += seconds + "s";
+    }
+
+    if (!duration) {
+      return "0s";
+    }
+
+    return duration.trim();
+  },
+  secondsLongFormat: function (value) {
+    if (value < 0) {
+      return "-";
+    }
+
     let hours = parseInt(Math.floor(value / 3600));
     let minutes = parseInt(Math.floor((value - hours * 3600) / 60));
     let seconds = parseInt((value - (hours * 3600 + minutes * 60)) % 60);

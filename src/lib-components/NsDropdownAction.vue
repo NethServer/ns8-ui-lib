@@ -1,16 +1,11 @@
 <template>
-  <div
-    data-overflow-menu
-    :class="`cv-overflow-menu ${carbonPrefix}--overflow-menu`"
-    :id="uid"
-  >
+  <div data-overflow-menu :class="[`cv-overflow-menu`]" :id="uid">
     <button
       :class="[
-        `${carbonPrefix}--overflow-menu__trigger ${carbonPrefix}--tooltip__trigger`,
-        `${carbonPrefix}--tooltip--a11y`,
+        `bx--btn--${lowerCaseKind}`,
+        'bx--btn',
+        'bx--btn--field',
         {
-          [`${this.carbonPrefix}--tooltip--${tipPosition}`]: label,
-          [`${this.carbonPrefix}--tooltip--align-${tipAlignment}`]: label,
           [`${carbonPrefix}--overflow-menu--open`]: open,
         },
       ]"
@@ -26,17 +21,13 @@
       @keydown.enter.prevent="doToggle"
       @keydown.tab="onOverflowMenuTab"
     >
-      <span :class="`${carbonPrefix}--assistive-text`" v-if="label">{{
-        label
-      }}</span>
-
       <slot name="trigger"> </slot>
+      <NsSvg :svg="ChevronDown20" :class="`${carbonPrefix}--btn__icon`" />
     </button>
     <div
       :class="[
         `${carbonPrefix}--overflow-menu-options`,
         {
-          [`${carbonPrefix}--overflow-menu--flip`]: flipMenu,
           [`${carbonPrefix}--overflow-menu-options--open`]: open,
         },
       ]"
@@ -48,13 +39,6 @@
       @focusout="checkFocusOut"
       @mousedown.prevent="preventFocusOut"
     >
-      <div
-        class="cv-overflow-menu__before-content"
-        ref="beforeContent"
-        tabindex="0"
-        style="position: absolute; height: 1px; width: 1px; left: -9999px"
-        @focus="focusBeforeContent"
-      />
       <ul :class="`${carbonPrefix}--overflow-menu-options__content`">
         <slot></slot>
       </ul>
@@ -71,13 +55,30 @@
 
 <script>
 import { CvOverflowMenu } from "@carbon/vue";
+import NsSvg from "./NsSvg.vue";
+import IconService from "../lib-mixins/icon.js";
 
 export default {
-  name: "NsIconMenu",
+  name: "NsDropdownAction",
   extends: CvOverflowMenu,
+  components: { NsSvg },
+  mixins: [IconService],
   props: {
-    label: String,
-    flipMenu: Boolean,
+    kind: {
+      type: String,
+      default: "secondary",
+      validator: (val) =>
+        [
+          "default",
+          "primary",
+          "secondary",
+          "tertiary",
+          "ghost",
+          "danger",
+          "danger--ghost",
+          "danger--tertiary",
+        ].includes(val),
+    },
     up: Boolean,
     offset: {
       type: Object,
@@ -85,16 +86,13 @@ export default {
         return value && value.left !== undefined && value.top !== undefined;
       },
     },
-    tipPosition: {
-      type: String,
-      default: "right",
-      validator: (val) => ["top", "left", "bottom", "right".includes(val)],
-    },
-    tipAlignment: {
-      type: String,
-      default: "center",
-      validator: (val) => ["start", "center", "end"].includes(val),
+  },
+  computed: {
+    lowerCaseKind() {
+      return this.kind.toLowerCase();
     },
   },
 };
 </script>
+
+<style scoped lang="scss"></style>

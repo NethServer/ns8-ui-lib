@@ -14,7 +14,7 @@
         <slot name="pictogram"></slot>
       </template>
       <template v-else>
-        <ExclamationMark />
+        <ExclamationMarkPictogram />
       </template>
     </NsPictogram>
     <h5 class="title">{{ title }}</h5>
@@ -30,11 +30,11 @@
 <script>
 import NsPictogram from "./NsPictogram.vue";
 import NsLottieAnimation from "./NsLottieAnimation";
-import ExclamationMark from "./pictograms/ExclamationMark";
+import ExclamationMarkPictogram from "./pictograms/ExclamationMarkPictogram";
 
 export default {
   name: "NsEmptyState",
-  components: { NsPictogram, ExclamationMark, NsLottieAnimation },
+  components: { NsPictogram, ExclamationMarkPictogram, NsLottieAnimation },
   props: {
     title: {
       type: String,

@@ -1,5 +1,6 @@
 import Close20 from "@carbon/icons-vue/es/close/20";
 import ArrowRight20 from "@carbon/icons-vue/es/arrow--right/20";
+import ArrowRight32 from "@carbon/icons-vue/es/arrow--right/32";
 import Notification20 from "@carbon/icons-vue/es/notification/20";
 import UserAvatar20 from "@carbon/icons-vue/es/user--avatar/20";
 import AppSwitcher20 from "@carbon/icons-vue/es/app-switcher/20";
@@ -23,6 +24,7 @@ import Rocket32 from "@carbon/icons-vue/es/rocket/32";
 import Chip20 from "@carbon/icons-vue/es/chip/20";
 import Chip32 from "@carbon/icons-vue/es/chip/32";
 import Save20 from "@carbon/icons-vue/es/save/20";
+import Save32 from "@carbon/icons-vue/es/save/32";
 import Copy20 from "@carbon/icons-vue/es/copy/20";
 import Application32 from "@carbon/icons-vue/es/application/32";
 import EdgeNode20 from "@carbon/icons-vue/es/edge-node/20";
@@ -38,12 +40,35 @@ import Star20 from "@carbon/icons-vue/es/star/20";
 import Checkmark20 from "@carbon/icons-vue/es/checkmark/20";
 import ZoomIn20 from "@carbon/icons-vue/es/zoom--in/20";
 import Events32 from "@carbon/icons-vue/es/events/32";
+import Link20 from "@carbon/icons-vue/es/link/20";
 import Link32 from "@carbon/icons-vue/es/link/32";
 import WarningAlt32 from "@carbon/icons-vue/es/warning--alt/32";
 import WarningAlt20 from "@carbon/icons-vue/es/warning--alt/20";
+import Tools20 from "@carbon/icons-vue/es/tools/20";
 import Tools32 from "@carbon/icons-vue/es/tools/32";
 import Network_220 from "@carbon/icons-vue/es/network--2/20";
 import Network_232 from "@carbon/icons-vue/es/network--2/32";
+import DataBase20 from "@carbon/icons-vue/es/data--base/20";
+import DataBase32 from "@carbon/icons-vue/es/data--base/32";
+import DataBackup20 from "@carbon/icons-vue/es/data-backup/20";
+import DataBackup32 from "@carbon/icons-vue/es/data-backup/32";
+import ArrowDown20 from "@carbon/icons-vue/es/arrow--down/20";
+import ArrowDown32 from "@carbon/icons-vue/es/arrow--down/32";
+import Time20 from "@carbon/icons-vue/es/time/20";
+import Time32 from "@carbon/icons-vue/es/time/32";
+import Hourglass20 from "@carbon/icons-vue/es/hourglass/20";
+import Hourglass32 from "@carbon/icons-vue/es/hourglass/32";
+import CheckmarkFilled16 from "@carbon/icons-vue/es/checkmark--filled/16";
+import CheckmarkFilled20 from "@carbon/icons-vue/es/checkmark--filled/20";
+import CheckmarkFilled32 from "@carbon/icons-vue/es/checkmark--filled/32";
+import ErrorFilled16 from "@carbon/icons-vue/es/error--filled/16";
+import ErrorFilled20 from "@carbon/icons-vue/es/error--filled/20";
+import ErrorFilled32 from "@carbon/icons-vue/es/error--filled/32";
+import Warning16 from "@carbon/icons-vue/es/warning--filled/16";
+import Warning20 from "@carbon/icons-vue/es/warning--filled/20";
+import Warning32 from "@carbon/icons-vue/es/warning--filled/32";
+import Power20 from "@carbon/icons-vue/es/power/20";
+import Power32 from "@carbon/icons-vue/es/power/32";
 
 export default {
   name: "IconService",
@@ -51,6 +76,7 @@ export default {
     return {
       Close20,
       ArrowRight20,
+      ArrowRight32,
       Notification20,
       UserAvatar20,
       AppSwitcher20,
@@ -59,7 +85,7 @@ export default {
       RowCollapse20,
       Reset20,
       Download20,
-      Launch20,
+      Launch20, // open app, open external link
       Upgrade20,
       Settings20,
       ChevronDown20,
@@ -67,34 +93,58 @@ export default {
       ChevronLeft20,
       ChevronRight20,
       Information20,
-      Application20, // used for apps, module instances and software center
+      Application20, // apps, module instances and software center
+      Application32,
       Add20,
-      Rocket20,
+      Rocket20, // run
       Rocket32,
-      Chip20, // used for cluster nodes
-      Chip32, // used for cluster nodes
-      Save20,
+      Chip20, // cluster nodes
+      Chip32,
+      Save20, // save buttons and backups
+      Save32,
       Copy20,
-      Application32, // used for apps, module instances and software center
       EdgeNode20,
       EdgeNode32,
-      Cube32, // used for systemd services
-      EdgeCluster32, // used for cluster
-      EdgeCluster20, // used for cluster
-      Connect32, // used for join cluster
-      Connect20, // used for join cluster
+      Cube32, // systemd services
+      EdgeCluster20, // cluster
+      EdgeCluster32,
+      Connect32, // join cluster
+      Connect20,
       Edit20,
       Password20,
-      Star20,
+      Star20, // favorite apps
       Checkmark20,
       ZoomIn20, // used to open details
-      Events32, // used for domains
-      Link32, // used for external domain providers
-      WarningAlt32,
+      Events32, // domains
+      Link20, // URLs and external domain providers
+      Link32,
       WarningAlt20,
+      WarningAlt32,
+      Tools20,
       Tools32,
       Network_220,
       Network_232,
+      DataBase20, // backup repositories
+      DataBase32,
+      DataBackup20,
+      DataBackup32,
+      ArrowDown20,
+      ArrowDown32,
+      Time20,
+      Time32,
+      Hourglass20,
+      Hourglass32,
+      CheckmarkFilled16, // success
+      CheckmarkFilled20,
+      CheckmarkFilled32,
+      ErrorFilled16, // error
+      ErrorFilled20,
+      ErrorFilled32,
+      Warning16, // warning
+      Warning20,
+      Warning32,
+      Power20, // enable, disable
+      Power32,
     };
   },
 };

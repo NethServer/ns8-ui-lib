@@ -6,6 +6,7 @@
       { [`${carbonPrefix}--tile--light`]: isLight },
       'ns-tile',
       { 'pad-bottom': footerIcon },
+      { 'disabled-tile': disabled },
     ]"
     :checked="selected"
     :expanded="expanded"
@@ -75,9 +76,15 @@ export default {
     centered: Boolean,
     large: Boolean,
     light: Boolean,
+    disabled: Boolean,
   },
   computed: {
     tagType() {
+      if (this.disabled) {
+        // not selectable nor clickable
+        return "cv-tile-standard";
+      }
+
       switch (this.kind) {
         case "clickable":
           return "cv-tile-clickable";
@@ -128,5 +135,9 @@ export default {
 
 .pad-bottom {
   padding-bottom: 4rem;
+}
+
+.disabled-tile {
+  color: #c6c6c6;
 }
 </style>

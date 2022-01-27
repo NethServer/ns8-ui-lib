@@ -21,35 +21,55 @@
         <span
           :class="[
             'requirement',
-            { 'requirement-ok': isLengthOk, 'requirement-light': light },
+            {
+              'requirement-ok': isLengthOk,
+              'requirement-light': light,
+              'requirement-disabled': disabled,
+            },
           ]"
           >{{ lengthLabel }}</span
         >
         <span
           :class="[
             'requirement',
-            { 'requirement-ok': isLowercaseOk, 'requirement-light': light },
+            {
+              'requirement-ok': isLowercaseOk,
+              'requirement-light': light,
+              'requirement-disabled': disabled,
+            },
           ]"
           >{{ lowercaseLabel }}</span
         >
         <span
           :class="[
             'requirement',
-            { 'requirement-ok': isUppercaseOk, 'requirement-light': light },
+            {
+              'requirement-ok': isUppercaseOk,
+              'requirement-light': light,
+              'requirement-disabled': disabled,
+            },
           ]"
           >{{ uppercaseLabel }}</span
         >
         <span
           :class="[
             'requirement',
-            { 'requirement-ok': isNumberOk, 'requirement-light': light },
+            {
+              'requirement-ok': isNumberOk,
+              'requirement-light': light,
+              'requirement-disabled': disabled,
+            },
           ]"
           >{{ numberLabel }}</span
         >
         <span
           :class="[
             'requirement',
-            { 'requirement-ok': isSymbolOk, 'requirement-light': light },
+            {
+              'requirement-ok': isSymbolOk,
+              'requirement-light': light,
+              'requirement-disabled': disabled,
+            },
           ]"
           >{{ symbolLabel }}</span
         >
@@ -75,7 +95,11 @@
         <span
           :class="[
             'requirement',
-            { 'requirement-ok': isEqualOk, 'requirement-light': light },
+            {
+              'requirement-ok': isEqualOk,
+              'requirement-light': light,
+              'requirement-disabled': disabled,
+            },
           ]"
           >{{ equalLabel }}</span
         >
@@ -235,7 +259,7 @@ export default {
 
 @media (min-width: 672px) {
   .password-meter {
-    // same max-width as _ns8.scss for: // limit form fields width on large devices
+    // same max-width as _core.scss for: // limit form fields width on large devices
     max-width: 38rem;
   }
 }
@@ -262,5 +286,10 @@ export default {
 .requirement-ok {
   color: white;
   background-color: #198038;
+}
+
+.requirement-disabled {
+  color: #c6c6c6;
+  background-color: #f4f4f4;
 }
 </style>

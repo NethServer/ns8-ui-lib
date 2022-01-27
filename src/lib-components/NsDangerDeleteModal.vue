@@ -14,8 +14,9 @@
         :title="warning"
         :showCloseButton="false"
       />
-      <div class="mg-bottom-md" v-html="description"></div>
-      <div v-html="typeToConfirmMessage"></div>
+      <div v-html="description"></div>
+      <slot name="explanation"></slot>
+      <div class="type-to-confirm" v-html="typeToConfirmMessage"></div>
       <cv-form @submit.prevent="confirmDelete">
         <cv-text-input
           v-model="userInput"
@@ -31,14 +32,13 @@
 
 <script>
 import UtilService from "../lib-mixins/util.js";
-import IconService from "../lib-mixins/util.js";
 import NsInlineNotification from "./NsInlineNotification.vue";
 
 export default {
   name: "NsDangerDeleteModal",
   //component added for storybook to work
   components: { NsInlineNotification },
-  mixins: [UtilService, IconService],
+  mixins: [UtilService],
   props: {
     isShown: {
       type: Boolean,
@@ -112,4 +112,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.type-to-confirm {
+  margin-top: 2rem;
+}
+</style>

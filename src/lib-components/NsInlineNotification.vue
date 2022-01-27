@@ -27,11 +27,19 @@
           v-if="description"
           :class="[
             `${carbonPrefix}--inline-notification__subtitle`,
-            { 'mg-right': loading },
+            { 'mg-right': loading || timer },
           ]"
           v-html="description"
         ></p>
         <p v-if="loading" class="loader"></p>
+        <p v-if="timer">
+          <NsCircleTimer
+            :timeLimit="timer"
+            :size="16"
+            :strokeWidth="20"
+            color="white"
+          />
+        </p>
       </div>
     </div>
     <button
@@ -42,6 +50,7 @@
         `${carbonPrefix}--btn`,
         `${carbonPrefix}--btn--sm`,
         `${carbonPrefix}--btn--ghost`,
+        'action-button',
       ]"
       type="button"
     >
@@ -62,10 +71,12 @@
 
 <script>
 import { CvInlineNotification } from "@carbon/vue";
+import NsCircleTimer from "./NsCircleTimer.vue";
 
 export default {
   name: "NsInlineNotification",
   extends: CvInlineNotification,
+  components: { NsCircleTimer },
   props: {
     showCloseButton: {
       type: Boolean,
@@ -83,6 +94,9 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    timer: {
+      type: Number,
     },
   },
 };
@@ -103,6 +117,10 @@ export default {
 // place action button next to description
 .details {
   flex-grow: 0;
+}
+
+.action-button {
+  margin-right: 0.5rem;
 }
 
 // place close button on the right

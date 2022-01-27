@@ -61,7 +61,7 @@ export default {
 .line {
   position: absolute;
   opacity: 0.4;
-  // following rule uses branding color so it's inside core _ns8.scss
+  // following rule uses branding color so it's inside core _core.scss
   // background: $interactive-01;
   width: 100%;
   height: 5px;
@@ -69,7 +69,7 @@ export default {
 
 .progress-line {
   position: absolute;
-  // following rule uses branding color so it's inside core _ns8.scss
+  // following rule uses branding color so it's inside core _core.scss
   // background: $interactive-01;
   height: 5px;
 }
@@ -77,7 +77,7 @@ export default {
 .indeterminate-line {
   position: absolute;
   opacity: 0.4;
-  // following rule uses branding color so it's inside core _ns8.scss
+  // following rule uses branding color so it's inside core _core.scss
   // background: $interactive-01;
   width: 150%;
   height: 5px;
@@ -85,7 +85,7 @@ export default {
 
 .indeterminate-subline {
   position: absolute;
-  // following rule uses branding color so it's inside core _ns8.scss
+  // following rule uses branding color so it's inside core _core.scss
   // background: $interactive-01;
   height: 5px;
 }

@@ -1,38 +1,57 @@
 <template>
   <cv-tile kind="standard" :light="light" class="info-card">
     <!-- overflow menu -->
-    <slot v-if="showOverflowMenu" name="menu"></slot>
+    <slot v-if="hasMenuSlot" name="menu"></slot>
     <!-- icon -->
     <div v-if="icon" class="row">
       <NsSvg :svg="icon" />
     </div>
-    <div class="row">
-      <h3 class="title">{{ title }}</h3>
+    <div v-if="isErrorShown" class="row">
+      <NsInlineNotification
+        kind="error"
+        :title="errorTitle"
+        :description="errorDescription"
+        :showCloseButton="false"
+      />
     </div>
-    <div v-if="description" class="row">
-      <div class="description">{{ description }}</div>
+    <div v-else-if="loading" class="row">
+      <cv-skeleton-text
+        :paragraph="true"
+        :line-count="3"
+        class="skeleton"
+      ></cv-skeleton-text>
     </div>
+    <template v-else>
+      <div v-if="title" class="row">
+        <h3 class="title">{{ title }}</h3>
+      </div>
+      <div v-if="description" class="row">
+        <div class="description">{{ description }}</div>
+      </div>
+    </template>
     <div class="row slot">
       <!-- Extra content -->
-      <slot name="content"></slot>
+      <slot v-if="hasContentSlot" name="content"></slot>
     </div>
   </cv-tile>
 </template>
 
 <script>
 import NsSvg from "./NsSvg.vue";
-import { CvTile } from "@carbon/vue";
+import NsInlineNotification from "./NsInlineNotification.vue";
 
 export default {
   name: "NsInfoCard",
-  //components added for storybook to work
-  components: { NsSvg, CvTile },
+  components: { NsSvg, NsInlineNotification },
   props: {
     title: {
       type: String,
-      required: true,
+      required: false,
     },
-    description: String,
+    description: {
+      type: String,
+      required: false,
+    },
     icon: {
       type: [String, Object],
       default: undefined,
@@ -43,11 +62,19 @@ export default {
         return val.render !== null;
       },
     },
-    showOverflowMenu: {
-      type: Boolean,
-      default: false,
-    },
+    loading: Boolean,
+    isErrorShown: false,
+    errorTitle: String,
+    errorDescription: String,
     light: Boolean,
+  },
+  computed: {
+    hasMenuSlot() {
+      return !!this.$slots.menu;
+    },
+    hasContentSlot() {
+      return !!this.$slots.content;
+    },
   },
 };
 </script>
@@ -60,6 +87,12 @@ export default {
   min-height: 7rem;
   // needed for abosulute positioning of overflow menu
   position: relative;
+}
+
+.skeleton {
+  margin-top: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .row {

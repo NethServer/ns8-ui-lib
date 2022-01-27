@@ -17,14 +17,22 @@ export { default as NsMeterChart } from "./NsMeterChart.vue";
 export { default as NsPieChart } from "./NsPieChart.vue";
 export { default as NsLottieAnimation } from "./NsLottieAnimation.vue";
 export { default as NsDangerDeleteModal } from "./NsDangerDeleteModal.vue";
+export { default as NsCircleTimer } from "./NsCircleTimer.vue";
+export { default as NsDropdownAction } from "./NsDropdownAction.vue";
+export { default as NsTextInput } from "./NsTextInput.vue";
+export { default as NsBackupCard } from "./NsBackupCard.vue";
+export { default as NsWizard } from "./NsWizard.vue";
+export { default as NsMenuItem } from "./NsMenuItem.vue";
+export { default as NsMenuDivider } from "./NsMenuDivider.vue";
 
 // Pictograms
-export { default as ExclamationMark } from "./pictograms/ExclamationMark.vue";
-export { default as Gear } from "./pictograms/Gear.vue";
-export { default as Love } from "./pictograms/Love.vue";
-export { default as Warning } from "./pictograms/Warning.vue";
-export { default as Bulldozer } from "./pictograms/Bulldozer.vue";
-export { default as Group } from "./pictograms/Group.vue";
+export { default as ExclamationMarkPictogram } from "./pictograms/ExclamationMarkPictogram.vue";
+export { default as GearPictogram } from "./pictograms/GearPictogram.vue";
+export { default as LovePictogram } from "./pictograms/LovePictogram.vue";
+export { default as WarningPictogram } from "./pictograms/WarningPictogram.vue";
+export { default as BulldozerPictogram } from "./pictograms/BulldozerPictogram.vue";
+export { default as GroupPictogram } from "./pictograms/GroupPictogram.vue";
+export { default as HardDrivePictogram } from "./pictograms/HardDrivePictogram.vue";
 
 // Mixins
 export { default as UtilService } from "../lib-mixins/util.js";

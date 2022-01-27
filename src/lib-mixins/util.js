@@ -1,5 +1,13 @@
 export default {
   name: "UtilService",
+  data() {
+    return {
+      DELETE_DELAY: 7000, // you have 7 seconds to cancel object deletion
+      time24HourPattern: /([01]\d|2[0-3]):?([0-5]\d)/,
+      time24HourPatternString: "([01]\\d|2[0-3]):?([0-5]\\d)",
+      time24HourPlaceholder: "hh:mm",
+    };
+  },
   methods: {
     getErrorMessage(error) {
       if (error.message === "Network Error") {
@@ -34,7 +42,7 @@ export default {
      *
      */
     sortByProperty(property) {
-      return function(a, b) {
+      return function (a, b) {
         if (a[property] < b[property]) {
           return -1;
         }
@@ -49,7 +57,7 @@ export default {
      *
      */
     sortModuleInstances() {
-      return function(instance1, instance2) {
+      return function (instance1, instance2) {
         const instance1Name = instance1.id.split(/[0-9]+/)[0];
         const instance1Number = parseInt(
           instance1.id.substring(instance1Name.length)
@@ -110,7 +118,7 @@ export default {
       });
     },
     /**
-     * Get app description using the locale of NS8 core context
+     * Get app description using the locale of core context
      */
     getAppDescription(app, coreContext) {
       const langCode = coreContext.$root.$i18n.locale;
@@ -123,7 +131,7 @@ export default {
       return description;
     },
     /**
-     * Get app categories using the locale of NS8 core context
+     * Get app categories using the locale of core context
      */
     getAppCategories(app, coreContext) {
       let i18nCategories = [];
@@ -138,6 +146,59 @@ export default {
         );
       }
       return i18nCategories.join(", ");
+    },
+    /**
+     * Used in views and components containing an accordion
+     */
+    toggleAccordion(ev) {
+      this.$refs.accordion.state.map(
+        (item, index) => index === ev.changedIndex
+      );
+    },
+    /**
+     * Used in Backup section
+     * */
+    getBackupScheduleDescription(schedule) {
+      if (!schedule) {
+        return "-";
+      }
+
+      switch (schedule.interval) {
+        case "hourly":
+          if (schedule.minute == 0) {
+            return this.$t("backup.every_hour");
+          } else {
+            return this.$tc("backup.minutes_past_the_hour", schedule.minute, {
+              minutes: schedule.minute,
+            });
+          }
+        case "daily":
+          if (this.time24HourPattern.test(schedule.time)) {
+            return this.$t("backup.every_day_at", { time: schedule.time });
+          } else {
+            return "-";
+          }
+        case "weekly":
+          if (this.time24HourPattern.test(schedule.time)) {
+            return this.$t("backup.every_weekday_at_hour", {
+              weekDay: this.$t("calendar." + schedule.weekDay),
+              time: schedule.time,
+            });
+          } else {
+            return "-";
+          }
+        case "monthly":
+          if (this.time24HourPattern.test(schedule.time)) {
+            return this.$t("backup.every_month_at_time", {
+              dayNum: schedule.monthDay,
+              time: schedule.time,
+            });
+          } else {
+            return "-";
+          }
+        default:
+          return "-";
+      }
     },
   },
 };
