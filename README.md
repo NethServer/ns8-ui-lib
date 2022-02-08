@@ -1,6 +1,6 @@
 # ns8-ui-lib
 
-This library includes [Vue.js](https://vuejs.org/) UI components and mixins used by NethServer 8 UI.
+This library includes [Vue.js](https://vuejs.org/) UI components and mixins used by [NethServer 8](https://github.com/NethServer/ns8-core) UI.
 
 In `src/main.js` add the following to globally include NS8 components:
 
