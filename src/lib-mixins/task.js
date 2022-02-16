@@ -162,6 +162,10 @@ export default {
           return this.$t("task." + taskOrSubtask + "_pending", {
             task: taskLabel,
           });
+          case "running":
+          return this.$t("task." + taskOrSubtask + "_running", {
+            task: taskLabel,
+          });
         default:
           return "";
       }
