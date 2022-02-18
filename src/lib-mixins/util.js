@@ -32,9 +32,22 @@ export default {
 
       return this.$t("error.generic_error");
     },
-    clearErrors(context) {
-      for (const key of Object.keys(context.error)) {
-        context.error[key] = "";
+    /**
+     * Clear errors inside context. Used to clear previous errors before input data validation
+     */
+    clearErrors() {
+      this.clearStrings(this.error);
+    },
+    clearStrings(obj) {
+      for (const key of Object.keys(obj)) {
+        if (typeof obj[key] == "string") {
+          obj[key] = "";
+        } else if (typeof obj[key] == "object") {
+          // recursion
+          this.clearStrings(obj[key]);
+        } else {
+          console.error("unexpected object type:", typeof obj[key]);
+        }
       }
     },
     /**
@@ -199,6 +212,17 @@ export default {
         default:
           return "-";
       }
+    },
+    /**
+     * Get the base64 representation of a file
+     */
+    fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
     },
   },
 };

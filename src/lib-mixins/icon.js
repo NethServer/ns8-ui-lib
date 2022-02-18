@@ -7,6 +7,7 @@ import AppSwitcher20 from "@carbon/icons-vue/es/app-switcher/20";
 import Search20 from "@carbon/icons-vue/es/search/20";
 import RowExpand20 from "@carbon/icons-vue/es/row--expand/20";
 import RowCollapse20 from "@carbon/icons-vue/es/row--collapse/20";
+import Reset32 from "@carbon/icons-vue/es/reset/32";
 import Reset20 from "@carbon/icons-vue/es/reset/20";
 import Download20 from "@carbon/icons-vue/es/download/20";
 import Launch20 from "@carbon/icons-vue/es/launch/20";
@@ -69,6 +70,8 @@ import Warning20 from "@carbon/icons-vue/es/warning--filled/20";
 import Warning32 from "@carbon/icons-vue/es/warning--filled/32";
 import Power20 from "@carbon/icons-vue/es/power/20";
 import Power32 from "@carbon/icons-vue/es/power/32";
+import Document20 from "@carbon/icons-vue/es/document/20";
+import Document32 from "@carbon/icons-vue/es/document/32";
 
 export default {
   name: "IconService",
@@ -84,6 +87,7 @@ export default {
       RowExpand20,
       RowCollapse20,
       Reset20,
+      Reset32, // restore
       Download20,
       Launch20, // open app, open external link
       Upgrade20,
@@ -145,6 +149,8 @@ export default {
       Warning32,
       Power20, // enable, disable
       Power32,
+      Document20,
+      Document32,
     };
   },
 };
