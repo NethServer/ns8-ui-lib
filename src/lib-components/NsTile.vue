@@ -101,6 +101,7 @@ export default {
 <style scoped lang="scss">
 .ns-tile {
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .container {
