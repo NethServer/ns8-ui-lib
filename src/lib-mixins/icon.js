@@ -74,6 +74,12 @@ import Power20 from "@carbon/icons-vue/es/power/20";
 import Power32 from "@carbon/icons-vue/es/power/32";
 import Document20 from "@carbon/icons-vue/es/document/20";
 import Document32 from "@carbon/icons-vue/es/document/32";
+import OverflowMenuVertical20 from "@carbon/icons-vue/es/overflow-menu--vertical/20";
+import OverflowMenuVertical32 from "@carbon/icons-vue/es/overflow-menu--vertical/32";
+import Restart20 from "@carbon/icons-vue/es/restart/20";
+import Restart32 from "@carbon/icons-vue/es/restart/32";
+import TrashCan20 from "@carbon/icons-vue/es/trash-can/20";
+import TrashCan32 from "@carbon/icons-vue/es/trash-can/32";
 
 export default {
   name: "IconService",
@@ -155,6 +161,12 @@ export default {
       Power32,
       Document20,
       Document32,
+      OverflowMenuVertical20, // overflow menu
+      OverflowMenuVertical32,
+      Restart20, // reload, refresh
+      Restart32,
+      TrashCan20, // delete
+      TrashCan32,
     };
   },
 };
