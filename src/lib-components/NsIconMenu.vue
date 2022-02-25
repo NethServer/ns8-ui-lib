@@ -1,7 +1,7 @@
 <template>
   <div
     data-overflow-menu
-    :class="`cv-overflow-menu ${carbonPrefix}--overflow-menu`"
+    :class="`cv-overflow-menu ${carbonPrefix}--overflow-menu ns-icon-menu`"
     :id="uid"
   >
     <button
@@ -30,7 +30,7 @@
         label
       }}</span>
 
-      <slot name="trigger"> </slot>
+      <NsSvg :svg="icon" />
     </button>
     <div
       :class="[
@@ -71,12 +71,25 @@
 
 <script>
 import { CvOverflowMenu } from "@carbon/vue";
+import OverflowMenuVertical20 from "@carbon/icons-vue/es/overflow-menu--vertical/20";
 
 export default {
   name: "NsIconMenu",
   extends: CvOverflowMenu,
   props: {
     label: String,
+    icon: {
+      type: [String, Object],
+      default: function () {
+        return OverflowMenuVertical20;
+      },
+      validator(val) {
+        if (!val || typeof val === "string") {
+          return true;
+        }
+        return val.render !== null;
+      },
+    },
     flipMenu: Boolean,
     up: Boolean,
     offset: {
@@ -98,3 +111,9 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.ns-icon-menu {
+  display: inline-flex;
+}
+</style>
