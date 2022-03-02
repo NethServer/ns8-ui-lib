@@ -80,6 +80,10 @@ import Restart20 from "@carbon/icons-vue/es/restart/20";
 import Restart32 from "@carbon/icons-vue/es/restart/32";
 import TrashCan20 from "@carbon/icons-vue/es/trash-can/20";
 import TrashCan32 from "@carbon/icons-vue/es/trash-can/32";
+import Erase20 from "@carbon/icons-vue/es/erase/20";
+import Erase32 from "@carbon/icons-vue/es/erase/32";
+import Stop20 from "@carbon/icons-vue/es/stop/20";
+import Stop32 from "@carbon/icons-vue/es/stop/32";
 
 export default {
   name: "IconService",
@@ -167,6 +171,10 @@ export default {
       Restart32,
       TrashCan20, // delete
       TrashCan32,
+      Erase20, // clear
+      Erase32,
+      Stop20,
+      Stop32,
     };
   },
 };
