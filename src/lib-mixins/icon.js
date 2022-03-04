@@ -82,8 +82,8 @@ import TrashCan20 from "@carbon/icons-vue/es/trash-can/20";
 import TrashCan32 from "@carbon/icons-vue/es/trash-can/32";
 import Erase20 from "@carbon/icons-vue/es/erase/20";
 import Erase32 from "@carbon/icons-vue/es/erase/32";
-import Stop20 from "@carbon/icons-vue/es/stop/20";
-import Stop32 from "@carbon/icons-vue/es/stop/32";
+import Row20 from "@carbon/icons-vue/es/row/20";
+import Column20 from "@carbon/icons-vue/es/column/20";
 
 export default {
   name: "IconService",
@@ -173,8 +173,8 @@ export default {
       TrashCan32,
       Erase20, // clear
       Erase32,
-      Stop20,
-      Stop32,
+      Row20, // horizontal layout
+      Column20, // vertical layout
     };
   },
 };
