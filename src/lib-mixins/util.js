@@ -131,6 +131,14 @@ export default {
       });
     },
     /**
+     * Smoothly scroll to a specific element in the page
+     */
+    scrollToElement(element) {
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+    /**
      * Get app description using the locale of core context
      */
     getAppDescription(app, coreContext) {
