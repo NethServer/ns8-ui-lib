@@ -84,6 +84,8 @@ import Erase20 from "@carbon/icons-vue/es/erase/20";
 import Erase32 from "@carbon/icons-vue/es/erase/32";
 import Row20 from "@carbon/icons-vue/es/row/20";
 import Column20 from "@carbon/icons-vue/es/column/20";
+import Catalog20 from "@carbon/icons-vue/es/catalog/20";
+import Catalog32 from "@carbon/icons-vue/es/catalog/32";
 
 export default {
   name: "IconService",
@@ -175,6 +177,8 @@ export default {
       Erase32,
       Row20, // horizontal layout
       Column20, // vertical layout
+      Catalog20, // system logs
+      Catalog32,
     };
   },
 };
