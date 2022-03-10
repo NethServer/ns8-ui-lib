@@ -15,15 +15,11 @@
       ></cv-skeleton-text>
     </div>
     <template v-else-if="!backupsContainingInstance.length">
-      <div class="row">
+      <div class="row no-backup">
         <!-- no backup -->
-        <NsInlineNotification
-          kind="warning"
-          :title="noBackupMessage"
-          :showCloseButton="false"
-          :actionLabel="scheduleBackupLabel"
-          @action="goToBackup"
-        />
+        <span class="ns-warning">
+          {{ noBackupMessage }}
+        </span>
       </div>
     </template>
     <template v-else>
@@ -33,11 +29,8 @@
           :key="backup.id"
           class="backup"
         >
-          <div class="row">
-            <h5
-              v-if="backupsContainingInstance.length > 1"
-              class="title mg-top-sm"
-            >
+          <div v-if="backupsContainingInstance.length > 1" class="row">
+            <h5 class="title">
               {{ backup.name }}
             </h5>
           </div>
@@ -83,12 +76,12 @@
               />
             </div>
           </div>
-          <div class="table-wrapper">
+          <div
+            v-if="backupsContainingInstance.length > 1"
+            class="table-wrapper"
+          >
             <div class="table">
-              <cv-accordion
-                v-if="backupsContainingInstance.length > 1"
-                ref="accordion"
-              >
+              <cv-accordion ref="accordion">
                 <cv-accordion-item :open="toggleAccordion[0]">
                   <template slot="title">{{ showMoreLabel }}</template>
                   <template slot="content">
@@ -139,10 +132,6 @@ export default {
     noBackupMessage: {
       type: String,
       default: "No backup configured",
-    },
-    scheduleBackupLabel: {
-      type: String,
-      default: "Configure",
     },
     goToBackupLabel: {
       type: String,
@@ -292,6 +281,7 @@ export default {
 .title {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+  margin-bottom: 0.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -300,7 +290,7 @@ export default {
 .table-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .table {
@@ -328,6 +318,10 @@ export default {
 
 .backup-status-icon {
   margin-right: 0.25rem;
+}
+
+.no-backup {
+  font-weight: bold;
 }
 </style>
 

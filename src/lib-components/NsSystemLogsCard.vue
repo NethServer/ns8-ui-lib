@@ -33,6 +33,10 @@ export default {
       type: String,
       default: "Go to System logs",
     },
+    router: {
+      type: Object,
+      default: null,
+    },
     context: {
       type: String,
       default: "cluster",
@@ -121,8 +125,8 @@ export default {
   },
   methods: {
     goToLogs() {
-      if (this.$router) {
-        this.$router.push(this.logsUrl);
+      if (this.router) {
+        this.router.push(this.logsUrl);
       }
     },
   },

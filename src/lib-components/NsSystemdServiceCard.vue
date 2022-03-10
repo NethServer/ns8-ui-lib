@@ -87,6 +87,7 @@ export default {
 .service-name {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .success-icon {

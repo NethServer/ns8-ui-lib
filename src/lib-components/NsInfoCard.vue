@@ -23,7 +23,19 @@
     </div>
     <template v-else>
       <div v-if="title" class="row">
-        <h3 class="title">{{ title }}</h3>
+        <!-- title tooltip -->
+        <cv-tooltip
+          v-if="titleTooltip"
+          alignment="center"
+          direction="bottom"
+          :tip="titleTooltip"
+        >
+          <h3 class="title">
+            {{ title }}
+          </h3>
+        </cv-tooltip>
+        <!-- no title tooltip -->
+        <h3 v-else class="title">{{ title }}</h3>
       </div>
       <div v-if="description" class="row">
         <div class="description">{{ description }}</div>
@@ -49,6 +61,10 @@ export default {
       required: false,
     },
     description: {
+      type: String,
+      required: false,
+    },
+    titleTooltip: {
       type: String,
       required: false,
     },
@@ -105,6 +121,7 @@ export default {
 .title {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
+  margin-bottom: 0.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
