@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   name: "UtilService",
   data() {
@@ -241,6 +243,12 @@ export default {
       if (this.core.$route.fullPath != path) {
         this.core.$router.push(path);
       }
+    },
+    /**
+     * Generate a universally unique identifier
+     */
+    getUuid() {
+      return uuidv4();
     },
   },
 };
