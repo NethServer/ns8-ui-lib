@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   name: "UtilService",
   data() {
@@ -231,6 +233,22 @@ export default {
         reader.onload = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
       });
+    },
+    /**
+     * Navigate to a page of an external app. Use this method only from an external app (e.g. from AppSideMenuContent)
+     */
+    goToAppPage(instanceName, page) {
+      const path = `/apps/${instanceName}?page=${page}`;
+
+      if (this.core.$route.fullPath != path) {
+        this.core.$router.push(path);
+      }
+    },
+    /**
+     * Generate a universally unique identifier
+     */
+    getUuid() {
+      return uuidv4();
     },
   },
 };

@@ -10,14 +10,15 @@
     <div v-if="loading" class="row">
       <cv-skeleton-text
         :paragraph="true"
-        :line-count="5"
+        :line-count="2"
         class="mg-top-sm"
       ></cv-skeleton-text>
     </div>
     <template v-else-if="!backupsContainingInstance.length">
-      <div class="row no-backup">
+      <div class="row icon-and-text">
         <!-- no backup -->
-        <span class="ns-warning">
+        <NsSvg :svg="Warning16" class="icon ns-warning" />
+        <span>
           {{ noBackupMessage }}
         </span>
       </div>
@@ -318,10 +319,6 @@ export default {
 
 .backup-status-icon {
   margin-right: 0.25rem;
-}
-
-.no-backup {
-  font-weight: bold;
 }
 </style>
 
