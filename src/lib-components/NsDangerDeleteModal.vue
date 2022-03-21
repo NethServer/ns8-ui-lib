@@ -24,6 +24,13 @@
           ref="userInput"
         ></cv-text-input>
       </cv-form>
+      <NsInlineNotification
+        v-if="isErrorShown"
+        kind="error"
+        :title="errorTitle"
+        :description="errorDescription"
+        :showCloseButton="false"
+      />
     </template>
     <template slot="secondary-button">{{ cancelLabel }}</template>
     <template slot="primary-button">{{ deleteLabel }}</template>
@@ -72,6 +79,18 @@ export default {
     deleteLabel: {
       type: String,
       default: "I understand, delete",
+    },
+    isErrorShown: {
+      type: Boolean,
+      default: false,
+    },
+    errorTitle: {
+      type: String,
+      default: "",
+    },
+    errorDescription: {
+      type: String,
+      default: "",
     },
   },
   data() {
