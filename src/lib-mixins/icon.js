@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       Close20,
-      ArrowRight20,
+      ArrowRight20, // navigate to another page, move module
       ArrowRight32,
       Notification20,
       UserAvatar20,
@@ -122,7 +122,7 @@ export default {
       Chip32,
       Save20, // save buttons and backups
       Save32,
-      Copy20,
+      Copy20, // copy to clipboard, clone module
       EdgeNode20,
       EdgeNode32,
       Cube32, // systemd services
