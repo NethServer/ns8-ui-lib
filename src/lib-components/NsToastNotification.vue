@@ -26,7 +26,7 @@
             `${carbonPrefix}--toast-notification__subtitle`,
             `notification-description-and-progress`,
             `row`,
-            { 'fix-margin-bottom': actionLabel },
+            { 'fix-margin-bottom': actionLabel || isProgressShown },
           ]"
         >
           <span v-html="description"></span>
@@ -38,8 +38,34 @@
           </div>
         </div>
 
+        <!-- cancel button -->
         <div
-          v-if="actionLabel"
+          v-if="isProgressShown"
+          :class="[
+            `${carbonPrefix}--toast-notification__caption`,
+            `action`,
+            `row`,
+          ]"
+        >
+          <button
+            @click="cancelTask"
+            :class="[
+              `${carbonPrefix}--inline-notification__action-button`,
+              `${carbonPrefix}--btn`,
+              `${carbonPrefix}--btn--sm`,
+              { 'bx--btn--ghost': !isConfirmCancelShown },
+              { 'bx--btn--danger': isConfirmCancelShown },
+            ]"
+            :disabled="isCancelButtonDisabled"
+            type="button"
+          >
+            {{ isConfirmCancelShown ? confirmCancelLabel : cancelLabel }}
+          </button>
+        </div>
+
+        <!-- action button -->
+        <div
+          v-else-if="actionLabel"
           :class="[
             `${carbonPrefix}--toast-notification__caption`,
             `action`,
@@ -117,6 +143,8 @@ export default {
       type: Boolean,
       default: false,
     },
+    cancelLabel: { type: String, default: "Abort" },
+    confirmCancelLabel: { type: String, default: "Confirm abort" },
     closeAriaLabel: { type: String, default: "Dismiss notification" },
     kind: {
       type: String,
@@ -124,6 +152,28 @@ export default {
       validator: (val) => ["error", "info", "warning", "success"].includes(val),
     },
     lowContrast: Boolean,
+  },
+  data() {
+    return {
+      isConfirmCancelShown: false,
+      isCancelButtonDisabled: false,
+    };
+  },
+  methods: {
+    cancelTask() {
+      if (!this.isConfirmCancelShown) {
+        // show confirmation
+        this.isConfirmCancelShown = true;
+
+        setTimeout(() => {
+          this.isConfirmCancelShown = false;
+        }, 5000);
+      } else {
+        // cancel task
+        this.$emit("cancelTask", this.id);
+        this.isCancelButtonDisabled = true;
+      }
+    },
   },
 };
 </script>
@@ -139,10 +189,17 @@ export default {
   margin-bottom: 0;
 }
 
-.bx--toast-notification .bx--inline-notification__action-button.bx--btn--ghost {
+.bx--toast-notification .bx--inline-notification__action-button {
   // following rule uses branding color so it's inside core _core.scss
   // color: $inverse-link;
-  margin-left: -16px;
+  margin-left: -1rem;
+}
+
+@media (min-width: 42rem) {
+}
+.bx--toast-notification
+  .bx--inline-notification__action-button.bx--btn--danger {
+  margin: 0.5rem 0 0.5rem -1rem;
 }
 
 .notification-description-and-progress {
