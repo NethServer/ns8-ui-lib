@@ -19,5 +19,18 @@ export default {
       }
     },
   },
+  focusBeforeContent() {
+    this.$nextTick(() => {
+      if (this.$slots["primary-button"] && !this.primaryButtonDisabled) {
+        this.$refs.primary.$el.focus();
+      } else if (this.$slots["secondary-button"]) {
+        this.$refs.secondary.$el.focus();
+      } else if (this.$slots["other-button"]) {
+        this.$refs.otherBtn.$el.focus();
+      } else {
+        this.$refs.close.focus();
+      }
+    });
+  },
 };
 </script>

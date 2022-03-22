@@ -68,6 +68,7 @@
           @click="$emit('cancel')"
           type="button"
           class="wizard-button"
+          ref="wizardCancel"
           >{{ cancelLabel }}
         </NsButton>
         <NsButton
@@ -77,6 +78,7 @@
           :disabled="isPreviousDisabled"
           type="button"
           class="wizard-button"
+          ref="wizardPrevious"
           >{{ previousLabel }}
         </NsButton>
         <NsButton
@@ -103,12 +105,12 @@
 </template>
 
 <script>
-import { CvModal } from "@carbon/vue";
+import NsModal from "./NsModal";
 import IconService from "../lib-mixins/icon.js";
 
 export default {
   name: "NsWizard",
-  extends: CvModal,
+  extends: NsModal,
   mixins: [IconService],
   props: {
     cancelLabel: { type: String, default: "Cancel" },
@@ -121,6 +123,17 @@ export default {
     autoHideOff: Boolean,
     visible: Boolean,
     size: String,
+  },
+  methods: {
+    focusBeforeContent() {
+      this.$nextTick(() => {
+        if (this.isNextDisabled) {
+          this.$refs.wizardCancel.$el.focus();
+        } else {
+          this.$refs.wizardNext.$el.focus();
+        }
+      });
+    },
   },
 };
 </script>
