@@ -21,6 +21,7 @@ import ChevronLeft20 from "@carbon/icons-vue/es/chevron--left/20";
 import ChevronRight20 from "@carbon/icons-vue/es/chevron--right/20";
 import Information16 from "@carbon/icons-vue/es/information/16";
 import Information20 from "@carbon/icons-vue/es/information/20";
+import InformationFilled16 from "@carbon/icons-vue/es/information--filled/16";
 import Application20 from "@carbon/icons-vue/es/application/20";
 import Add20 from "@carbon/icons-vue/es/add/20";
 import Rocket20 from "@carbon/icons-vue/es/rocket/20";
@@ -115,6 +116,7 @@ export default {
       ChevronRight20,
       Information16, // info
       Information20,
+      InformationFilled16,
       Application20, // apps, module instances and software center
       Application32,
       Add20,
