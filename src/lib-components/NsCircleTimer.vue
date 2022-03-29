@@ -62,8 +62,13 @@ export default {
     },
   },
   created() {
-    this.timeLimitSeconds = (this.timeLimit - 1000) / 1000;
+    this.timeLimitSeconds = this.timeLimit / 1000;
     this.timeLeft = this.timeLimitSeconds;
+
+    this.$nextTick(() => {
+      this.timePassed += 1;
+      this.timeLeft = this.timeLimitSeconds - this.timePassed;
+    });
 
     this.timerInterval = setInterval(() => {
       this.timePassed += 1;

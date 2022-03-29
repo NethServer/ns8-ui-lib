@@ -12,6 +12,7 @@ import Reset20 from "@carbon/icons-vue/es/reset/20";
 import Download20 from "@carbon/icons-vue/es/download/20";
 import Launch20 from "@carbon/icons-vue/es/launch/20";
 import Upgrade20 from "@carbon/icons-vue/es/upgrade/20";
+import Upgrade32 from "@carbon/icons-vue/es/upgrade/32";
 import Settings16 from "@carbon/icons-vue/es/settings/16";
 import Settings20 from "@carbon/icons-vue/es/settings/20";
 import ChevronDown20 from "@carbon/icons-vue/es/chevron--down/20";
@@ -20,6 +21,7 @@ import ChevronLeft20 from "@carbon/icons-vue/es/chevron--left/20";
 import ChevronRight20 from "@carbon/icons-vue/es/chevron--right/20";
 import Information16 from "@carbon/icons-vue/es/information/16";
 import Information20 from "@carbon/icons-vue/es/information/20";
+import InformationFilled16 from "@carbon/icons-vue/es/information--filled/16";
 import Application20 from "@carbon/icons-vue/es/application/20";
 import Add20 from "@carbon/icons-vue/es/add/20";
 import Rocket20 from "@carbon/icons-vue/es/rocket/20";
@@ -104,7 +106,8 @@ export default {
       Reset32, // restore
       Download20,
       Launch20, // open app, open external link
-      Upgrade20,
+      Upgrade20, // update
+      Upgrade32,
       Settings16,
       Settings20,
       ChevronDown20,
@@ -113,6 +116,7 @@ export default {
       ChevronRight20,
       Information16, // info
       Information20,
+      InformationFilled16,
       Application20, // apps, module instances and software center
       Application32,
       Add20,
