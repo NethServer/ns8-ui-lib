@@ -40,7 +40,7 @@
 
         <!-- cancel button -->
         <div
-          v-if="isProgressShown"
+          v-if="isCancelShown && isProgressShown"
           :class="[
             `${carbonPrefix}--toast-notification__caption`,
             `action`,
@@ -140,6 +140,10 @@ export default {
     progress: Number,
     timestamp: Date,
     isProgressShown: {
+      type: Boolean,
+      default: false,
+    },
+    isCancelShown: {
       type: Boolean,
       default: false,
     },
