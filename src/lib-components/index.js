@@ -35,6 +35,7 @@ export { default as WarningPictogram } from "./pictograms/WarningPictogram.vue";
 export { default as BulldozerPictogram } from "./pictograms/BulldozerPictogram.vue";
 export { default as GroupPictogram } from "./pictograms/GroupPictogram.vue";
 export { default as HardDrivePictogram } from "./pictograms/HardDrivePictogram.vue";
+export { default as UserPictogram } from "./pictograms/UserPictogram.vue";
 
 // Mixins
 export { default as UtilService } from "../lib-mixins/util.js";
