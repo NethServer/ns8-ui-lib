@@ -1,7 +1,7 @@
 <template>
   <div class="ns-password-input">
     <div class="new-password-container">
-      <cv-text-input
+      <NsTextInput
         :value="value"
         @input="onInput"
         type="password"
@@ -16,7 +16,7 @@
         class="new-password"
         ref="newPassword"
       >
-      </cv-text-input>
+      </NsTextInput>
       <div class="password-meter">
         <span
           :class="[
@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="confirm-password-container">
-      <cv-text-input
+      <NsTextInput
         v-model="confirmPassword"
         type="password"
         :helperText="confirmPaswordHelperText"
@@ -90,7 +90,7 @@
         class="confirm-password"
         ref="confirmPassword"
       >
-      </cv-text-input>
+      </NsTextInput>
       <div class="password-meter">
         <span
           :class="[
@@ -137,6 +137,10 @@ export default {
     minLength: {
       type: Number,
       default: 8,
+    },
+    clearConfirmPasswordCommand: {
+      type: Number,
+      default: 0,
     },
     lengthLabel: {
       type: String,
@@ -212,6 +216,9 @@ export default {
       if (this.focus && this.focus.element) {
         this.focusElement(this.focus.element);
       }
+    },
+    clearConfirmPasswordCommand: function () {
+      this.confirmPassword = "";
     },
   },
   methods: {
