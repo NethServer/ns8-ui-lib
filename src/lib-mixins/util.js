@@ -8,6 +8,8 @@ export default {
       time24HourPattern: /([01]\d|2[0-3]):?([0-5]\d)/,
       time24HourPatternString: "([01]\\d|2[0-3]):?([0-5]\\d)",
       time24HourPlaceholder: "hh:mm",
+      // used to highlight the anchor the user has just navigated to
+      highlightAnchor: "",
     };
   },
   methods: {
@@ -139,6 +141,22 @@ export default {
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
+    },
+    /**
+     * Scroll to anchor if route contains a hash (#) and highlight the related element.
+     * Used when navigating to a specific anchor link on a different page
+     */
+    checkAndScrollToAnchor() {
+      this.$nextTick(function () {
+        if (this.$route.hash) {
+          const refName = this.$route.hash.replace("#", "");
+          const el = this.$refs[refName];
+          this.scrollToElement(el);
+
+          // highlight the anchor element
+          this.highlightAnchor = refName;
+        }
+      });
     },
     /**
      * Get app description using the locale of core context
