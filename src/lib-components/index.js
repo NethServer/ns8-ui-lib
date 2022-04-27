@@ -27,6 +27,8 @@ export { default as NsMenuDivider } from "./NsMenuDivider.vue";
 export { default as NsSystemLogsCard } from "./NsSystemLogsCard.vue";
 export { default as NsModal } from "./NsModal.vue";
 export { default as NsTimePicker } from "./NsTimePicker.vue";
+export { default as NsDataTable } from "./NsDataTable.vue";
+export { default as NsPagination } from "./NsPagination.vue";
 
 // Pictograms
 export { default as ExclamationMarkPictogram } from "./pictograms/ExclamationMarkPictogram.vue";
