@@ -46,3 +46,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.cv-pagination .bx--select .bx--label {
+  font-size: 100%;
+}
+</style>

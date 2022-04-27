@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ns-data-table">
     <cv-search
       v-if="isSearchable"
       :label="searchLabel"
