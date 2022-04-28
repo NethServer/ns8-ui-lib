@@ -1,7 +1,7 @@
 <template>
   <div class="ns-data-table">
     <cv-search
-      v-if="isSearchable"
+      v-if="isSearchable && !isErrorShown"
       :label="searchLabel"
       :placeholder="searchPlaceholder"
       :clear-aria-label="searchClearLabel"
@@ -13,9 +13,16 @@
       ref="tableSearch"
     >
     </cv-search>
+    <NsInlineNotification
+      v-if="isErrorShown"
+      kind="error"
+      :title="errorTitle"
+      :description="errorDescription"
+      :showCloseButton="false"
+    />
     <!-- loading data -->
     <cv-data-table-skeleton
-      v-if="isLoading"
+      v-else-if="isLoading"
       :columns="columns"
       :rows="skeletonRows"
     ></cv-data-table-skeleton>
@@ -358,6 +365,9 @@ export default {
     isSearchable: { type: Boolean, default: false },
     isLoading: { type: Boolean, default: false },
     skeletonRows: { type: Number, default: 10 },
+    isErrorShown: { type: Boolean, default: false },
+    errorTitle: { type: String, default: "Cannot retrieve table data" },
+    errorDescription: { type: String, default: "Something went wrong" },
     noSearchResultsLabel: { type: String, default: "No results" },
     noSearchResultsDescription: {
       type: String,
