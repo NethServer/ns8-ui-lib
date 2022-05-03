@@ -66,6 +66,7 @@
           kind="secondary"
           :icon="Close20"
           @click="$emit('cancel')"
+          :disabled="isCancelDisabled"
           type="button"
           class="wizard-button"
           ref="wizardCancel"
@@ -118,6 +119,7 @@ export default {
     nextLabel: { type: String, default: "Next" },
     isPreviousDisabled: Boolean,
     isNextDisabled: Boolean,
+    isCancelDisabled: Boolean,
     isNextLoading: Boolean,
     closeAriaLabel: { type: String, default: "Close modal" },
     autoHideOff: Boolean,
