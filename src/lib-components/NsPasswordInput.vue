@@ -109,12 +109,12 @@
 </template>
 
 <script>
-import { CvTextInput } from "@carbon/vue";
+import NsTextInput from "./NsTextInput";
 import UtilService from "../lib-mixins/util.js";
 
 export default {
   name: "NsPasswordInput",
-  components: CvTextInput,
+  components: { NsTextInput },
   mixins: [UtilService],
   props: {
     value: String,
