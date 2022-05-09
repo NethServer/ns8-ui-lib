@@ -26,6 +26,9 @@ export { default as NsMenuItem } from "./NsMenuItem.vue";
 export { default as NsMenuDivider } from "./NsMenuDivider.vue";
 export { default as NsSystemLogsCard } from "./NsSystemLogsCard.vue";
 export { default as NsModal } from "./NsModal.vue";
+export { default as NsTimePicker } from "./NsTimePicker.vue";
+export { default as NsDataTable } from "./NsDataTable.vue";
+export { default as NsPagination } from "./NsPagination.vue";
 
 // Pictograms
 export { default as ExclamationMarkPictogram } from "./pictograms/ExclamationMarkPictogram.vue";
@@ -35,6 +38,7 @@ export { default as WarningPictogram } from "./pictograms/WarningPictogram.vue";
 export { default as BulldozerPictogram } from "./pictograms/BulldozerPictogram.vue";
 export { default as GroupPictogram } from "./pictograms/GroupPictogram.vue";
 export { default as HardDrivePictogram } from "./pictograms/HardDrivePictogram.vue";
+export { default as UserPictogram } from "./pictograms/UserPictogram.vue";
 
 // Mixins
 export { default as UtilService } from "../lib-mixins/util.js";
@@ -43,7 +47,6 @@ export { default as TaskService } from "../lib-mixins/task.js";
 export { default as StorageService } from "../lib-mixins/storage.js";
 export { default as IconService } from "../lib-mixins/icon.js";
 export { default as DateTimeService } from "../lib-mixins/dateTime.js";
-export { default as DataTableService } from "../lib-mixins/dataTable.js";
 export { default as PageTitleService } from "../lib-mixins/pageTitle.js";
 export { default as LottieService } from "../lib-mixins/lottie.js";
 

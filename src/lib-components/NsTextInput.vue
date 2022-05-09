@@ -88,7 +88,7 @@
           `${carbonPrefix}--tooltip__trigger`,
           `${carbonPrefix}--tooltip--a11y`,
           `${carbonPrefix}--tooltip--bottom`,
-          `${carbonPrefix}--tooltip--align-center`,
+          `${carbonPrefix}--tooltip--align-end`,
         ]"
         @click="togglePasswordVisibility"
         type="button"
