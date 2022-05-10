@@ -50,6 +50,7 @@
           [`${carbonPrefix}--text-input__field-wrapper--warning`]:
             !isInvalid && isWarn,
         },
+        { 'align-items-center': prefix },
       ]"
       :data-invalid="isInvalid"
     >
@@ -61,7 +62,7 @@
         v-if="isWarn"
         :class="`${carbonPrefix}--text-input__invalid-icon ${carbonPrefix}--text-input__invalid-icon--warning`"
       />
-
+      <span v-if="prefix" class="prefix">{{ prefix }}</span>
       <input
         :id="uid"
         :class="[
@@ -154,6 +155,7 @@ export default {
       default: "bottom",
       validator: (val) => ["top", "left", "bottom", "right".includes(val)],
     },
+    prefix: String,
   },
   computed: {
     hasTooltipSlot() {
@@ -167,6 +169,15 @@ export default {
 .tooltip {
   display: inline-block;
   position: absolute;
+}
+
+.prefix {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.align-items-center {
+  align-items: center;
 }
 </style>
 
