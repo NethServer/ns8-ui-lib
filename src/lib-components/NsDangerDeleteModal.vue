@@ -1,5 +1,5 @@
 <template>
-  <cv-modal
+  <NsModal
     kind="danger"
     size="default"
     :visible="isShown"
@@ -34,17 +34,18 @@
     </template>
     <template slot="secondary-button">{{ cancelLabel }}</template>
     <template slot="primary-button">{{ deleteLabel }}</template>
-  </cv-modal>
+  </NsModal>
 </template>
 
 <script>
 import UtilService from "../lib-mixins/util.js";
 import NsInlineNotification from "./NsInlineNotification.vue";
+import NsModal from "./NsModal.vue";
 
 export default {
   name: "NsDangerDeleteModal",
   //component added for storybook to work
-  components: { NsInlineNotification },
+  components: { NsInlineNotification, NsModal },
   mixins: [UtilService],
   props: {
     isShown: {
