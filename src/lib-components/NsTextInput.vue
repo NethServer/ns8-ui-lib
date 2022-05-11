@@ -174,6 +174,7 @@ export default {
 .prefix {
   font-weight: bold;
   margin-right: 0.5rem;
+  color: #525252;
 }
 
 .align-items-center {
