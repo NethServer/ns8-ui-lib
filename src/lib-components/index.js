@@ -14,7 +14,6 @@ export { default as NsSystemdServiceCard } from "./NsSystemdServiceCard.vue";
 export { default as NsPasswordInput } from "./NsPasswordInput.vue";
 export { default as NsIconMenu } from "./NsIconMenu.vue";
 export { default as NsMeterChart } from "./NsMeterChart.vue";
-export { default as NsPieChart } from "./NsPieChart.vue";
 export { default as NsLottieAnimation } from "./NsLottieAnimation.vue";
 export { default as NsDangerDeleteModal } from "./NsDangerDeleteModal.vue";
 export { default as NsCircleTimer } from "./NsCircleTimer.vue";

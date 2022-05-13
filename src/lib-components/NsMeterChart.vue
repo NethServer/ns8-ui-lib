@@ -1,68 +1,47 @@
 <template>
-  <ccv-meter-chart :data="data" :options="options"></ccv-meter-chart>
+  <div>
+    <div class="mg-bottom-sm">
+      <span class="label">{{ label }}</span>
+      <span>{{
+        loading || Number.isNaN(Number(value)) ? "-" : value + "%"
+      }}</span>
+    </div>
+    <NsProgressBar
+      :value="value"
+      :indeterminate="loading"
+      :useStatusColors="true"
+      :warningThreshold="warningThreshold"
+      :dangerThreshold="dangerThreshold"
+      :height="progressBarHeight"
+    />
+  </div>
 </template>
 
 <script>
-import Vue from "vue";
-import "@carbon/charts/styles.css";
-import chartsVue from "@carbon/charts-vue";
-import { CcvMeterChart } from "@carbon/charts-vue";
-
-Vue.use(chartsVue);
+import NsProgressBar from "./NsProgressBar.vue";
 
 export default {
   name: "NsMeterChart",
-  components: { CcvMeterChart },
+  components: { NsProgressBar },
   props: {
-    title: { type: String, default: "" },
-    label: { type: String, default: "" },
-    value: { type: Number, default: 0 },
-    warningTh: { type: Number, default: 70 },
-    dangerTh: { type: Number, default: 90 },
-    height: { type: String, default: "6rem" },
-  },
-  data() {
-    return {
-      data: [],
-      options: {},
-    };
-  },
-  watch: {
-    value: function() {
-      this.data[0].value = this.value;
-    },
-  },
-  created() {
-    this.data = [
-      {
-        group: this.label,
-        value: this.value,
-      },
-    ];
-
-    this.options = {
-      title: this.title,
-      meter: {
-        peak: null,
-        status: {
-          ranges: [
-            {
-              range: [0, this.warningTh],
-              status: "success",
-            },
-            {
-              range: [this.warningTh, this.dangerTh],
-              status: "warning",
-            },
-            {
-              range: [this.dangerTh, 100],
-              status: "danger",
-            },
-          ],
-        },
-      },
-      height: this.height,
-    };
+    label: { type: String, required: true },
+    value: { type: [String, Number], default: 0 },
+    loading: { type: Boolean, default: false },
+    progressBarHeight: { type: String, default: "10px" },
+    // default value of following props is defined in NsProgressBar
+    warningThreshold: { type: Number, default: undefined },
+    dangerThreshold: { type: Number, default: undefined },
   },
 };
 </script>
+
+<style scoped lang="scss">
+.label {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.mg-bottom-sm {
+  margin-bottom: 0.5rem !important;
+}
+</style>
