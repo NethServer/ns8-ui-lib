@@ -89,6 +89,8 @@ import Column20 from "@carbon/icons-vue/es/column/20";
 import Catalog20 from "@carbon/icons-vue/es/catalog/20";
 import Catalog32 from "@carbon/icons-vue/es/catalog/32";
 import Group20 from "@carbon/icons-vue/es/group/20";
+import Router32 from "@carbon/icons-vue/es/router/32";
+import Certificate32 from "@carbon/icons-vue/es/certificate/32";
 
 export default {
   name: "IconService",
@@ -185,6 +187,8 @@ export default {
       Catalog20, // system logs
       Catalog32,
       Group20, // users and groups
+      Router32, // http routes
+      Certificate32,
     };
   },
 };

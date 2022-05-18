@@ -270,5 +270,21 @@ export default {
     getUuid() {
       return uuidv4();
     },
+    /**
+     * Get a readable label for a node
+     */
+    getNodeLabel(node) {
+      return node.ui_name
+        ? node.ui_name + " (" + this.$t("common.node") + " " + node.id + ")"
+        : this.$t("common.node") + " " + node.id;
+    },
+    /**
+     * Get a readable short label for a node
+     */
+    getShortNodeLabel(node) {
+      return node.ui_name
+        ? node.ui_name
+        : this.$t("common.node") + " " + node.id;
+    },
   },
 };
