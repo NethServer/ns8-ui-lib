@@ -90,7 +90,9 @@ import Catalog20 from "@carbon/icons-vue/es/catalog/20";
 import Catalog32 from "@carbon/icons-vue/es/catalog/32";
 import Group20 from "@carbon/icons-vue/es/group/20";
 import Router32 from "@carbon/icons-vue/es/router/32";
+import Router20 from "@carbon/icons-vue/es/router/20";
 import Certificate32 from "@carbon/icons-vue/es/certificate/32";
+import BareMetalServer20 from "@carbon/icons-vue/es/bare-metal-server/20";
 
 export default {
   name: "IconService",
@@ -188,7 +190,9 @@ export default {
       Catalog32,
       Group20, // users and groups
       Router32, // http routes
+      Router20,
       Certificate32,
+      BareMetalServer20, // acme server
     };
   },
 };
