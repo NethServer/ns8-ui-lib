@@ -92,6 +92,7 @@ import Group20 from "@carbon/icons-vue/es/group/20";
 import Router32 from "@carbon/icons-vue/es/router/32";
 import Router20 from "@carbon/icons-vue/es/router/20";
 import Certificate32 from "@carbon/icons-vue/es/certificate/32";
+import Certificate20 from "@carbon/icons-vue/es/certificate/20";
 import BareMetalServer20 from "@carbon/icons-vue/es/bare-metal-server/20";
 
 export default {
@@ -192,6 +193,7 @@ export default {
       Router32, // http routes
       Router20,
       Certificate32,
+      Certificate20,
       BareMetalServer20, // acme server
     };
   },
