@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ [`${carbonPrefix}--form-item`]: formItem }">
+  <div :class="['ns-toggle', { [`${carbonPrefix}--form-item`]: formItem }]">
     <input
       v-bind="$attrs"
       v-on="inputListeners"
@@ -82,3 +82,18 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.tooltip {
+  display: inline-block;
+  position: absolute;
+}
+</style>
+
+<style lang="scss">
+// global styles
+
+.ns-toggle .bx--tooltip__label .bx--tooltip__trigger {
+  margin-left: 0.25rem;
+}
+</style>

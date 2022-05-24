@@ -8,7 +8,7 @@
       { [`${carbonPrefix}--password-input-wrapper`]: isPassword },
     ]"
   >
-    <div v-if="hasTooltipSlot">
+    <div>
       <label
         :for="uid"
         :class="[
@@ -18,31 +18,23 @@
               $attrs.disabled !== undefined && $attrs.disabled,
           },
         ]"
-        >{{ label }}</label
       >
-      <!-- tooltip -->
-      <cv-interactive-tooltip
-        :alignment="tooltipAlignment"
-        :direction="tooltipDirection"
-        class="tooltip info"
-      >
-        <template slot="content">
-          <slot name="tooltip"></slot>
-        </template>
-      </cv-interactive-tooltip>
+        <div>
+          {{ label }}
+          <!-- tooltip -->
+          <cv-interactive-tooltip
+            v-if="hasTooltipSlot"
+            :alignment="tooltipAlignment"
+            :direction="tooltipDirection"
+            class="tooltip info"
+          >
+            <template slot="content">
+              <slot name="tooltip"></slot>
+            </template>
+          </cv-interactive-tooltip>
+        </div>
+      </label>
     </div>
-    <label
-      v-else
-      :for="uid"
-      :class="[
-        `${carbonPrefix}--label`,
-        {
-          [`${carbonPrefix}--label--disabled`]:
-            $attrs.disabled !== undefined && $attrs.disabled,
-        },
-      ]"
-      >{{ label }}</label
-    >
     <div
       :class="[
         `${carbonPrefix}--text-input__field-wrapper`,
@@ -147,7 +139,7 @@ export default {
     warnText: { type: String, default: undefined },
     tooltipAlignment: {
       type: String,
-      default: "center",
+      default: "start",
       validator: (val) => ["start", "center", "end"].includes(val),
     },
     tooltipDirection: {
