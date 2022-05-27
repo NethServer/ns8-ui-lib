@@ -364,7 +364,7 @@ export default {
     rawColumns: { type: Array, default: () => [] },
     isSearchable: { type: Boolean, default: false },
     isLoading: { type: Boolean, default: false },
-    skeletonRows: { type: Number, default: 10 },
+    skeletonRows: { type: Number, default: 5 },
     isErrorShown: { type: Boolean, default: false },
     errorTitle: { type: String, default: "Cannot retrieve table data" },
     errorDescription: { type: String, default: "Something went wrong" },

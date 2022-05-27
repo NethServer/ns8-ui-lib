@@ -114,18 +114,8 @@ export default {
   margin-right: 0.75rem;
 }
 
-// place action button next to description
-.details {
-  flex-grow: 0;
-}
-
 .action-button {
   margin-right: 0.5rem;
-}
-
-// place close button on the right
-.bx--inline-notification__close-button {
-  position: absolute !important;
 }
 
 .bx--inline-notification__text-wrapper p {

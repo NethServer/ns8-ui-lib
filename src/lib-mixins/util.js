@@ -270,5 +270,52 @@ export default {
     getUuid() {
       return uuidv4();
     },
+    /**
+     * Get a readable label for a node
+     */
+    getNodeLabel(node) {
+      return node.ui_name
+        ? node.ui_name + " (" + this.$t("common.node") + " " + node.id + ")"
+        : this.$t("common.node") + " " + node.id;
+    },
+    /**
+     * Get a readable short label for a node
+     */
+    getShortNodeLabel(node) {
+      return node.ui_name
+        ? node.ui_name
+        : this.$t("common.node") + " " + node.id;
+    },
+    /**
+     * Get a i18n string using a fallback key if necessary. Used for common validation errors
+     */
+    getI18nStringWithFallback(key, fallbackKey, coreContext, args) {
+      if (this.$te(key)) {
+        return this.$t(key, args);
+      }
+
+      // fallback
+      if (this.$te(fallbackKey)) {
+        return this.$t(fallbackKey, args);
+      }
+
+      if (!coreContext) {
+        // return key as is
+        return key;
+      }
+
+      // try on core context
+      if (coreContext.$te(key)) {
+        return coreContext.$t(key, args);
+      }
+
+      // fallback on core context
+      if (coreContext.$te(fallbackKey)) {
+        return coreContext.$t(fallbackKey, args);
+      }
+
+      // return key as is
+      return key;
+    },
   },
 };

@@ -3,6 +3,7 @@ import ArrowRight20 from "@carbon/icons-vue/es/arrow--right/20";
 import ArrowRight32 from "@carbon/icons-vue/es/arrow--right/32";
 import Notification20 from "@carbon/icons-vue/es/notification/20";
 import UserAvatar20 from "@carbon/icons-vue/es/user--avatar/20";
+import UserAvatar32 from "@carbon/icons-vue/es/user--avatar/32";
 import AppSwitcher20 from "@carbon/icons-vue/es/app-switcher/20";
 import Search20 from "@carbon/icons-vue/es/search/20";
 import RowExpand20 from "@carbon/icons-vue/es/row--expand/20";
@@ -89,6 +90,11 @@ import Column20 from "@carbon/icons-vue/es/column/20";
 import Catalog20 from "@carbon/icons-vue/es/catalog/20";
 import Catalog32 from "@carbon/icons-vue/es/catalog/32";
 import Group20 from "@carbon/icons-vue/es/group/20";
+import Router32 from "@carbon/icons-vue/es/router/32";
+import Router20 from "@carbon/icons-vue/es/router/20";
+import Certificate32 from "@carbon/icons-vue/es/certificate/32";
+import Certificate20 from "@carbon/icons-vue/es/certificate/20";
+import BareMetalServer20 from "@carbon/icons-vue/es/bare-metal-server/20";
 
 export default {
   name: "IconService",
@@ -98,7 +104,8 @@ export default {
       ArrowRight20, // navigate to another page, move module
       ArrowRight32,
       Notification20,
-      UserAvatar20,
+      UserAvatar20, // account
+      UserAvatar32,
       AppSwitcher20,
       Search20,
       RowExpand20,
@@ -185,6 +192,11 @@ export default {
       Catalog20, // system logs
       Catalog32,
       Group20, // users and groups
+      Router32, // http routes
+      Router20,
+      Certificate32,
+      Certificate20,
+      BareMetalServer20, // acme server
     };
   },
 };
