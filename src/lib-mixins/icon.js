@@ -95,6 +95,8 @@ import Router20 from "@carbon/icons-vue/es/router/20";
 import Certificate32 from "@carbon/icons-vue/es/certificate/32";
 import Certificate20 from "@carbon/icons-vue/es/certificate/20";
 import BareMetalServer20 from "@carbon/icons-vue/es/bare-metal-server/20";
+import Firewall20 from "@carbon/icons-vue/es/firewall/20";
+import Firewall32 from "@carbon/icons-vue/es/firewall/32";
 
 export default {
   name: "IconService",
@@ -197,6 +199,8 @@ export default {
       Certificate32,
       Certificate20,
       BareMetalServer20, // acme server
+      Firewall20,
+      Firewall32,
     };
   },
 };
