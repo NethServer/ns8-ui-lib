@@ -97,6 +97,10 @@ import Certificate20 from "@carbon/icons-vue/es/certificate/20";
 import BareMetalServer20 from "@carbon/icons-vue/es/bare-metal-server/20";
 import Firewall20 from "@carbon/icons-vue/es/firewall/20";
 import Firewall32 from "@carbon/icons-vue/es/firewall/32";
+import Wikis32 from "@carbon/icons-vue/es/wikis/32";
+import Wikis20 from "@carbon/icons-vue/es/wikis/20";
+import At32 from "@carbon/icons-vue/es/at/32";
+import At20 from "@carbon/icons-vue/es/at/20";
 
 export default {
   name: "IconService",
@@ -149,7 +153,7 @@ export default {
       Star20, // favorite apps
       Checkmark20,
       ZoomIn20, // used to open details
-      Events32, // domains
+      Events32, // user domains
       Link20, // URLs and external domain providers
       Link32,
       WarningAlt20,
@@ -201,6 +205,10 @@ export default {
       BareMetalServer20, // acme server
       Firewall20,
       Firewall32,
+      Wikis32, // domain
+      Wikis20,
+      At32, // email address
+      At20,
     };
   },
 };
