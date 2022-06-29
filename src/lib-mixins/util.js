@@ -257,11 +257,15 @@ export default {
     /**
      * Navigate to a page of an external app. Use this method only from an external app (e.g. from AppSideMenuContent)
      */
-    goToAppPage(instanceName, page) {
+    goToAppPage(instanceName, page, query) {
       const path = `/apps/${instanceName}?page=${page}`;
 
       if (this.core.$route.fullPath != path) {
-        this.core.$router.push(path);
+        if (query) {
+          this.core.$router.push({ path: path, query: query });
+        } else {
+          this.core.$router.push(path);
+        }
       }
     },
     /**

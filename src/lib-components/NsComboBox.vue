@@ -1,15 +1,7 @@
 <template>
   <div
-    :class="[
-      `ns-multi-select cv-multi-select ${carbonPrefix}--multi-select__wrapper ${carbonPrefix}--list-box__wrapper`,
-      {
-        [`${carbonPrefix}--multi-select__wrapper--inline ${carbonPrefix}--list-box__wrapper--inline`]:
-          inline,
-        [`${carbonPrefix}--multi-select__wrapper--inline--invalid ${carbonPrefix}--list-box__wrapper--inline--invalid`]:
-          inline && isInvalid,
-        [`${carbonPrefix}--multi-select--filterable`]: filterable,
-      },
-    ]"
+    class="ns-combo-box cv-combo-box"
+    :class="`${carbonPrefix}--list-box__wrapper`"
     @focusout="onFocusOut"
   >
     <label
@@ -25,18 +17,15 @@
     <div
       role="listbox"
       tabindex="-1"
+      class=""
       :class="[
-        `${carbonPrefix}--multi-select ${carbonPrefix}--list-box`,
+        `${carbonPrefix}--combo-box ${carbonPrefix}--list-box`,
         {
           [`${carbonPrefix}--list-box--light`]: isLight,
+          [`${carbonPrefix}--combo-box--expanded`]: open,
           [`${carbonPrefix}--list-box--expanded`]: open,
-          [`${carbonPrefix}--multi-select--invalid`]: isInvalid,
-          [`${carbonPrefix}--multi-select--disabled`]: disabled,
-          [`${carbonPrefix}--list-box--disabled`]: disabled,
-          [`${carbonPrefix}--multi-select--inline`]: inline,
-          [`${carbonPrefix}--list-box--inline`]: inline,
-          [`${carbonPrefix}--multi-select--selected`]: dataValue.length > 0,
-          [`${carbonPrefix}--combo-box`]: filterable,
+          [`${carbonPrefix}--combo-box--disabled ${carbonPrefix}--list-box--disabled`]:
+            disabled,
         },
       ]"
       :data-invalid="isInvalid"
@@ -49,7 +38,7 @@
     >
       <WarningFilled16
         v-if="isInvalid"
-        :class="`${carbonPrefix}--list-box__invalid-icon`"
+        :class="[`${carbonPrefix}--list-box__invalid-icon`]"
       />
       <div
         role="button"
@@ -57,66 +46,49 @@
         :aria-expanded="open ? 'true' : 'false'"
         :aria-owns="uid"
         :aria-controls="uid"
-        :class="`${carbonPrefix}--list-box__field`"
-        tabindex="0"
+        :class="[`${carbonPrefix}--list-box__field`]"
+        tabindex="-1"
         type="button"
         :aria-label="open ? 'close menu' : 'open menu'"
         data-toggle="true"
         ref="button"
       >
-        <NsTag
-          :class="{
-            [`${carbonPrefix}--list-box__selection--multi`]:
-              filterable && dataValue.length > 0,
-          }"
+        <input
+          ref="input"
+          :class="[
+            `${carbonPrefix}--text-input`,
+            {
+              [`${carbonPrefix}--text-input--empty`]:
+                !filter || filter.length === 0,
+            },
+          ]"
+          :aria-controls="uid"
+          aria-autocomplete="list"
+          role="combobox"
+          :aria-disabled="disabled"
+          :aria-expanded="open ? 'true' : 'false'"
+          autocomplete="off"
           :disabled="disabled"
-          v-show="dataValue.length > 0"
-          :kind="filterTagKind"
-          filter
-          :clear-aria-label="clearSelectionAriaLabel"
-          :label="`${dataValue.length} ${selectedLabel}`"
-          @remove="clearValues"
-          ref="tag"
-          :style="filterableTagOverride"
+          :placeholder="label"
+          v-model="filter"
+          @input="onInput"
+          @focus="inputFocus"
+          @click.stop.prevent="inputClick"
         />
-        <span v-if="!filterable" :class="`${carbonPrefix}--list-box__label`">{{
-          label
-        }}</span>
-        <template v-else>
-          <input
-            ref="input"
-            :class="[
-              `${carbonPrefix}--text-input`,
-              {
-                [`${carbonPrefix}--text-input--empty`]:
-                  !filter || filter.length === 0,
-              },
-            ]"
-            :aria-controls="uid"
-            aria-autocomplete="list"
-            role="combobox"
-            :aria-expanded="open ? 'true' : 'false'"
-            autocomplete="off"
-            :placeholder="label"
-            v-model="filter"
-            @input="onInput"
-            @focus="inputFocus"
-            @click.stop.prevent="inputClick"
-          />
-          <div
-            v-if="filter.length > 0"
-            role="button"
-            :class="`${carbonPrefix}--list-box__selection`"
-            tabindex="0"
-            :title="clearFilterLabel"
-            @click.stop="clearFilter"
-            @keydown.enter.stop.prevent="clearFilter"
-            @keydown.space.stop.prevent
-            @keyup.space.stop.prevent="clearFilter"
-          >
-            <Close16 />
-          </div>
-        </template>
+        <div
+          v-if="filter"
+          role="button"
+          :class="[`${carbonPrefix}--list-box__selection`]"
+          tabindex="0"
+          :title="clearFilterLabel"
+          @click.stop="clearFilter"
+          @keydown.enter.stop.prevent="clearFilter"
+          @keydown.space.stop.prevent
+          @keyup.space.stop.prevent="clearFilter"
+        >
+          <Close16 />
+        </div>
+
         <div
           :class="[
             `${carbonPrefix}--list-box__menu-icon`,
@@ -129,14 +101,15 @@
       </div>
 
       <div
+        v-show="open"
         :id="uid"
-        :class="`${carbonPrefix}--list-box__menu`"
+        :class="[`${carbonPrefix}--list-box__menu`]"
         role="listbox"
         ref="list"
       >
         <div
           v-for="(item, index) in limitedDataOptions"
-          :key="`multi-select-${index}`"
+          :key="`combo-box-${index}`"
           :class="[
             `${carbonPrefix}--list-box__menu-item`,
             {
@@ -149,53 +122,27 @@
           @mousemove="onMousemove(item.value)"
           @mousedown.prevent
         >
-          <div :class="`${carbonPrefix}--list-box__menu-item__option`">
-            <cv-checkbox
-              tabindex="-1"
-              :form-item="false"
-              v-model="dataValue"
-              :value="item.value"
-              :name="item.name"
-              :data-test="item.name"
-              :label="
-                showItemType && item.type
-                  ? item.label + ' - ' + item.type
-                  : item.label
-              "
-              style="pointer-events: none"
-            />
+          <div :class="[`${carbonPrefix}--list-box__menu-item__option`]">
+            {{
+              showItemType && item.type
+                ? item.label + " - " + item.type
+                : item.label
+            }}
           </div>
         </div>
       </div>
     </div>
-    <div
-      v-if="isInvalid && !inline"
-      :class="`${carbonPrefix}--form-requirement`"
-    >
+    <div v-if="isInvalid" :class="[`${carbonPrefix}--form-requirement`]">
       <slot name="invalid-message">{{ invalidMessage }}</slot>
     </div>
     <div
-      v-if="!inline && !isInvalid && isHelper"
+      v-if="!isInvalid && isHelper"
       :class="[
         `${carbonPrefix}--form__helper-text`,
         { [`${carbonPrefix}--form__helper-text--disabled`]: disabled },
       ]"
     >
       <slot name="helper-text">{{ helperText }}</slot>
-    </div>
-    <!-- show selected items -->
-    <div v-if="showSelectedItems && dataValue.length" class="mg-top-sm">
-      <NsTag
-        v-for="item in selectedItems"
-        filter
-        @remove="onItemClick(item.value)"
-        size="sm"
-        :clear-aria-label="unselectAriaLabel"
-        :key="item.value"
-        :label="item.label"
-        :kind="selectedItemsColor"
-        class="selected-item"
-      />
     </div>
   </div>
 </template>
@@ -210,31 +157,22 @@ import {
 import WarningFilled16 from "@carbon/icons-vue/es/warning--filled/16";
 import ChevronDown16 from "@carbon/icons-vue/es/chevron--down/16";
 import Close16 from "@carbon/icons-vue/es/close/16";
-import CvCheckbox from "@carbon/vue/src/components/cv-checkbox/cv-checkbox";
 import _cloneDeep from "lodash/cloneDeep";
-import NsTag from "./NsTag.vue";
-
-const TOP_AFTER_REOPEN = 0;
-const TOP = 1;
-const FIXED = 2;
-const selectionFeedbackOptions = ["top-after-reopen", "top", "fixed"];
 
 export default {
-  name: "NsMultiSelect",
+  name: "NsComboBox",
   inheritAttrs: false,
   mixins: [
     themeMixin,
     uidMixin,
     carbonPrefixMixin,
-    methodsMixin({ button: ["blur", "focus"] }),
+    methodsMixin({ input: ["focus", "blur"] }),
   ],
-  components: { WarningFilled16, ChevronDown16, CvCheckbox, NsTag, Close16 },
+  components: { WarningFilled16, ChevronDown16, Close16 },
   props: {
     autoFilter: Boolean,
     autoHighlight: Boolean,
     disabled: Boolean,
-    filterTagKind: { type: String, default: "high-contrast" },
-    inline: Boolean,
     invalidMessage: { type: String, default: undefined },
     helperText: { type: String, default: undefined },
     title: String,
@@ -243,10 +181,7 @@ export default {
       default: "Choose",
     },
     highlight: String,
-    value: { type: Array, default: () => [] },
-    // initial value of the multi-select,
-    // options in the form
-    // [{ label: '', value: '', name: ''}]
+    value: String,
     options: {
       type: Array,
       required: true,
@@ -259,50 +194,30 @@ export default {
         );
         if (!result) {
           console.warn(
-            "NsMultiSelect - all options must have name, label and value"
+            "NsComboBox - all options must have name, label and value"
           );
         }
         return result;
       },
     },
-    selectionFeedback: {
-      type: String,
-      default: selectionFeedbackOptions[TOP_AFTER_REOPEN],
-      validator(val) {
-        if (!selectionFeedbackOptions.includes(val)) {
-          console.warn(
-            `NsMultiSelect: invalid selectionFeedback "${val}", use one of ${selectionFeedbackOptions}`
-          );
-          return false;
-        }
-        return true;
-      },
-    },
-    filterable: Boolean,
-    showSelectedItems: { type: Boolean, default: true },
-    unselectAriaLabel: { type: String, default: "Unselect" },
-    clearSelectionAriaLabel: { type: String, default: "Clear selection" },
     clearFilterLabel: { type: String, default: "Clear filter" },
-    selectedLabel: { type: String, default: "selected" },
     userInputLabel: { type: String, default: "user input" },
     // limit the number of options to be displayed
     maxDisplayOptions: { type: Number, default: 100 },
     acceptUserInput: { type: Boolean, default: false },
     showItemType: { type: Boolean, default: false },
-    // use cv-tag color
-    selectedItemsColor: { type: String, default: "high-contrast" },
   },
   data() {
     return {
       open: false,
       dataOptions: null,
-      // includes user input items
-      internalOptions: [],
-      dataValue: "",
+      dataValue: this.value,
       dataHighlighted: null,
-      dataFilter: "",
+      dataFilter: null,
       isHelper: false,
       isInvalid: false,
+      // includes user input items
+      internalOptions: [],
     };
   },
   model: {
@@ -314,30 +229,21 @@ export default {
       this.highlighted = this.highlight;
     },
     value() {
-      if (this.acceptUserInput) {
-        this.dataValue = this.value;
-      } else {
-        this.dataValue = this.value.filter((item) =>
-          this.dataOptions.some((opt) => opt.value === item.trim())
-        );
-      }
+      this.dataValue = this.value;
+      this.highlighted = this.value;
+      this.internalUpdateValue(this.value);
     },
     options() {
       this.internalOptions = _cloneDeep(this.options);
-      this.updateOptions();
-    },
-    selectionFeedback() {
       this.updateOptions();
     },
   },
   created() {
     this.internalOptions = _cloneDeep(this.options);
     this.updateOptions();
-    this.dataValue = this.value.filter((item) =>
-      this.dataOptions.some((opt) => opt.value === item.trim())
-    );
   },
   mounted() {
+    this.filter = this.value;
     this.highlighted = this.value ? this.value : this.highlight; // override highlight with value if provided
     this.checkSlots();
   },
@@ -377,17 +283,8 @@ export default {
         this.$emit("filter", val);
       },
     },
-    filterableTagOverride() {
-      // <style carbon tweaks - DO NOT USE STYLE TAG as it causes SSR issues
-      return this.filterable ? { marginTop: 0, marginBottom: 0 } : {};
-    },
     limitedDataOptions() {
       return this.dataOptions.slice(0, this.maxDisplayOptions);
-    },
-    selectedItems() {
-      return this.dataValue.map((val) =>
-        this.internalOptions.find((opt) => opt.value === val)
-      );
     },
   },
   methods: {
@@ -403,10 +300,13 @@ export default {
       );
     },
     clearFilter() {
+      if (this.disabled) return;
+      this.internalUpdateValue("");
       this.filter = "";
       this.$refs.input.focus();
       this.doOpen(true);
       this.updateOptions();
+      this.$emit("change", this.dataValue);
     },
     checkHighlightPosition(newHiglight) {
       if (
@@ -415,7 +315,7 @@ export default {
         this.$refs.option[newHiglight]
       ) {
         if (
-          this.$refs.list.scrollTop >= this.$refs.option[newHiglight].offsetTop
+          this.$refs.list.scrollTop > this.$refs.option[newHiglight].offsetTop
         ) {
           this.$refs.list.scrollTop = this.$refs.option[newHiglight].offsetTop;
         } else if (
@@ -456,7 +356,7 @@ export default {
       }
     },
     updateOptions() {
-      if (this.autoFilter) {
+      if (this.autoFilter && this.filter) {
         const escFilter = this.filter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         const pat = new RegExp(escFilter, "iu");
         this.dataOptions = this.internalOptions
@@ -469,23 +369,9 @@ export default {
         this.highlighted = this.highlight;
       }
 
-      // multi select unique part
-      if (
-        !this.sorting &&
-        this.selectionFeedback !== selectionFeedbackOptions[FIXED]
-      ) {
-        // if included in data value move to top
-        this.dataOptions.sort(
-          (a, b) =>
-            (this.dataValue.includes(a.value) ? -1 : 1) -
-            (this.dataValue.includes(b.value) ? -1 : 1)
-        );
-      }
-
-      // added for ns-multi-select
-      if (this.acceptUserInput && this.filter.trim()) {
+      // added for ns-combo-box
+      if (this.acceptUserInput && this.filter && this.filter.trim()) {
         // suggest user input
-
         const trimmedFilter = this.filter.trim();
         const itemFound = this.internalOptions.find(
           (o) => o.value.trim() === trimmedFilter
@@ -517,22 +403,22 @@ export default {
       }
     },
     onInput() {
+      if (this.disabled) return;
       this.doOpen(true);
 
       this.updateOptions();
       this.updateHighlight();
+
+      if (this.acceptUserInput) {
+        this.internalUpdateValue(this.filter);
+        this.$emit("change", this.dataValue);
+      }
     },
     doOpen(newVal) {
-      if (
-        newVal &&
-        !this.open &&
-        this.selectionFeedback === selectionFeedbackOptions[TOP_AFTER_REOPEN]
-      ) {
-        this.updateOptions();
-      }
       this.open = newVal;
     },
     onDown() {
+      if (this.disabled) return;
       if (!this.open) {
         this.doOpen(true);
       } else {
@@ -540,123 +426,87 @@ export default {
       }
     },
     onUp() {
+      if (this.disabled) return;
       if (this.open) {
         this.doMove(true);
       }
     },
-    inputOrButtonFocus() {
-      if (this.filterable) {
+    onEsc() {
+      if (this.disabled) return;
+      this.doOpen(false);
+      this.$el.focus();
+    },
+    onEnter() {
+      if (this.disabled) return;
+      this.doOpen(!this.open);
+      if (!this.open) {
+        this.onItemClick(this.highlighted);
+        this.$refs.input.focus();
+      }
+    },
+    onClick() {
+      if (this.disabled) return;
+      this.doOpen(!this.open);
+      if (this.open) {
         this.$refs.input.focus();
       } else {
         this.$refs.button.focus();
       }
     },
-    onEsc() {
-      this.doOpen(false);
-      this.inputOrButtonFocus();
-    },
-    onEnter() {
-      if (this.open) {
-        this.onItemClick(this.highlighted);
-        this.$refs.input.focus();
-        this.filter = "";
-
-        this.doOpen(false);
-        this.updateOptions();
-      } else {
-        this.doOpen(true);
-      }
-    },
-    onClick(ev) {
-      if (this.disabled) {
-        ev.preventDefault();
-      } else {
-        if (this.open) {
-          this.inputOrButtonFocus();
-          // done this way round otherwise will auto open on focus.
-          this.$nextTick(() => {
-            this.doOpen(false);
-          });
-        } else {
-          this.doOpen(true);
-          this.inputOrButtonFocus();
-        }
-      }
-    },
     clearValues() {
-      this.dataValue = [];
-      this.inputOrButtonFocus();
+      this.dataValue = "";
+      this.$refs.input.focus();
       this.$emit("change", this.dataValue);
     },
     onFocusOut(ev) {
-      if (
-        !this.$el.contains(ev.relatedTarget) &&
-        !this.$refs.tag.$el.contains(ev.target)
-      ) {
+      if (!this.$el.contains(ev.relatedTarget)) {
         this.doOpen(false);
       }
     },
     onMousemove(val) {
       this.highlighted = val;
     },
+    internalUpdateValue(val) {
+      this.dataValue = val;
+      const filterOption = this.dataOptions.find((item) => item.value === val);
+      if (filterOption) {
+        this.filter = filterOption.label;
+      }
+    },
     onItemClick(val) {
       if (!val) {
         return;
       }
 
-      const index = this.dataValue.findIndex((item) => val === item);
-      if (index > -1) {
-        this.dataValue.splice(index, 1);
-      } else {
-        this.dataValue.push(val);
+      if (this.disabled) return;
 
-        if (
-          this.acceptUserInput &&
-          !this.internalOptions.find((item) => item.value === val)
-        ) {
-          this.internalOptions.push({
-            name: val,
-            label: val,
-            value: val,
-            type: this.userInputLabel,
-          });
-
-          this.$nextTick(() => {
-            this.clearFilter();
-          });
-        }
+      if (
+        this.acceptUserInput &&
+        !this.internalOptions.find((item) => item.value === val)
+      ) {
+        this.internalOptions.push({
+          name: val,
+          label: val,
+          value: val,
+          type: this.userInputLabel,
+        });
       }
 
-      if (this.selectionFeedback === selectionFeedbackOptions[TOP]) {
-        this.updateOptions();
-      }
-      this.$refs.button.focus();
+      this.internalUpdateValue(val);
+      this.$refs.input.focus();
+      this.open = false; // close after user makes a selection
       this.$emit("change", this.dataValue);
     },
     inputClick() {
+      if (this.disabled) return;
       if (!this.open) {
         this.doOpen(true);
       }
     },
     inputFocus() {
+      if (this.disabled) return;
       this.doOpen(true);
     },
   },
 };
 </script>
-
-<style scoped lang="scss">
-.bx--multi-select--filterable .bx--tag.selected-item {
-  margin-left: 0;
-  margin-bottom: 0.25rem;
-}
-</style>
-
-<style lang="scss">
-// global styles
-
-.selected-item button.bx--tag__close-icon {
-  position: relative;
-  right: 1px;
-}
-</style>

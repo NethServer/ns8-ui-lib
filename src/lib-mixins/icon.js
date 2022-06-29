@@ -46,6 +46,7 @@ import Star20 from "@carbon/icons-vue/es/star/20";
 import Checkmark20 from "@carbon/icons-vue/es/checkmark/20";
 import ZoomIn20 from "@carbon/icons-vue/es/zoom--in/20";
 import Events32 from "@carbon/icons-vue/es/events/32";
+import Events20 from "@carbon/icons-vue/es/events/20";
 import Link20 from "@carbon/icons-vue/es/link/20";
 import Link32 from "@carbon/icons-vue/es/link/32";
 import WarningAlt32 from "@carbon/icons-vue/es/warning--alt/32";
@@ -154,6 +155,7 @@ export default {
       Checkmark20,
       ZoomIn20, // used to open details
       Events32, // user domains
+      Events20,
       Link20, // URLs and external domain providers
       Link32,
       WarningAlt20,
