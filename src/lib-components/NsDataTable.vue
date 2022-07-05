@@ -380,6 +380,7 @@ export default {
     backwardText: { type: String, default: undefined },
     forwardText: { type: String, default: undefined },
     pageNumberLabel: { type: String, default: undefined },
+    filterRowsCallback: { type: Function }
   },
   data() {
     return {
@@ -455,9 +456,17 @@ export default {
       }
     },
     filterRows() {
+      if (this.filterRowsCallback) {
+        // call custom filterRows function
+        this.filteredRows = this.filterRowsCallback(this.searchFilter);
+      } else {
+        this.filteredRows = this.defaultFilterRows();
+      }
+    },
+    defaultFilterRows() {
       if (!this.searchFilter) {
-        this.filteredRows = this.allRows;
-      } else if (this.searchFilter) {
+        return this.allRows;
+      } else {
         // clean query
         const cleanRegex = /[^a-zA-Z0-9]/g;
         const queryText = this.searchFilter.replace(cleanRegex, "");
@@ -486,7 +495,7 @@ export default {
             }
           });
         }, this);
-        this.filteredRows = searchResults;
+        return searchResults;
       }
     },
     paginateTable(ev) {

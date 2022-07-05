@@ -7,6 +7,7 @@
       `cv-tag ${carbonPrefix}--tag`,
       `${carbonPrefix}--tag--${tagKind}`,
       {
+        [`${carbonPrefix}--tag--disabled`]: disabled,
         [`${carbonPrefix}--tag--filter`]: isFilter,
         [`${carbonPrefix}--tag--${size}`]: size,
       },

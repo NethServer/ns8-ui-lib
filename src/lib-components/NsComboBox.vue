@@ -1,7 +1,11 @@
 <template>
   <div
-    class="ns-combo-box cv-combo-box"
-    :class="`${carbonPrefix}--list-box__wrapper`"
+    :class="[
+      'ns-combo-box',
+      'cv-combo-box',
+      `${carbonPrefix}--list-box__wrapper`,
+      { 'margin-bottom-on-open': marginBottomOnOpenEnabled },
+    ]"
     @focusout="onFocusOut"
   >
     <label
@@ -11,8 +15,24 @@
         `${carbonPrefix}--label`,
         { [`${carbonPrefix}--label--disabled`]: disabled },
       ]"
-      >{{ title }}</label
     >
+      <div class="label-with-tooltip">
+        <span>
+          {{ title }}
+        </span>
+        <!-- tooltip -->
+        <cv-interactive-tooltip
+          v-if="hasTooltipSlot"
+          :alignment="tooltipAlignment"
+          :direction="tooltipDirection"
+          class="info"
+        >
+          <template slot="content">
+            <slot name="tooltip"></slot>
+          </template>
+        </cv-interactive-tooltip>
+      </div>
+    </label>
 
     <div
       role="listbox"
@@ -206,6 +226,17 @@ export default {
     maxDisplayOptions: { type: Number, default: 100 },
     acceptUserInput: { type: Boolean, default: false },
     showItemType: { type: Boolean, default: false },
+    marginBottomOnOpen: { type: Boolean, default: false },
+    tooltipAlignment: {
+      type: String,
+      default: "start",
+      validator: (val) => ["start", "center", "end"].includes(val),
+    },
+    tooltipDirection: {
+      type: String,
+      default: "bottom",
+      validator: (val) => ["top", "left", "bottom", "right".includes(val)],
+    },
   },
   data() {
     return {
@@ -218,6 +249,7 @@ export default {
       isInvalid: false,
       // includes user input items
       internalOptions: [],
+      marginBottomOnOpenEnabled: false,
     };
   },
   model: {
@@ -236,6 +268,19 @@ export default {
     options() {
       this.internalOptions = _cloneDeep(this.options);
       this.updateOptions();
+    },
+    open() {
+      if (this.marginBottomOnOpen) {
+        if (this.open) {
+          setTimeout(() => {
+            this.marginBottomOnOpenEnabled = true;
+          }, 300);
+        } else {
+          setTimeout(() => {
+            this.marginBottomOnOpenEnabled = false;
+          }, 300);
+        }
+      }
     },
   },
   created() {
@@ -285,6 +330,9 @@ export default {
     },
     limitedDataOptions() {
       return this.dataOptions.slice(0, this.maxDisplayOptions);
+    },
+    hasTooltipSlot() {
+      return !!this.$slots.tooltip;
     },
   },
   methods: {
@@ -510,3 +558,22 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.margin-bottom-on-open {
+  margin-bottom: 14rem;
+}
+
+.label-with-tooltip {
+  display: flex;
+  align-items: baseline;
+}
+</style>
+
+<style lang="scss">
+// global styles
+
+.ns-combo-box .bx--tooltip__label .bx--tooltip__trigger {
+  margin-left: 0.25rem;
+}
+</style>

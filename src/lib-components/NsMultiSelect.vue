@@ -8,6 +8,7 @@
         [`${carbonPrefix}--multi-select__wrapper--inline--invalid ${carbonPrefix}--list-box__wrapper--inline--invalid`]:
           inline && isInvalid,
         [`${carbonPrefix}--multi-select--filterable`]: filterable,
+        'margin-bottom-on-open': marginBottomOnOpenEnabled,
       },
     ]"
     @focusout="onFocusOut"
@@ -19,8 +20,24 @@
         `${carbonPrefix}--label`,
         { [`${carbonPrefix}--label--disabled`]: disabled },
       ]"
-      >{{ title }}</label
     >
+      <div class="label-with-tooltip">
+        <span>
+          {{ title }}
+        </span>
+        <!-- tooltip -->
+        <cv-interactive-tooltip
+          v-if="hasTooltipSlot"
+          :alignment="tooltipAlignment"
+          :direction="tooltipDirection"
+          class="info"
+        >
+          <template slot="content">
+            <slot name="tooltip"></slot>
+          </template>
+        </cv-interactive-tooltip>
+      </div>
+    </label>
 
     <div
       role="listbox"
@@ -102,6 +119,7 @@
             @input="onInput"
             @focus="inputFocus"
             @click.stop.prevent="inputClick"
+            :disabled="disabled"
           />
           <div
             v-if="filter.length > 0"
@@ -194,6 +212,7 @@
         :key="item.value"
         :label="item.label"
         :kind="selectedItemsColor"
+        :disabled="disabled"
         class="selected-item"
       />
     </div>
@@ -291,6 +310,17 @@ export default {
     showItemType: { type: Boolean, default: false },
     // use cv-tag color
     selectedItemsColor: { type: String, default: "high-contrast" },
+    marginBottomOnOpen: { type: Boolean, default: false },
+    tooltipAlignment: {
+      type: String,
+      default: "start",
+      validator: (val) => ["start", "center", "end"].includes(val),
+    },
+    tooltipDirection: {
+      type: String,
+      default: "bottom",
+      validator: (val) => ["top", "left", "bottom", "right".includes(val)],
+    },
   },
   data() {
     return {
@@ -303,6 +333,7 @@ export default {
       dataFilter: "",
       isHelper: false,
       isInvalid: false,
+      marginBottomOnOpenEnabled: false,
     };
   },
   model: {
@@ -328,6 +359,19 @@ export default {
     },
     selectionFeedback() {
       this.updateOptions();
+    },
+    open() {
+      if (this.marginBottomOnOpen) {
+        if (this.open) {
+          setTimeout(() => {
+            this.marginBottomOnOpenEnabled = true;
+          }, 300);
+        } else {
+          setTimeout(() => {
+            this.marginBottomOnOpenEnabled = false;
+          }, 300);
+        }
+      }
     },
   },
   created() {
@@ -388,6 +432,9 @@ export default {
       return this.dataValue.map((val) =>
         this.internalOptions.find((opt) => opt.value === val)
       );
+    },
+    hasTooltipSlot() {
+      return !!this.$slots.tooltip;
     },
   },
   methods: {
@@ -650,6 +697,15 @@ export default {
   margin-left: 0;
   margin-bottom: 0.25rem;
 }
+
+.margin-bottom-on-open {
+  margin-bottom: 14rem;
+}
+
+.label-with-tooltip {
+  display: flex;
+  align-items: baseline;
+}
 </style>
 
 <style lang="scss">
@@ -658,5 +714,9 @@ export default {
 .selected-item button.bx--tag__close-icon {
   position: relative;
   right: 1px;
+}
+
+.ns-multi-select .bx--tooltip__label .bx--tooltip__trigger {
+  margin-left: 0.25rem;
 }
 </style>
