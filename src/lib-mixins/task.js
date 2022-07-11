@@ -181,5 +181,8 @@ export default {
     createNotificationForApp(notification) {
       window.parent.core.$root.$emit("createNotificationForApp", notification);
     },
+    deleteNotificationForApp(notification) {
+      window.parent.core.$root.$emit("deleteNotificationForApp", notification);
+    },
   },
 };
