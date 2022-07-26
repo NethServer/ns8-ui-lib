@@ -32,14 +32,6 @@
       :data-contained-checkbox-disabled="$attrs.disabled"
       :for="uid"
     >
-      <!-- <span ////
-        :class="[
-          `${carbonPrefix}--checkbox-label-text`,
-          { [`${carbonPrefix}--visually-hidden`]: hideLabel },
-        ]"
-      >
-        {{ label }}
-      </span> -->
       <div
         :class="[
           `${carbonPrefix}--checkbox-label-text`,

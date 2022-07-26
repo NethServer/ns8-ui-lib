@@ -122,6 +122,9 @@ import Folder32 from "@carbon/icons-vue/es/folder/32";
 import Asterisk16 from "@carbon/icons-vue/es/asterisk/16";
 import Asterisk20 from "@carbon/icons-vue/es/asterisk/20";
 import Asterisk32 from "@carbon/icons-vue/es/asterisk/32";
+import Box16 from "@carbon/icons-vue/es/box/16";
+import Box20 from "@carbon/icons-vue/es/box/20";
+import Box32 from "@carbon/icons-vue/es/box/32";
 
 export default {
   name: "IconService",
@@ -245,12 +248,15 @@ export default {
       Locked16, // private email address
       Locked20,
       Locked32,
-      Folder16, // public mailbox
+      Folder16,
       Folder20,
       Folder32,
       Asterisk16, // wildcard email domain
       Asterisk20,
       Asterisk32,
+      Box16, // mailboxes
+      Box20,
+      Box32,
     };
   },
 };
