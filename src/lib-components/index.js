@@ -34,6 +34,7 @@ export { default as NsMultiSelect } from "./NsMultiSelect.vue";
 export { default as NsComboBox } from "./NsComboBox.vue";
 export { default as NsCheckbox } from "./NsCheckbox.vue";
 export { default as NsByteSlider } from "./NsByteSlider.vue";
+export { default as NsTabs } from "./NsTabs.vue";
 
 // Pictograms
 export { default as ExclamationMarkPictogram } from "./pictograms/ExclamationMarkPictogram.vue";

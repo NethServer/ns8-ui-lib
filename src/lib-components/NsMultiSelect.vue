@@ -204,13 +204,13 @@
     <!-- show selected items -->
     <div v-if="showSelectedItems && dataValue.length" class="mg-top-sm">
       <NsTag
-        v-for="item in selectedItems"
+        v-for="(item, index) in selectedItems"
         filter
-        @remove="onItemClick(item.value)"
+        @remove="onItemClick(item ? item.value : '')"
         size="sm"
         :clear-aria-label="unselectAriaLabel"
-        :key="item.value"
-        :label="item.label"
+        :key="index"
+        :label="item ? item.label : ''"
         :kind="selectedItemsColor"
         :disabled="disabled"
         class="selected-item"
