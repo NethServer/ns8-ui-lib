@@ -19,14 +19,16 @@
           },
         ]"
       >
-        <div>
-          {{ label }}
+        <div class="label-with-tooltip">
+          <span>
+            {{ label }}
+          </span>
           <!-- tooltip -->
           <cv-interactive-tooltip
             v-if="hasTooltipSlot"
             :alignment="tooltipAlignment"
             :direction="tooltipDirection"
-            class="tooltip info"
+            class="info"
           >
             <template slot="content">
               <slot name="tooltip"></slot>
@@ -158,9 +160,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.tooltip {
-  display: inline-block;
-  position: absolute;
+.label-with-tooltip {
+  display: flex;
+  align-items: baseline;
 }
 
 .prefix {

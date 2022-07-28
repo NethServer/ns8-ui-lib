@@ -55,6 +55,7 @@ export default {
     warningThreshold: { type: Number, default: 70 },
     dangerThreshold: { type: Number, default: 90 },
     useStatusColors: { type: Boolean, default: false },
+    useHealthyColor: { type: Boolean, default: true },
   },
   data() {
     return {
@@ -77,7 +78,11 @@ export default {
       return Number(this.value) || 0;
     },
     healthyStatus() {
-      return this.useStatusColors && this.numericValue < this.warningThreshold;
+      return (
+        this.useStatusColors &&
+        this.useHealthyColor &&
+        this.numericValue < this.warningThreshold
+      );
     },
     warningStatus() {
       return (

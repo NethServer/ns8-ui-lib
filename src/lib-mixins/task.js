@@ -162,7 +162,7 @@ export default {
           return this.$t("task." + taskOrSubtask + "_pending", {
             task: taskLabel,
           });
-          case "running":
+        case "running":
           return this.$t("task." + taskOrSubtask + "_running", {
             task: taskLabel,
           });
@@ -177,6 +177,12 @@ export default {
     createErrorNotificationForApp(err, message) {
       console.error(err);
       window.parent.core.$root.$emit("createErrorNotification", err, message);
+    },
+    createNotificationForApp(notification) {
+      window.parent.core.$root.$emit("createNotificationForApp", notification);
+    },
+    deleteNotificationForApp(notification) {
+      window.parent.core.$root.$emit("deleteNotificationForApp", notification);
     },
   },
 };
