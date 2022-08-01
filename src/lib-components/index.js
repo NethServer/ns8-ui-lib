@@ -29,6 +29,13 @@ export { default as NsTimePicker } from "./NsTimePicker.vue";
 export { default as NsDataTable } from "./NsDataTable.vue";
 export { default as NsPagination } from "./NsPagination.vue";
 export { default as NsToggle } from "./NsToggle.vue";
+export { default as NsTag } from "./NsTag.vue";
+export { default as NsMultiSelect } from "./NsMultiSelect.vue";
+export { default as NsComboBox } from "./NsComboBox.vue";
+export { default as NsCheckbox } from "./NsCheckbox.vue";
+export { default as NsByteSlider } from "./NsByteSlider.vue";
+export { default as NsTabs } from "./NsTabs.vue";
+export { default as NsSlider } from "./NsSlider.vue";
 
 // Pictograms
 export { default as ExclamationMarkPictogram } from "./pictograms/ExclamationMarkPictogram.vue";

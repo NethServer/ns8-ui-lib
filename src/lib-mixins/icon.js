@@ -46,6 +46,8 @@ import Star20 from "@carbon/icons-vue/es/star/20";
 import Checkmark20 from "@carbon/icons-vue/es/checkmark/20";
 import ZoomIn20 from "@carbon/icons-vue/es/zoom--in/20";
 import Events32 from "@carbon/icons-vue/es/events/32";
+import Events20 from "@carbon/icons-vue/es/events/20";
+import Events16 from "@carbon/icons-vue/es/events/16";
 import Link20 from "@carbon/icons-vue/es/link/20";
 import Link32 from "@carbon/icons-vue/es/link/32";
 import WarningAlt32 from "@carbon/icons-vue/es/warning--alt/32";
@@ -97,6 +99,32 @@ import Certificate20 from "@carbon/icons-vue/es/certificate/20";
 import BareMetalServer20 from "@carbon/icons-vue/es/bare-metal-server/20";
 import Firewall20 from "@carbon/icons-vue/es/firewall/20";
 import Firewall32 from "@carbon/icons-vue/es/firewall/32";
+import Wikis32 from "@carbon/icons-vue/es/wikis/32";
+import Wikis20 from "@carbon/icons-vue/es/wikis/20";
+import Wikis16 from "@carbon/icons-vue/es/wikis/16";
+import At32 from "@carbon/icons-vue/es/at/32";
+import At20 from "@carbon/icons-vue/es/at/20";
+import User16 from "@carbon/icons-vue/es/user/16";
+import User20 from "@carbon/icons-vue/es/user/20";
+import User32 from "@carbon/icons-vue/es/user/32";
+import Unknown16 from "@carbon/icons-vue/es/unknown/16";
+import Unknown20 from "@carbon/icons-vue/es/unknown/20";
+import Unknown32 from "@carbon/icons-vue/es/unknown/32";
+import Email16 from "@carbon/icons-vue/es/email/16";
+import Email20 from "@carbon/icons-vue/es/email/20";
+import Email32 from "@carbon/icons-vue/es/email/32";
+import Locked16 from "@carbon/icons-vue/es/locked/16";
+import Locked20 from "@carbon/icons-vue/es/locked/20";
+import Locked32 from "@carbon/icons-vue/es/locked/32";
+import Folder16 from "@carbon/icons-vue/es/folder/16";
+import Folder20 from "@carbon/icons-vue/es/folder/20";
+import Folder32 from "@carbon/icons-vue/es/folder/32";
+import Asterisk16 from "@carbon/icons-vue/es/asterisk/16";
+import Asterisk20 from "@carbon/icons-vue/es/asterisk/20";
+import Asterisk32 from "@carbon/icons-vue/es/asterisk/32";
+import Box16 from "@carbon/icons-vue/es/box/16";
+import Box20 from "@carbon/icons-vue/es/box/20";
+import Box32 from "@carbon/icons-vue/es/box/32";
 
 export default {
   name: "IconService",
@@ -149,7 +177,9 @@ export default {
       Star20, // favorite apps
       Checkmark20,
       ZoomIn20, // used to open details
-      Events32, // domains
+      Events32, // user domains
+      Events20,
+      Events16,
       Link20, // URLs and external domain providers
       Link32,
       WarningAlt20,
@@ -201,6 +231,32 @@ export default {
       BareMetalServer20, // acme server
       Firewall20,
       Firewall32,
+      Wikis32, // domain
+      Wikis20,
+      Wikis16,
+      At32, // email address
+      At20,
+      User16,
+      User20,
+      User32,
+      Unknown16, // unknown icon (question mark)
+      Unknown20,
+      Unknown32,
+      Email16,
+      Email20,
+      Email32,
+      Locked16, // private email address
+      Locked20,
+      Locked32,
+      Folder16,
+      Folder20,
+      Folder32,
+      Asterisk16, // wildcard email domain
+      Asterisk20,
+      Asterisk32,
+      Box16, // mailboxes
+      Box20,
+      Box32,
     };
   },
 };

@@ -380,6 +380,7 @@ export default {
     backwardText: { type: String, default: undefined },
     forwardText: { type: String, default: undefined },
     pageNumberLabel: { type: String, default: undefined },
+    filterRowsCallback: { type: Function },
   },
   data() {
     return {
@@ -455,9 +456,40 @@ export default {
       }
     },
     filterRows() {
+      if (this.filterRowsCallback) {
+        // call custom filterRows function
+        this.filteredRows = this.filterRowsCallback(this.searchFilter);
+      } else {
+        this.filteredRows = this.defaultFilterRows();
+      }
+    },
+    searchMatch(target, cleanRegex, queryText) {
+      if (Array.isArray(target)) {
+        // search field is an array (e.g. groups)
+        return target.some((elem) => {
+          return this.searchMatch(elem, cleanRegex, queryText);
+        });
+      } else if (typeof target === "string") {
+        // search field is a simple string
+        return new RegExp(queryText, "i").test(target.replace(cleanRegex, ""));
+      } else if (typeof target === "number") {
+        // search field is a number
+        return new RegExp(queryText, "i").test(
+          target.toString().replace(cleanRegex, "")
+        );
+      } else if (typeof target === "object") {
+        // search field is an object, search in its attributes
+
+        return Object.keys(target).some((key) => {
+          // recursion
+          return this.searchMatch(target[key], cleanRegex, queryText);
+        });
+      }
+    },
+    defaultFilterRows() {
       if (!this.searchFilter) {
-        this.filteredRows = this.allRows;
-      } else if (this.searchFilter) {
+        return this.allRows;
+      } else {
         // clean query
         const cleanRegex = /[^a-zA-Z0-9]/g;
         const queryText = this.searchFilter.replace(cleanRegex, "");
@@ -465,28 +497,16 @@ export default {
         const searchResults = this.allRows.filter((option) => {
           // compare query text with attributes option
           return this.rawColumns.some((searchField) => {
-            const searchValue = option[searchField];
+            const target = option[searchField];
 
-            if (searchValue) {
-              if (Array.isArray(searchValue)) {
-                // search field is an array (e.g. groups)
-                return searchValue.some((elem) => {
-                  return new RegExp(queryText, "i").test(
-                    elem.replace(cleanRegex, "")
-                  );
-                });
-              } else {
-                // search field is a simple string
-                return new RegExp(queryText, "i").test(
-                  searchValue.replace(cleanRegex, "")
-                );
-              }
+            if (target) {
+              return this.searchMatch(target, cleanRegex, queryText);
             } else {
               return false;
             }
           });
         }, this);
-        this.filteredRows = searchResults;
+        return searchResults;
       }
     },
     paginateTable(ev) {
