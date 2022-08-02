@@ -12,101 +12,105 @@
       >
         {{ label }}
       </label>
-      <!-- unlimited checkbox -->
-      <NsCheckbox
-        v-if="showUnlimited"
-        :label="unlimitedLabel"
+      <!-- unlimited toggle -->
+      <NsToggle
+        value="unlimitedValue"
+        :form-item="true"
         v-model="internalUnlimited"
         :disabled="disabled"
-        value="checkUnlimited"
-        class="is-unlimited"
-      />
-      <div :class="`${carbonPrefix}--slider-container`">
-        <span
-          v-if="internalMinLabel"
-          :class="`${carbonPrefix}--slider__range-label`"
-          >{{ internalMinLabel }}</span
-        >
-        <div
-          :class="[
-            `${carbonPrefix}--slider`,
-            {
-              [`${carbonPrefix}--slider--disabled`]:
-                disabled || internalUnlimited,
-            },
-          ]"
-          data-slider
-          data-slider-input-box="#slider-input-box"
-        >
-          <div
-            :class="`${carbonPrefix}--slider__track`"
-            @click="onTrackClick"
-            ref="track"
-          ></div>
-          <div
-            :class="`${carbonPrefix}--slider__filled-track`"
-            :style="`width: ${percentage};`"
-          ></div>
+        :class="['toggle-without-label', 'is-unlimited']"
+      >
+        <template slot="text-left">{{ unlimitedLabel }} </template>
+        <template slot="text-right">{{ unlimitedLabel }} </template>
+      </NsToggle>
+      <div v-show="!internalUnlimited">
+        <div :class="`${carbonPrefix}--slider-container`">
+          <span
+            v-if="internalMinLabel"
+            :class="`${carbonPrefix}--slider__range-label`"
+            >{{ internalMinLabel }}</span
+          >
           <div
             :class="[
-              `${carbonPrefix}--slider__thumb`,
+              `${carbonPrefix}--slider`,
               {
-                [`${carbonPrefix}--slider__thumb--clicked`]: animateClick,
+                [`${carbonPrefix}--slider--disabled`]:
+                  disabled || internalUnlimited,
               },
             ]"
-            tabindex="0"
-            :aria-labelledby="labelId"
-            :style="`left: ${percentage};`"
-            ref="thumb"
-            @keydown.up.right.prevent="onUp"
-            @keydown.down.left.prevent="onDown"
-            @mousedown="onStartDrag"
-          ></div>
+            data-slider
+            data-slider-input-box="#slider-input-box"
+          >
+            <div
+              :class="`${carbonPrefix}--slider__track`"
+              @click="onTrackClick"
+              ref="track"
+            ></div>
+            <div
+              :class="`${carbonPrefix}--slider__filled-track`"
+              :style="`width: ${percentage};`"
+            ></div>
+            <div
+              :class="[
+                `${carbonPrefix}--slider__thumb`,
+                {
+                  [`${carbonPrefix}--slider__thumb--clicked`]: animateClick,
+                },
+              ]"
+              tabindex="0"
+              :aria-labelledby="labelId"
+              :style="`left: ${percentage};`"
+              ref="thumb"
+              @keydown.up.right.prevent="onUp"
+              @keydown.down.left.prevent="onDown"
+              @mousedown="onStartDrag"
+            ></div>
+            <input
+              :id="uid"
+              :class="`${carbonPrefix}--slider__input`"
+              type="range"
+              :step="step"
+              :min="min"
+              :max="max"
+              ref="range"
+            />
+          </div>
+          <span
+            v-if="internalMaxLabel"
+            :class="`${carbonPrefix}--slider__range-label`"
+            >{{ internalMaxLabel }}</span
+          >
           <input
-            :id="uid"
-            :class="`${carbonPrefix}--slider__input`"
-            type="range"
-            :step="step"
-            :min="min"
-            :max="max"
-            ref="range"
+            type="number"
+            :class="[
+              `${carbonPrefix}--text-input ${carbonPrefix}--slider-text-input`,
+              {
+                [`${carbonPrefix}--text-input--light`]: isLight,
+                [`${carbonPrefix}--text-input--invalid`]: isInvalid,
+                [`${carbonPrefix}--text-input--warning`]: isWarn,
+              },
+              ,
+              'range-input',
+            ]"
+            :placeholder="min"
+            v-model="internalValue"
+            @change="onChange"
+            ref="inputBox"
+            @keydown.up.prevent="onUp"
+            @keydown.down.prevent="onDown"
+            :disabled="disabled || internalUnlimited"
           />
+          <span
+            :class="[
+              `unit-label`,
+              {
+                [`${carbonPrefix}--label--disabled`]:
+                  disabled || internalUnlimited,
+              },
+            ]"
+            >{{ unitLabel }}</span
+          >
         </div>
-        <span
-          v-if="internalMaxLabel"
-          :class="`${carbonPrefix}--slider__range-label`"
-          >{{ internalMaxLabel }}</span
-        >
-        <input
-          type="number"
-          :class="[
-            `${carbonPrefix}--text-input ${carbonPrefix}--slider-text-input`,
-            {
-              [`${carbonPrefix}--text-input--light`]: isLight,
-              [`${carbonPrefix}--text-input--invalid`]: isInvalid,
-              [`${carbonPrefix}--text-input--warning`]: isWarn,
-            },
-            ,
-            'range-input',
-          ]"
-          :placeholder="min"
-          v-model="internalValue"
-          @change="onChange"
-          ref="inputBox"
-          @keydown.up.prevent="onUp"
-          @keydown.down.prevent="onDown"
-          :disabled="disabled || internalUnlimited"
-        />
-        <span
-          :class="[
-            `unit-label`,
-            {
-              [`${carbonPrefix}--label--disabled`]:
-                disabled || internalUnlimited,
-            },
-          ]"
-          >{{ unitLabel }}</span
-        >
       </div>
     </div>
     <div :class="`${carbonPrefix}--form-requirement`" v-if="isInvalid">
@@ -365,7 +369,7 @@ export default {
 
 <style scoped lang="scss">
 .is-unlimited {
-  margin-top: 0.5rem !important;
+  margin-top: 0.25rem !important;
   margin-bottom: 0.5rem !important;
 }
 
