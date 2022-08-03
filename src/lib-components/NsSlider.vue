@@ -12,17 +12,25 @@
       >
         {{ label }}
       </label>
-      <!-- unlimited toggle -->
-      <NsToggle
-        value="unlimitedValue"
-        :form-item="true"
-        v-model="internalUnlimited"
-        :disabled="disabled"
-        :class="['toggle-without-label', 'is-unlimited']"
-      >
-        <template slot="text-left">{{ unlimitedLabel }} </template>
-        <template slot="text-right">{{ unlimitedLabel }} </template>
-      </NsToggle>
+      <!-- unlimited/limited radio buttons -->
+      <template v-if="showUnlimited">
+        <cv-radio-group vertical :class="{ 'no-mg-bottom': internalUnlimited }">
+          <cv-radio-button
+            :name="'radio-group-' + uid"
+            :label="unlimitedLabel"
+            value="unlimited"
+            v-model="radioValue"
+            :disabled="disabled"
+          />
+          <cv-radio-button
+            :name="'radio-group-' + uid"
+            :label="limitedLabel"
+            value="limited"
+            v-model="radioValue"
+            :disabled="disabled"
+          />
+        </cv-radio-group>
+      </template>
       <div v-show="!internalUnlimited">
         <div :class="`${carbonPrefix}--slider-container`">
           <span
@@ -162,6 +170,7 @@ export default {
     showUnlimited: { type: Boolean, default: false },
     isUnlimited: { type: Boolean, default: false },
     unlimitedLabel: { type: String, default: "Unlimited" },
+    limitedLabel: { type: String, default: "Limited" },
     invalidMessage: { type: String, default: "" },
     unitLabel: { type: String, default: "" },
   },
@@ -177,8 +186,8 @@ export default {
       dragStartX: 0,
       dragStartValue: 0,
       percentage: "0%",
-      internalUnlimited: false,
       isInvalid: false,
+      radioValue: "limited",
     };
   },
   computed: {
@@ -196,9 +205,12 @@ export default {
       // default to 4 fro multiplier
       return isNaN(intMultiplier) ? 4 : Math.max(intMultiplier, 1);
     },
+    internalUnlimited() {
+      return this.radioValue === "unlimited";
+    },
   },
   created() {
-    this.internalUnlimited = this.isUnlimited;
+    this.radioValue = this.isUnlimited ? "unlimited" : "limited";
   },
   mounted() {
     this.$refs.range.value = this.value;
@@ -232,7 +244,7 @@ export default {
       });
     },
     isUnlimited() {
-      this.internalUnlimited = this.isUnlimited;
+      this.radioValue = this.isUnlimited ? "unlimited" : "limited";
     },
     internalUnlimited() {
       if (this.internalUnlimited) {
@@ -368,11 +380,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.is-unlimited {
-  margin-top: 0.25rem !important;
-  margin-bottom: 0.5rem !important;
-}
-
 .range-input {
   margin-top: 0.5rem !important;
 }
@@ -380,6 +387,10 @@ export default {
 .unit-label {
   margin-top: 0.5rem !important;
   margin-left: 1rem;
+}
+
+.ns-slider .cv-radio-group.bx--form-item {
+  margin-bottom: 0.5rem;
 }
 </style>
 

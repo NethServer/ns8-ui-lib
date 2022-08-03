@@ -97,6 +97,7 @@ import Router20 from "@carbon/icons-vue/es/router/20";
 import Certificate32 from "@carbon/icons-vue/es/certificate/32";
 import Certificate20 from "@carbon/icons-vue/es/certificate/20";
 import BareMetalServer20 from "@carbon/icons-vue/es/bare-metal-server/20";
+import BareMetalServer32 from "@carbon/icons-vue/es/bare-metal-server/32";
 import Firewall20 from "@carbon/icons-vue/es/firewall/20";
 import Firewall32 from "@carbon/icons-vue/es/firewall/32";
 import Wikis32 from "@carbon/icons-vue/es/wikis/32";
@@ -125,6 +126,7 @@ import Asterisk32 from "@carbon/icons-vue/es/asterisk/32";
 import Box16 from "@carbon/icons-vue/es/box/16";
 import Box20 from "@carbon/icons-vue/es/box/20";
 import Box32 from "@carbon/icons-vue/es/box/32";
+import UserMilitary32 from "@carbon/icons-vue/es/user--military/32";
 
 export default {
   name: "IconService",
@@ -228,7 +230,8 @@ export default {
       Router20,
       Certificate32,
       Certificate20,
-      BareMetalServer20, // acme server
+      BareMetalServer20, // acme server, host, hostname
+      BareMetalServer32,
       Firewall20,
       Firewall32,
       Wikis32, // domain
@@ -257,6 +260,7 @@ export default {
       Box16, // mailboxes
       Box20,
       Box32,
+      UserMilitary32, // master user
     };
   },
 };

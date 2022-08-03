@@ -12,17 +12,25 @@
       >
         {{ label }}
       </label>
-      <!-- unlimited toggle -->
-      <NsToggle
-        value="unlimitedValue"
-        :form-item="true"
-        v-model="internalUnlimited"
-        :disabled="disabled"
-        :class="['toggle-without-label', 'is-unlimited']"
-      >
-        <template slot="text-left">{{ unlimitedLabel }} </template>
-        <template slot="text-right">{{ unlimitedLabel }} </template>
-      </NsToggle>
+      <!-- unlimited/limited radio buttons -->
+      <template v-if="showUnlimited">
+        <cv-radio-group vertical :class="{ 'no-mg-bottom': internalUnlimited }">
+          <cv-radio-button
+            :name="'radio-group-' + uid"
+            :label="unlimitedLabel"
+            value="unlimited"
+            v-model="radioValue"
+            :disabled="disabled"
+          />
+          <cv-radio-button
+            :name="'radio-group-' + uid"
+            :label="limitedLabel"
+            value="limited"
+            v-model="radioValue"
+            :disabled="disabled"
+          />
+        </cv-radio-group>
+      </template>
       <div v-show="!internalUnlimited">
         <div :class="`${carbonPrefix}--slider-container`">
           <span
@@ -179,6 +187,7 @@ export default {
     isUnlimited: { type: Boolean, default: false },
     byteUnit: { type: String, default: "gib" },
     unlimitedLabel: { type: String, default: "Unlimited" },
+    limitedLabel: { type: String, default: "Limited" },
     showHumanReadableLabel: { type: Boolean, default: false },
     showMibGibToggle: { type: Boolean, default: false },
     tagKind: { type: String, default: "high-contrast" },
@@ -196,9 +205,9 @@ export default {
       dragStartX: 0,
       dragStartValue: 0,
       percentage: "0%",
-      internalUnlimited: false,
       internalByteUnit: "gib",
       isInvalid: false,
+      radioValue: "limited",
     };
   },
   computed: {
@@ -224,9 +233,12 @@ export default {
         return this.mibFormat(this.internalValue);
       }
     },
+    internalUnlimited() {
+      return this.radioValue === "unlimited";
+    },
   },
   created() {
-    this.internalUnlimited = this.isUnlimited;
+    this.radioValue = this.isUnlimited ? "unlimited" : "limited";
     this.internalByteUnit = this.byteUnit;
   },
   mounted() {
@@ -261,7 +273,7 @@ export default {
       });
     },
     isUnlimited() {
-      this.internalUnlimited = this.isUnlimited;
+      this.radioValue = this.isUnlimited ? "unlimited" : "limited";
     },
     internalUnlimited() {
       if (this.internalUnlimited) {
@@ -442,11 +454,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.is-unlimited {
-  margin-top: 0.25rem !important;
-  margin-bottom: 0.5rem !important;
-}
-
 .range-input {
   margin-top: 0.5rem !important;
 }
@@ -459,6 +466,10 @@ export default {
 
 .human-label {
   margin-top: 1rem;
+}
+
+.ns-byte-slider .cv-radio-group.bx--form-item {
+  margin-bottom: 0.5rem;
 }
 </style>
 
