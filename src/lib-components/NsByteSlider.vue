@@ -12,118 +12,130 @@
       >
         {{ label }}
       </label>
-      <!-- unlimited checkbox -->
-      <NsCheckbox
-        v-if="showUnlimited"
-        :label="unlimitedLabel"
-        v-model="internalUnlimited"
-        :disabled="disabled"
-        value="checkUnlimited"
-        class="is-unlimited"
-      />
-      <div :class="`${carbonPrefix}--slider-container`">
-        <span
-          v-if="internalMinLabel"
-          :class="`${carbonPrefix}--slider__range-label`"
-          >{{ internalMinLabel }}</span
-        >
-        <div
-          :class="[
-            `${carbonPrefix}--slider`,
-            {
-              [`${carbonPrefix}--slider--disabled`]:
-                disabled || internalUnlimited,
-            },
-          ]"
-          data-slider
-          data-slider-input-box="#slider-input-box"
-        >
-          <div
-            :class="`${carbonPrefix}--slider__track`"
-            @click="onTrackClick"
-            ref="track"
-          ></div>
-          <div
-            :class="`${carbonPrefix}--slider__filled-track`"
-            :style="`width: ${percentage};`"
-          ></div>
-          <div
-            :class="[
-              `${carbonPrefix}--slider__thumb`,
-              {
-                [`${carbonPrefix}--slider__thumb--clicked`]: animateClick,
-              },
-            ]"
-            tabindex="0"
-            :aria-labelledby="labelId"
-            :style="`left: ${percentage};`"
-            ref="thumb"
-            @keydown.up.right.prevent="onUp"
-            @keydown.down.left.prevent="onDown"
-            @mousedown="onStartDrag"
-          ></div>
-          <input
-            :id="uid"
-            :class="`${carbonPrefix}--slider__input`"
-            type="range"
-            :step="step"
-            :min="min"
-            :max="max"
-            ref="range"
-          />
-        </div>
-        <span
-          v-if="internalMaxLabel"
-          :class="`${carbonPrefix}--slider__range-label`"
-          >{{ internalMaxLabel }}</span
-        >
-        <input
-          type="number"
-          :class="[
-            `${carbonPrefix}--text-input ${carbonPrefix}--slider-text-input`,
-            {
-              [`${carbonPrefix}--text-input--light`]: isLight,
-              [`${carbonPrefix}--text-input--invalid`]: isInvalid,
-              [`${carbonPrefix}--text-input--warning`]: isWarn,
-            },
-            ,
-            'range-input',
-          ]"
-          :placeholder="min"
-          v-model="internalValue"
-          @change="onChange"
-          ref="inputBox"
-          @keydown.up.prevent="onUp"
-          @keydown.down.prevent="onDown"
-          :disabled="disabled || internalUnlimited"
-        />
-        <!-- MiB/GiB toggle -->
-        <cv-radio-group v-if="showMibGibToggle" class="mib-gib">
+      <!-- unlimited/limited radio buttons -->
+      <template v-if="showUnlimited">
+        <cv-radio-group vertical :class="{ 'no-mg-bottom': internalUnlimited }">
           <cv-radio-button
-            v-model="internalByteUnit"
-            name="group-mib-gib"
-            label="MiB"
-            value="mib"
-            :disabled="disabled || internalUnlimited"
+            :name="'radio-group-' + uid"
+            :label="unlimitedLabel"
+            value="unlimited"
+            v-model="radioValue"
+            :disabled="disabled"
           />
           <cv-radio-button
-            v-model="internalByteUnit"
-            name="group-mib-gib"
-            label="GiB"
-            value="gib"
-            :disabled="disabled || internalUnlimited"
+            :name="'radio-group-' + uid"
+            :label="limitedLabel"
+            value="limited"
+            v-model="radioValue"
+            :disabled="disabled"
           />
         </cv-radio-group>
+      </template>
+      <div v-show="!internalUnlimited">
+        <div :class="`${carbonPrefix}--slider-container`">
+          <span
+            v-if="internalMinLabel"
+            :class="`${carbonPrefix}--slider__range-label`"
+            >{{ internalMinLabel }}</span
+          >
+          <div
+            :class="[
+              `${carbonPrefix}--slider`,
+              {
+                [`${carbonPrefix}--slider--disabled`]:
+                  disabled || internalUnlimited,
+              },
+            ]"
+            data-slider
+            data-slider-input-box="#slider-input-box"
+          >
+            <div
+              :class="`${carbonPrefix}--slider__track`"
+              @click="onTrackClick"
+              ref="track"
+            ></div>
+            <div
+              :class="`${carbonPrefix}--slider__filled-track`"
+              :style="`width: ${percentage};`"
+            ></div>
+            <div
+              :class="[
+                `${carbonPrefix}--slider__thumb`,
+                {
+                  [`${carbonPrefix}--slider__thumb--clicked`]: animateClick,
+                },
+              ]"
+              tabindex="0"
+              :aria-labelledby="labelId"
+              :style="`left: ${percentage};`"
+              ref="thumb"
+              @keydown.up.right.prevent="onUp"
+              @keydown.down.left.prevent="onDown"
+              @mousedown="onStartDrag"
+            ></div>
+            <input
+              :id="uid"
+              :class="`${carbonPrefix}--slider__input`"
+              type="range"
+              :step="step"
+              :min="min"
+              :max="max"
+              ref="range"
+            />
+          </div>
+          <span
+            v-if="internalMaxLabel"
+            :class="`${carbonPrefix}--slider__range-label`"
+            >{{ internalMaxLabel }}</span
+          >
+          <input
+            type="number"
+            :class="[
+              `${carbonPrefix}--text-input ${carbonPrefix}--slider-text-input`,
+              {
+                [`${carbonPrefix}--text-input--light`]: isLight,
+                [`${carbonPrefix}--text-input--invalid`]: isInvalid,
+                [`${carbonPrefix}--text-input--warning`]: isWarn,
+              },
+              ,
+              'range-input',
+            ]"
+            :placeholder="min"
+            v-model="internalValue"
+            @change="onChange"
+            ref="inputBox"
+            @keydown.up.prevent="onUp"
+            @keydown.down.prevent="onDown"
+            :disabled="disabled || internalUnlimited"
+          />
+          <!-- MiB/GiB toggle -->
+          <cv-radio-group v-if="showMibGibToggle" class="mib-gib">
+            <cv-radio-button
+              v-model="internalByteUnit"
+              name="group-mib-gib"
+              label="MiB"
+              value="mib"
+              :disabled="disabled || internalUnlimited"
+            />
+            <cv-radio-button
+              v-model="internalByteUnit"
+              name="group-mib-gib"
+              label="GiB"
+              value="gib"
+              :disabled="disabled || internalUnlimited"
+            />
+          </cv-radio-group>
+        </div>
+        <!-- human readable label -->
+        <NsTag
+          v-if="showHumanReadableLabel && !internalUnlimited"
+          :label="humanReadableLabel"
+          :kind="tagKind"
+          :disabled="disabled || internalUnlimited"
+          class="human-label"
+        >
+        </NsTag>
       </div>
-      <!-- human readable label -->
-      <NsTag
-        v-if="showHumanReadableLabel && !internalUnlimited"
-        :label="humanReadableLabel"
-        :kind="tagKind"
-        :disabled="disabled || internalUnlimited"
-        class="human-label"
-      >
-      </NsTag>
     </div>
     <div :class="`${carbonPrefix}--form-requirement`" v-if="isInvalid">
       <slot name="invalid-message">{{ invalidMessage }}</slot>
@@ -175,6 +187,7 @@ export default {
     isUnlimited: { type: Boolean, default: false },
     byteUnit: { type: String, default: "gib" },
     unlimitedLabel: { type: String, default: "Unlimited" },
+    limitedLabel: { type: String, default: "Limited" },
     showHumanReadableLabel: { type: Boolean, default: false },
     showMibGibToggle: { type: Boolean, default: false },
     tagKind: { type: String, default: "high-contrast" },
@@ -192,9 +205,9 @@ export default {
       dragStartX: 0,
       dragStartValue: 0,
       percentage: "0%",
-      internalUnlimited: false,
       internalByteUnit: "gib",
       isInvalid: false,
+      radioValue: "limited",
     };
   },
   computed: {
@@ -220,9 +233,12 @@ export default {
         return this.mibFormat(this.internalValue);
       }
     },
+    internalUnlimited() {
+      return this.radioValue === "unlimited";
+    },
   },
   created() {
-    this.internalUnlimited = this.isUnlimited;
+    this.radioValue = this.isUnlimited ? "unlimited" : "limited";
     this.internalByteUnit = this.byteUnit;
   },
   mounted() {
@@ -257,7 +273,7 @@ export default {
       });
     },
     isUnlimited() {
-      this.internalUnlimited = this.isUnlimited;
+      this.radioValue = this.isUnlimited ? "unlimited" : "limited";
     },
     internalUnlimited() {
       if (this.internalUnlimited) {
@@ -438,11 +454,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.is-unlimited {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
-}
-
 .range-input {
   margin-top: 0.5rem !important;
 }
@@ -455,6 +466,10 @@ export default {
 
 .human-label {
   margin-top: 1rem;
+}
+
+.ns-byte-slider .cv-radio-group.bx--form-item {
+  margin-bottom: 0.5rem;
 }
 </style>
 

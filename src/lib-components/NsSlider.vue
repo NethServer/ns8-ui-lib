@@ -12,101 +12,113 @@
       >
         {{ label }}
       </label>
-      <!-- unlimited checkbox -->
-      <NsCheckbox
-        v-if="showUnlimited"
-        :label="unlimitedLabel"
-        v-model="internalUnlimited"
-        :disabled="disabled"
-        value="checkUnlimited"
-        class="is-unlimited"
-      />
-      <div :class="`${carbonPrefix}--slider-container`">
-        <span
-          v-if="internalMinLabel"
-          :class="`${carbonPrefix}--slider__range-label`"
-          >{{ internalMinLabel }}</span
-        >
-        <div
-          :class="[
-            `${carbonPrefix}--slider`,
-            {
-              [`${carbonPrefix}--slider--disabled`]:
-                disabled || internalUnlimited,
-            },
-          ]"
-          data-slider
-          data-slider-input-box="#slider-input-box"
-        >
-          <div
-            :class="`${carbonPrefix}--slider__track`"
-            @click="onTrackClick"
-            ref="track"
-          ></div>
-          <div
-            :class="`${carbonPrefix}--slider__filled-track`"
-            :style="`width: ${percentage};`"
-          ></div>
+      <!-- unlimited/limited radio buttons -->
+      <template v-if="showUnlimited">
+        <cv-radio-group vertical :class="{ 'no-mg-bottom': internalUnlimited }">
+          <cv-radio-button
+            :name="'radio-group-' + uid"
+            :label="unlimitedLabel"
+            value="unlimited"
+            v-model="radioValue"
+            :disabled="disabled"
+          />
+          <cv-radio-button
+            :name="'radio-group-' + uid"
+            :label="limitedLabel"
+            value="limited"
+            v-model="radioValue"
+            :disabled="disabled"
+          />
+        </cv-radio-group>
+      </template>
+      <div v-show="!internalUnlimited">
+        <div :class="`${carbonPrefix}--slider-container`">
+          <span
+            v-if="internalMinLabel"
+            :class="`${carbonPrefix}--slider__range-label`"
+            >{{ internalMinLabel }}</span
+          >
           <div
             :class="[
-              `${carbonPrefix}--slider__thumb`,
+              `${carbonPrefix}--slider`,
               {
-                [`${carbonPrefix}--slider__thumb--clicked`]: animateClick,
+                [`${carbonPrefix}--slider--disabled`]:
+                  disabled || internalUnlimited,
               },
             ]"
-            tabindex="0"
-            :aria-labelledby="labelId"
-            :style="`left: ${percentage};`"
-            ref="thumb"
-            @keydown.up.right.prevent="onUp"
-            @keydown.down.left.prevent="onDown"
-            @mousedown="onStartDrag"
-          ></div>
+            data-slider
+            data-slider-input-box="#slider-input-box"
+          >
+            <div
+              :class="`${carbonPrefix}--slider__track`"
+              @click="onTrackClick"
+              ref="track"
+            ></div>
+            <div
+              :class="`${carbonPrefix}--slider__filled-track`"
+              :style="`width: ${percentage};`"
+            ></div>
+            <div
+              :class="[
+                `${carbonPrefix}--slider__thumb`,
+                {
+                  [`${carbonPrefix}--slider__thumb--clicked`]: animateClick,
+                },
+              ]"
+              tabindex="0"
+              :aria-labelledby="labelId"
+              :style="`left: ${percentage};`"
+              ref="thumb"
+              @keydown.up.right.prevent="onUp"
+              @keydown.down.left.prevent="onDown"
+              @mousedown="onStartDrag"
+            ></div>
+            <input
+              :id="uid"
+              :class="`${carbonPrefix}--slider__input`"
+              type="range"
+              :step="step"
+              :min="min"
+              :max="max"
+              ref="range"
+            />
+          </div>
+          <span
+            v-if="internalMaxLabel"
+            :class="`${carbonPrefix}--slider__range-label`"
+            >{{ internalMaxLabel }}</span
+          >
           <input
-            :id="uid"
-            :class="`${carbonPrefix}--slider__input`"
-            type="range"
-            :step="step"
-            :min="min"
-            :max="max"
-            ref="range"
+            type="number"
+            :class="[
+              `${carbonPrefix}--text-input ${carbonPrefix}--slider-text-input`,
+              {
+                [`${carbonPrefix}--text-input--light`]: isLight,
+                [`${carbonPrefix}--text-input--invalid`]: isInvalid,
+                [`${carbonPrefix}--text-input--warning`]: isWarn,
+              },
+              ,
+              'range-input',
+            ]"
+            :placeholder="min"
+            v-model="internalValue"
+            @change="onChange"
+            ref="inputBox"
+            @keydown.up.prevent="onUp"
+            @keydown.down.prevent="onDown"
+            :disabled="disabled || internalUnlimited"
           />
+          <span
+            :class="[
+              `unit-label`,
+              {
+                [`${carbonPrefix}--label--disabled`]:
+                  disabled || internalUnlimited,
+              },
+            ]"
+            >{{ unitLabel }}</span
+          >
         </div>
-        <span
-          v-if="internalMaxLabel"
-          :class="`${carbonPrefix}--slider__range-label`"
-          >{{ internalMaxLabel }}</span
-        >
-        <input
-          type="number"
-          :class="[
-            `${carbonPrefix}--text-input ${carbonPrefix}--slider-text-input`,
-            {
-              [`${carbonPrefix}--text-input--light`]: isLight,
-              [`${carbonPrefix}--text-input--invalid`]: isInvalid,
-              [`${carbonPrefix}--text-input--warning`]: isWarn,
-            },
-            ,
-            'range-input',
-          ]"
-          :placeholder="min"
-          v-model="internalValue"
-          @change="onChange"
-          ref="inputBox"
-          @keydown.up.prevent="onUp"
-          @keydown.down.prevent="onDown"
-          :disabled="disabled || internalUnlimited"
-        />
-        <span
-          :class="[
-            `unit-label`,
-            {
-              [`${carbonPrefix}--label--disabled`]:
-                disabled || internalUnlimited,
-            },
-          ]"
-          >{{ unitLabel }}</span
-        >
       </div>
     </div>
     <div :class="`${carbonPrefix}--form-requirement`" v-if="isInvalid">
@@ -158,6 +170,7 @@ export default {
     showUnlimited: { type: Boolean, default: false },
     isUnlimited: { type: Boolean, default: false },
     unlimitedLabel: { type: String, default: "Unlimited" },
+    limitedLabel: { type: String, default: "Limited" },
     invalidMessage: { type: String, default: "" },
     unitLabel: { type: String, default: "" },
   },
@@ -173,8 +186,8 @@ export default {
       dragStartX: 0,
       dragStartValue: 0,
       percentage: "0%",
-      internalUnlimited: false,
       isInvalid: false,
+      radioValue: "limited",
     };
   },
   computed: {
@@ -192,9 +205,12 @@ export default {
       // default to 4 fro multiplier
       return isNaN(intMultiplier) ? 4 : Math.max(intMultiplier, 1);
     },
+    internalUnlimited() {
+      return this.radioValue === "unlimited";
+    },
   },
   created() {
-    this.internalUnlimited = this.isUnlimited;
+    this.radioValue = this.isUnlimited ? "unlimited" : "limited";
   },
   mounted() {
     this.$refs.range.value = this.value;
@@ -228,7 +244,7 @@ export default {
       });
     },
     isUnlimited() {
-      this.internalUnlimited = this.isUnlimited;
+      this.radioValue = this.isUnlimited ? "unlimited" : "limited";
     },
     internalUnlimited() {
       if (this.internalUnlimited) {
@@ -364,11 +380,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.is-unlimited {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
-}
-
 .range-input {
   margin-top: 0.5rem !important;
 }
@@ -376,6 +387,10 @@ export default {
 .unit-label {
   margin-top: 0.5rem !important;
   margin-left: 1rem;
+}
+
+.ns-slider .cv-radio-group.bx--form-item {
+  margin-bottom: 0.5rem;
 }
 </style>
 
