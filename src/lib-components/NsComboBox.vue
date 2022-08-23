@@ -143,11 +143,7 @@
           @mousedown.prevent
         >
           <div :class="[`${carbonPrefix}--list-box__menu-item__option`]">
-            {{
-              showItemType && item.type
-                ? item.label + " - " + item.type
-                : item.label
-            }}
+            {{ getItemLabel(item) }}
           </div>
         </div>
       </div>
@@ -226,6 +222,7 @@ export default {
     maxDisplayOptions: { type: Number, default: 100 },
     acceptUserInput: { type: Boolean, default: false },
     showItemType: { type: Boolean, default: false },
+    showItemDescription: { type: Boolean, default: false },
     marginBottomOnOpen: { type: Boolean, default: false },
     tooltipAlignment: {
       type: String,
@@ -554,6 +551,18 @@ export default {
     inputFocus() {
       if (this.disabled) return;
       this.doOpen(true);
+    },
+    getItemLabel(item) {
+      let label = item.label;
+
+      if (this.showItemType && item.type) {
+        label += ` [${item.type}]`;
+      }
+
+      if (this.showItemDescription && item.description) {
+        label += ` ${item.description}`;
+      }
+      return label;
     },
   },
 };

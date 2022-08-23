@@ -175,11 +175,7 @@
               :value="item.value"
               :name="item.name"
               :data-test="item.name"
-              :label="
-                showItemType && item.type
-                  ? item.label + ' - ' + item.type
-                  : item.label
-              "
+              :label="getItemLabel(item)"
               style="pointer-events: none"
             />
           </div>
@@ -308,6 +304,7 @@ export default {
     maxDisplayOptions: { type: Number, default: 100 },
     acceptUserInput: { type: Boolean, default: false },
     showItemType: { type: Boolean, default: false },
+    showItemDescription: { type: Boolean, default: false },
     // use cv-tag color
     selectedItemsColor: { type: String, default: "high-contrast" },
     marginBottomOnOpen: { type: Boolean, default: false },
@@ -687,6 +684,18 @@ export default {
     },
     inputFocus() {
       this.doOpen(true);
+    },
+    getItemLabel(item) {
+      let label = item.label;
+
+      if (this.showItemType && item.type) {
+        label += ` [${item.type}]`;
+      }
+
+      if (this.showItemDescription && item.description) {
+        label += ` ${item.description}`;
+      }
+      return label;
     },
   },
 };
