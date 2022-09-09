@@ -16,6 +16,7 @@ import Upgrade20 from "@carbon/icons-vue/es/upgrade/20";
 import Upgrade32 from "@carbon/icons-vue/es/upgrade/32";
 import Settings16 from "@carbon/icons-vue/es/settings/16";
 import Settings20 from "@carbon/icons-vue/es/settings/20";
+import Settings32 from "@carbon/icons-vue/es/settings/32";
 import ChevronDown20 from "@carbon/icons-vue/es/chevron--down/20";
 import ChevronUp20 from "@carbon/icons-vue/es/chevron--up/20";
 import ChevronLeft20 from "@carbon/icons-vue/es/chevron--left/20";
@@ -150,6 +151,7 @@ export default {
       Upgrade32,
       Settings16,
       Settings20,
+      Settings32,
       ChevronDown20,
       ChevronUp20,
       ChevronLeft20,
