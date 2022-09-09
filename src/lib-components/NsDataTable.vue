@@ -137,7 +137,7 @@
                   ref="search"
                   v-model="searchValue"
                   @input="onSearch"
-                  @keydown.esc.prevent="checkSearchExpand(false)"
+                  @keydown.esc.prevent.stop="checkSearchExpand(false)"
                 />
                 <button
                   :class="[

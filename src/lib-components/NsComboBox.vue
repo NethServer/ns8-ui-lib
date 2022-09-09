@@ -53,7 +53,7 @@
       @keydown.down.prevent="onDown"
       @keydown.up.prevent="onUp"
       @keydown.enter.prevent="onEnter"
-      @keydown.esc.prevent="onEsc"
+      @keydown.esc.prevent.stop="onEsc"
       @click="onClick"
     >
       <WarningFilled16
