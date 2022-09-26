@@ -10,6 +10,8 @@ export default {
       time24HourPlaceholder: "hh:mm",
       // used to highlight the anchor the user has just navigated to
       highlightAnchor: "",
+      ipAddressPattern: /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/,
+      cidrPattern: /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}\/(\d){1,2}$/,
     };
   },
   methods: {

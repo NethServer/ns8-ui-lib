@@ -128,6 +128,9 @@ import Box16 from "@carbon/icons-vue/es/box/16";
 import Box20 from "@carbon/icons-vue/es/box/20";
 import Box32 from "@carbon/icons-vue/es/box/32";
 import UserMilitary32 from "@carbon/icons-vue/es/user--military/32";
+import Rule16 from "@carbon/icons-vue/es/rule/16";
+import Rule20 from "@carbon/icons-vue/es/rule/20";
+import Rule32 from "@carbon/icons-vue/es/rule/32";
 
 export default {
   name: "IconService",
@@ -263,6 +266,9 @@ export default {
       Box20,
       Box32,
       UserMilitary32, // master user
+      Rule16,
+      Rule20,
+      Rule32,
     };
   },
 };
