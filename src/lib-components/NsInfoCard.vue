@@ -1,5 +1,5 @@
 <template>
-  <cv-tile kind="standard" :light="light" class="info-card">
+  <cv-tile kind="standard" :light="light" class="info-card ns-card">
     <!-- overflow menu -->
     <slot v-if="hasMenuSlot" name="menu"></slot>
     <!-- icon -->

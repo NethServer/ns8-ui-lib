@@ -1,5 +1,5 @@
 <template>
-  <cv-tile kind="standard" :light="light" class="status-card">
+  <cv-tile kind="standard" :light="light" class="status-card ns-card">
     <!-- icon -->
     <div v-if="icon" class="row">
       <NsSvg :svg="icon" />

@@ -1,5 +1,5 @@
 <template>
-  <cv-tile kind="standard" :light="light" class="ns-backup-card">
+  <cv-tile kind="standard" :light="light" class="ns-backup-card ns-card">
     <!-- icon -->
     <div class="row">
       <NsSvg :svg="Save32" />

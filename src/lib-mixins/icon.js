@@ -76,6 +76,7 @@ import ErrorFilled32 from "@carbon/icons-vue/es/error--filled/32";
 import Warning16 from "@carbon/icons-vue/es/warning--filled/16";
 import Warning20 from "@carbon/icons-vue/es/warning--filled/20";
 import Warning32 from "@carbon/icons-vue/es/warning--filled/32";
+import Power16 from "@carbon/icons-vue/es/power/16";
 import Power20 from "@carbon/icons-vue/es/power/20";
 import Power32 from "@carbon/icons-vue/es/power/32";
 import Document20 from "@carbon/icons-vue/es/document/20";
@@ -131,6 +132,12 @@ import UserMilitary32 from "@carbon/icons-vue/es/user--military/32";
 import Rule16 from "@carbon/icons-vue/es/rule/16";
 import Rule20 from "@carbon/icons-vue/es/rule/20";
 import Rule32 from "@carbon/icons-vue/es/rule/32";
+import Filter16 from "@carbon/icons-vue/es/filter/16";
+import Filter20 from "@carbon/icons-vue/es/filter/20";
+import Filter32 from "@carbon/icons-vue/es/filter/32";
+import CloseFilled16 from "@carbon/icons-vue/es/close--filled/16";
+import CloseFilled20 from "@carbon/icons-vue/es/close--filled/20";
+import CloseFilled32 from "@carbon/icons-vue/es/close--filled/32";
 
 export default {
   name: "IconService",
@@ -214,7 +221,8 @@ export default {
       Warning16, // warning
       Warning20,
       Warning32,
-      Power20, // enable, disable
+      Power16, // enable, disable
+      Power20,
       Power32,
       Document20,
       Document32,
@@ -269,6 +277,12 @@ export default {
       Rule16,
       Rule20,
       Rule32,
+      Filter16,
+      Filter20,
+      Filter32,
+      CloseFilled16,
+      CloseFilled20,
+      CloseFilled32,
     };
   },
 };

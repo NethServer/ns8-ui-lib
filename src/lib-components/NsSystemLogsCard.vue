@@ -4,6 +4,7 @@
     :description="description"
     :light="light"
     :icon="Catalog32"
+    class="ns-system-logs-card ns-card"
   >
     <template slot="content">
       <NsButton kind="ghost" :icon="ArrowRight20" @click="goToLogs">
