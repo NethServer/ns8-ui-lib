@@ -138,6 +138,9 @@ import Filter32 from "@carbon/icons-vue/es/filter/32";
 import CloseFilled16 from "@carbon/icons-vue/es/close--filled/16";
 import CloseFilled20 from "@carbon/icons-vue/es/close--filled/20";
 import CloseFilled32 from "@carbon/icons-vue/es/close--filled/32";
+import Badge16 from "@carbon/icons-vue/es/badge/16";
+import Badge20 from "@carbon/icons-vue/es/badge/20";
+import Badge32 from "@carbon/icons-vue/es/badge/32";
 
 export default {
   name: "IconService",
@@ -283,6 +286,9 @@ export default {
       CloseFilled16,
       CloseFilled20,
       CloseFilled32,
+      Badge16,
+      Badge20,
+      Badge32,
     };
   },
 };
