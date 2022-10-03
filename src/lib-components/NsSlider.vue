@@ -402,7 +402,7 @@ export default {
 }
 
 .ns-slider .bx--slider-text-input {
-  width: 5rem;
+  width: 6rem;
 }
 
 .ns-slider .wrapper[data-invalid] ~ .bx--form-requirement {
