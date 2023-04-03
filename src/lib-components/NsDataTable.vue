@@ -373,6 +373,8 @@ export default {
       type: String,
       default: "Try changing your search query",
     },
+    filterRowsCallback: { type: Function },
+    customSortTable: { type: Function },
     // default value of following props is defined in NsPagination
     itemsPerPageLabel: { type: String, default: undefined },
     rangeOfTotalItemsLabel: { type: String, default: undefined },
@@ -380,7 +382,6 @@ export default {
     backwardText: { type: String, default: undefined },
     forwardText: { type: String, default: undefined },
     pageNumberLabel: { type: String, default: undefined },
-    filterRowsCallback: { type: Function },
   },
   data() {
     return {
@@ -522,6 +523,13 @@ export default {
         return;
       }
       const propertyToSort = this.rawColumns[ev.index];
+
+      if (this.customSortTable) {
+        // call custom sort function
+        this.filteredRows.sort(this.customSortTable(propertyToSort));
+      } else {
+        this.filteredRows.sort(this.sortByProperty(propertyToSort));
+      }
       this.filteredRows.sort(this.sortByProperty(propertyToSort));
 
       if (ev.order === "descending") {
