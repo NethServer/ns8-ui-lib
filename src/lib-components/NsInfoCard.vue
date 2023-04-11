@@ -18,24 +18,26 @@
       <cv-skeleton-text
         :paragraph="true"
         :line-count="3"
+        heading
         class="skeleton"
       ></cv-skeleton-text>
     </div>
     <template v-else>
       <div v-if="title" class="row">
-        <!-- title tooltip -->
-        <cv-tooltip
+        <h3 class="title">{{ title }}</h3>
+        <cv-interactive-tooltip
           v-if="titleTooltip"
-          alignment="center"
-          direction="bottom"
-          :tip="titleTooltip"
+          :alignment="titleTooltipAlignment"
+          :direction="titleTooltipDirection"
+          class="info title-tooltip"
         >
-          <h3 class="title">
-            {{ title }}
-          </h3>
-        </cv-tooltip>
-        <!-- no title tooltip -->
-        <h3 v-else class="title">{{ title }}</h3>
+          <template slot="trigger">
+            <Information16 />
+          </template>
+          <template slot="content">
+            <div v-html="titleTooltip"></div>
+          </template>
+        </cv-interactive-tooltip>
       </div>
       <div v-if="description" class="row">
         <div class="description">{{ description }}</div>
@@ -51,10 +53,11 @@
 <script>
 import NsSvg from "./NsSvg.vue";
 import NsInlineNotification from "./NsInlineNotification.vue";
+import Information16 from "@carbon/icons-vue/es/information/16";
 
 export default {
   name: "NsInfoCard",
-  components: { NsSvg, NsInlineNotification },
+  components: { NsSvg, NsInlineNotification, Information16 },
   props: {
     title: {
       type: String,
@@ -67,6 +70,18 @@ export default {
     titleTooltip: {
       type: String,
       required: false,
+    },
+    titleTooltipAlignment: {
+      type: String,
+      required: false,
+      default: "center",
+      validator: (val) => ["start", "center", "end"].includes(val),
+    },
+    titleTooltipDirection: {
+      type: String,
+      required: false,
+      default: "bottom",
+      validator: (val) => ["top", "right", "bottom", "left"].includes(val),
     },
     icon: {
       type: [String, Object],
@@ -125,6 +140,11 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.title-tooltip {
+  position: relative;
+  top: -2px;
 }
 
 .description {
