@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Nethesis S.r.l.
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 import ErrorFilled16 from "@carbon/icons-vue/es/error--filled/16";
 import CheckmarkFilled16 from "@carbon/icons-vue/es/checkmark--filled/16";
 import WarningFilled16 from "@carbon/icons-vue/es/warning--filled/16";

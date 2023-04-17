@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Nethesis S.r.l.
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 import { formatDistance, subDays, isBefore } from "date-fns";
 import { parseISO } from "date-fns";
 import { format, utcToZonedTime } from "date-fns-tz";

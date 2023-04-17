@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Nethesis S.r.l.
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 /* eslint-disable import/prefer-default-export */
 export { default as NsButton } from "./NsButton.vue";
 export { default as NsEmptyState } from "./NsEmptyState.vue";

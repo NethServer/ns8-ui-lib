@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2023 Nethesis S.r.l.
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 import Close20 from "@carbon/icons-vue/es/close/20";
 import ArrowRight20 from "@carbon/icons-vue/es/arrow--right/20";
 import ArrowRight32 from "@carbon/icons-vue/es/arrow--right/32";

@@ -1,9 +1,14 @@
 /*
+ * Copyright (C) 2023 Nethesis S.r.l.
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+/*
  * This component optionally wraps slotted content with the specified tag-type.
  *
  * If no tag-type is supplied then the slotted content is unwrapped.
  *
- *  Unwrapped slots do not recieve class, style or attributes attached to the wrapper
+ *  Unwrapped slots do not receive class, style or attributes attached to the wrapper
  *
  * NOTE: If used at the top level of a component in the unwrapped case your component still needs to have a single root node.
  *
