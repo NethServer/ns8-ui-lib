@@ -146,6 +146,12 @@ import CloseFilled32 from "@carbon/icons-vue/es/close--filled/32";
 import Badge16 from "@carbon/icons-vue/es/badge/16";
 import Badge20 from "@carbon/icons-vue/es/badge/20";
 import Badge32 from "@carbon/icons-vue/es/badge/32";
+import FolderShared16 from "@carbon/icons-vue/es/folder--shared/16";
+import FolderShared20 from "@carbon/icons-vue/es/folder--shared/20";
+import FolderShared32 from "@carbon/icons-vue/es/folder--shared/32";
+import MailAll16 from "@carbon/icons-vue/es/mail--all/16";
+import MailAll20 from "@carbon/icons-vue/es/mail--all/20";
+import MailAll32 from "@carbon/icons-vue/es/mail--all/32";
 
 export default {
   name: "IconService",
@@ -294,6 +300,12 @@ export default {
       Badge16,
       Badge20,
       Badge32,
+      FolderShared16, // samba file server, file shares
+      FolderShared20,
+      FolderShared32,
+      MailAll16, // mail queue
+      MailAll20,
+      MailAll32,
     };
   },
 };
