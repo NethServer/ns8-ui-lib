@@ -9,7 +9,7 @@
     :visible="isShown"
     @modal-hidden="onModalHidden"
     @primary-click="confirmDelete"
-    :primary-button-disabled="name !== userInput"
+    :primary-button-disabled="name !== userInput || loading"
   >
     <template slot="title">{{ title }}</template>
     <template slot="content">
@@ -96,6 +96,10 @@ export default {
     errorDescription: {
       type: String,
       default: "",
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

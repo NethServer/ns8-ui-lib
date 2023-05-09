@@ -24,6 +24,7 @@
       />
       <div :class="`${carbonPrefix}--inline-notification__text-wrapper`">
         <p
+          v-if="title"
           :class="`${carbonPrefix}--inline-notification__title title`"
           v-html="title"
         ></p>
