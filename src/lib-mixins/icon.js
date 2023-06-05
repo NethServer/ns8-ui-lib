@@ -152,6 +152,9 @@ import FolderShared32 from "@carbon/icons-vue/es/folder--shared/32";
 import MailAll16 from "@carbon/icons-vue/es/mail--all/16";
 import MailAll20 from "@carbon/icons-vue/es/mail--all/20";
 import MailAll32 from "@carbon/icons-vue/es/mail--all/32";
+import CloudUpload16 from "@carbon/icons-vue/es/cloud--upload/16";
+import CloudUpload20 from "@carbon/icons-vue/es/cloud--upload/20";
+import CloudUpload32 from "@carbon/icons-vue/es/cloud--upload/32";
 
 export default {
   name: "IconService",
@@ -306,6 +309,9 @@ export default {
       MailAll16, // mail queue
       MailAll20,
       MailAll32,
+      CloudUpload16, // file upload
+      CloudUpload20,
+      CloudUpload32,
     };
   },
 };
