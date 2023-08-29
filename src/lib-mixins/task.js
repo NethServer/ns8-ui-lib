@@ -135,20 +135,11 @@ export default {
       }
     },
     getTaskStatusDescription(task, rootTask = true) {
-      let taskLabel = task.context.action;
-
-      // use taskName instead of action, if available
-      if (task.context.extra && task.context.extra.taskName) {
-        taskLabel = task.context.extra.taskName;
-      }
-
+      const agent = task.context.queue
+        ? task.context.queue.split("/tasks")[0]
+        : "cluster";
+      const taskLabel = `${agent}/${task.context.action}`;
       const taskOrSubtask = rootTask ? "task" : "subtask";
-      let taskPrefix = "";
-
-      if (task.result && task.result.file) {
-        taskPrefix = task.result.file.split("task/")[0];
-      }
-      taskLabel = taskPrefix + taskLabel;
 
       switch (task.status) {
         case "aborted":
