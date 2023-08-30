@@ -24,7 +24,7 @@
       :aria-label="hiddenLabel"
     >
       <div>
-        {{ visibleLabel }}
+        <span>{{ visibleLabel }}</span>
         <!-- tooltip -->
         <cv-interactive-tooltip
           v-if="hasTooltipSlot && !hideLabel"
