@@ -157,7 +157,7 @@
         ref="list"
       >
         <div
-          v-for="(item, index) in limitedDataOptions"
+          v-for="(item, index) in filteredOptions"
           :key="`multi-select-${index}`"
           :class="[
             `${carbonPrefix}--list-box__menu-item`,
@@ -262,10 +262,10 @@ export default {
       default: "Choose",
     },
     highlight: String,
-    value: { type: Array, default: () => [] },
     // initial value of the multi-select,
     // options in the form
     // [{ label: '', value: '', name: ''}]
+    value: { type: Array, default: () => [] },
     options: {
       type: Array,
       required: true,
@@ -326,7 +326,6 @@ export default {
   data() {
     return {
       open: false,
-      dataOptions: null,
       // includes user input items
       internalOptions: [],
       dataValue: "",
@@ -350,16 +349,12 @@ export default {
         this.dataValue = this.value;
       } else {
         this.dataValue = this.value.filter((item) =>
-          this.dataOptions.some((opt) => opt.value === item.trim())
+          this.internalOptions.some((opt) => opt.value === item.trim())
         );
       }
     },
     options() {
       this.internalOptions = _cloneDeep(this.options);
-      this.updateOptions();
-    },
-    selectionFeedback() {
-      this.updateOptions();
     },
     open() {
       if (this.marginBottomOnOpen) {
@@ -377,9 +372,8 @@ export default {
   },
   created() {
     this.internalOptions = _cloneDeep(this.options);
-    this.updateOptions();
     this.dataValue = this.value.filter((item) =>
-      this.dataOptions.some((opt) => opt.value === item.trim())
+      this.internalOptions.some((opt) => opt.value === item.trim())
     );
   },
   mounted() {
@@ -395,13 +389,13 @@ export default {
         return this.dataHighlighted;
       },
       set(val) {
-        let firstMatchIndex = this.dataOptions.findIndex(
+        let firstMatchIndex = this.internalOptions.findIndex(
           (item) => item.value === val
         );
         if (firstMatchIndex < 0) {
-          firstMatchIndex = this.dataOptions.length ? 0 : -1;
+          firstMatchIndex = this.internalOptions.length ? 0 : -1;
           this.dataHighlighted =
-            firstMatchIndex >= 0 ? this.dataOptions[0].value : "";
+            firstMatchIndex >= 0 ? this.internalOptions[0].value : "";
         } else {
           this.dataHighlighted = val;
         }
@@ -427,7 +421,7 @@ export default {
       return this.filterable ? { marginTop: 0, marginBottom: 0 } : {};
     },
     limitedDataOptions() {
-      return this.dataOptions.slice(0, this.maxDisplayOptions);
+      return this.internalOptions.slice(0, this.maxDisplayOptions);
     },
     selectedItems() {
       return this.dataValue.map((val) =>
@@ -436,6 +430,41 @@ export default {
     },
     hasTooltipSlot() {
       return !!this.$slots.tooltip;
+    },
+    filteredOptions() {
+      if (!this.filter) {
+        return this.limitedDataOptions;
+      }
+
+      let results = this.internalOptions.filter((option) => {
+        return option.label
+          .trim()
+          .toLowerCase()
+          .includes(this.filter.trim().toLowerCase());
+      });
+
+      // user input
+
+      if (this.acceptUserInput && this.filter.trim()) {
+        // suggest user input if not already present among options
+        const trimmedFilter = this.filter.trim();
+        const optionFound = results.find(
+          (option) => option.label === trimmedFilter
+        );
+
+        if (!optionFound) {
+          results.push({
+            name: trimmedFilter,
+            label: trimmedFilter,
+            value: trimmedFilter,
+            type: this.userInputLabel,
+          });
+        }
+      }
+
+      // limit results
+      results = results.slice(0, this.maxDisplayOptions);
+      return results;
     },
   },
   methods: {
@@ -454,7 +483,6 @@ export default {
       this.filter = "";
       this.$refs.input.focus();
       this.doOpen(true);
-      this.updateOptions();
     },
     checkHighlightPosition(newHiglight) {
       if (
@@ -479,105 +507,50 @@ export default {
       }
     },
     doMove(up) {
-      if (this.dataOptions.length > 0) {
+      if (this.internalOptions.length > 0) {
         // requery could have changed
-        const currentHighlight = this.dataOptions.findIndex(
+        const currentHighlight = this.internalOptions.findIndex(
           (item) => item.value === this.highlighted
         );
         let newHiglight;
 
         if (up) {
           if (currentHighlight <= 0) {
-            newHiglight = this.dataOptions.length - 1;
+            newHiglight = this.internalOptions.length - 1;
           } else {
             newHiglight = currentHighlight - 1;
           }
         } else {
-          if (currentHighlight >= this.dataOptions.length - 1) {
+          if (currentHighlight >= this.internalOptions.length - 1) {
             newHiglight = 0;
           } else {
             newHiglight = currentHighlight + 1;
           }
         }
-        this.highlighted = this.dataOptions[newHiglight].value;
+        this.highlighted = this.internalOptions[newHiglight].value;
         // this.checkHighlightPosition(newHiglight);
-      }
-    },
-    updateOptions() {
-      if (this.autoFilter) {
-        const escFilter = this.filter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        const pat = new RegExp(escFilter, "iu");
-        this.dataOptions = this.internalOptions
-          .filter((opt) => pat.test(opt.label))
-          .slice(0);
-      } else {
-        this.dataOptions = this.internalOptions.slice(0);
-      }
-      if (this.highlight !== this.highlighted) {
-        this.highlighted = this.highlight;
-      }
-
-      // multi select unique part
-      if (
-        !this.sorting &&
-        this.selectionFeedback !== selectionFeedbackOptions[FIXED]
-      ) {
-        // if included in data value move to top
-        this.dataOptions.sort(
-          (a, b) =>
-            (this.dataValue.includes(a.value) ? -1 : 1) -
-            (this.dataValue.includes(b.value) ? -1 : 1)
-        );
-      }
-
-      // added for ns-multi-select
-      if (this.acceptUserInput && this.filter.trim()) {
-        // suggest user input
-
-        const trimmedFilter = this.filter.trim();
-        const itemFound = this.internalOptions.find(
-          (o) => o.value.trim() === trimmedFilter
-        );
-
-        if (!itemFound) {
-          this.dataOptions.push({
-            name: trimmedFilter,
-            label: trimmedFilter,
-            value: trimmedFilter,
-            type: this.userInputLabel,
-          });
-        }
       }
     },
     updateHighlight() {
       let firstMatchIndex;
-      if (this.autoHighlight && this.dataOptions.length > 0) {
+      if (this.autoHighlight && this.internalOptions.length > 0) {
         // then highlight first match
         const filterRegex = new RegExp(this.filter, "iu");
-        firstMatchIndex = this.dataOptions.findIndex((item) =>
+        firstMatchIndex = this.internalOptions.findIndex((item) =>
           filterRegex.test(item.label)
         );
         if (firstMatchIndex < 0) {
           firstMatchIndex = 0;
         }
-        this.highlighted = this.dataOptions[firstMatchIndex].value;
+        this.highlighted = this.internalOptions[firstMatchIndex].value;
         // this.checkHighlightPosition(firstMatchIndex);
       }
     },
     onInput() {
       this.doOpen(true);
-
-      this.updateOptions();
       this.updateHighlight();
     },
     doOpen(newVal) {
-      if (
-        newVal &&
-        !this.open &&
-        this.selectionFeedback === selectionFeedbackOptions[TOP_AFTER_REOPEN]
-      ) {
-        this.updateOptions();
-      }
       this.open = newVal;
     },
     onDown() {
@@ -608,9 +581,7 @@ export default {
         this.onItemClick(this.highlighted);
         this.$refs.input.focus();
         this.filter = "";
-
         this.doOpen(false);
-        this.updateOptions();
       } else {
         this.doOpen(true);
       }
@@ -675,9 +646,6 @@ export default {
         }
       }
 
-      if (this.selectionFeedback === selectionFeedbackOptions[TOP]) {
-        this.updateOptions();
-      }
       this.$refs.button.focus();
       this.$emit("change", this.dataValue);
     },
