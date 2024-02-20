@@ -26,9 +26,9 @@
           :class="[
             'requirement',
             {
-              'requirement-ok': isLengthOk && checkStrength,
+              'requirement-ok': isLengthOk && minLength !== 0,
               'requirement-light': light,
-              'requirement-disabled': disabled || !checkStrength,
+              'requirement-disabled': disabled || minLength === 0,
             },
           ]"
           >{{ lengthLabel }}</span
@@ -183,11 +183,7 @@ export default {
   },
   computed: {
     isLengthOk() {
-      if (!this.checkStrength) {
-        return true;
-      } else {
         return this.value.length >= this.minLength;
-      }
     },
     isLowercaseOk() {
       if (!this.checkStrength) {
