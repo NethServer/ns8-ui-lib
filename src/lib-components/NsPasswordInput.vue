@@ -23,56 +23,61 @@
       </NsTextInput>
       <div class="password-meter">
         <span
+          v-if="minLength !== 0"
           :class="[
             'requirement',
             {
-              'requirement-ok': isLengthOk && minLength !== 0,
+              'requirement-ok': isLengthOk,
               'requirement-light': light,
-              'requirement-disabled': disabled || minLength === 0,
+              'requirement-disabled': disabled,
             },
           ]"
           >{{ lengthLabel }}</span
         >
         <span
+          v-if="checkComplexity"
           :class="[
             'requirement',
             {
-              'requirement-ok': isLowercaseOk && checkStrength,
+              'requirement-ok': isLowercaseOk,
               'requirement-light': light,
-              'requirement-disabled': disabled || !checkStrength,
+              'requirement-disabled': disabled,
             },
           ]"
           >{{ lowercaseLabel }}</span
         >
         <span
+          v-if="checkComplexity"
           :class="[
             'requirement',
             {
-              'requirement-ok': isUppercaseOk && checkStrength,
+              'requirement-ok': isUppercaseOk,
               'requirement-light': light,
-              'requirement-disabled': disabled || !checkStrength,
+              'requirement-disabled': disabled,
             },
           ]"
           >{{ uppercaseLabel }}</span
         >
         <span
+          v-if="checkComplexity"
           :class="[
             'requirement',
             {
-              'requirement-ok': isNumberOk && checkStrength,
+              'requirement-ok': isNumberOk,
               'requirement-light': light,
-              'requirement-disabled': disabled || !checkStrength,
+              'requirement-disabled': disabled,
             },
           ]"
           >{{ numberLabel }}</span
         >
         <span
+          v-if="checkComplexity"
           :class="[
             'requirement',
             {
-              'requirement-ok': isSymbolOk && checkStrength,
+              'requirement-ok': isSymbolOk,
               'requirement-light': light,
-              'requirement-disabled': disabled || !checkStrength,
+              'requirement-disabled': disabled,
             },
           ]"
           >{{ symbolLabel }}</span
@@ -138,7 +143,7 @@ export default {
       default: undefined,
     },
     light: Boolean,
-    checkStrength: {
+    checkComplexity: {
       type: Boolean,
       default: true,
     },
@@ -186,28 +191,28 @@ export default {
         return this.value.length >= this.minLength;
     },
     isLowercaseOk() {
-      if (!this.checkStrength) {
+      if (!this.checkComplexity) {
         return true;
       } else {
         return /[a-z]/.test(this.value);
       }
     },
     isUppercaseOk() {
-      if (!this.checkStrength) {
+      if (!this.checkComplexity) {
         return true;
       } else {
         return /[A-Z]/.test(this.value);
       }
     },
     isNumberOk() {
-      if (!this.checkStrength) {
+      if (!this.checkComplexity) {
         return true;
       } else {
         return /\d/.test(this.value);
       }
     },
     isSymbolOk() {
-      if (!this.checkStrength) {
+      if (!this.checkComplexity) {
         return true;
       } else {
         return /\W|_/.test(this.value);
