@@ -188,7 +188,7 @@ export default {
   },
   computed: {
     isLengthOk() {
-        return this.value.length >= this.minLength;
+      return this.value.length >= this.minLength;
     },
     isLowercaseOk() {
       if (!this.checkComplexity) {
