@@ -26,9 +26,9 @@
           :class="[
             'requirement',
             {
-              'requirement-ok': isLengthOk,
+              'requirement-ok': isLengthOk && checkStrength,
               'requirement-light': light,
-              'requirement-disabled': disabled,
+              'requirement-disabled': disabled || !checkStrength,
             },
           ]"
           >{{ lengthLabel }}</span
@@ -37,9 +37,9 @@
           :class="[
             'requirement',
             {
-              'requirement-ok': isLowercaseOk,
+              'requirement-ok': isLowercaseOk && checkStrength,
               'requirement-light': light,
-              'requirement-disabled': disabled,
+              'requirement-disabled': disabled || !checkStrength,
             },
           ]"
           >{{ lowercaseLabel }}</span
@@ -48,9 +48,9 @@
           :class="[
             'requirement',
             {
-              'requirement-ok': isUppercaseOk,
+              'requirement-ok': isUppercaseOk && checkStrength,
               'requirement-light': light,
-              'requirement-disabled': disabled,
+              'requirement-disabled': disabled || !checkStrength,
             },
           ]"
           >{{ uppercaseLabel }}</span
@@ -59,9 +59,9 @@
           :class="[
             'requirement',
             {
-              'requirement-ok': isNumberOk,
+              'requirement-ok': isNumberOk && checkStrength,
               'requirement-light': light,
-              'requirement-disabled': disabled,
+              'requirement-disabled': disabled || !checkStrength,
             },
           ]"
           >{{ numberLabel }}</span
@@ -70,9 +70,9 @@
           :class="[
             'requirement',
             {
-              'requirement-ok': isSymbolOk,
+              'requirement-ok': isSymbolOk && checkStrength,
               'requirement-light': light,
-              'requirement-disabled': disabled,
+              'requirement-disabled': disabled || !checkStrength,
             },
           ]"
           >{{ symbolLabel }}</span
@@ -138,6 +138,10 @@ export default {
       default: undefined,
     },
     light: Boolean,
+    checkStrength: {
+      type: Boolean,
+      default: true,
+    },
     minLength: {
       type: Number,
       default: 8,
@@ -179,19 +183,39 @@ export default {
   },
   computed: {
     isLengthOk() {
-      return this.value.length >= this.minLength;
+      if (!this.checkStrength) {
+        return true;
+      } else {
+        return this.value.length >= this.minLength;
+      }
     },
     isLowercaseOk() {
-      return /[a-z]/.test(this.value);
+      if (!this.checkStrength) {
+        return true;
+      } else {
+        return /[a-z]/.test(this.value);
+      }
     },
     isUppercaseOk() {
-      return /[A-Z]/.test(this.value);
+      if (!this.checkStrength) {
+        return true;
+      } else {
+        return /[A-Z]/.test(this.value);
+      }
     },
     isNumberOk() {
-      return /\d/.test(this.value);
+      if (!this.checkStrength) {
+        return true;
+      } else {
+        return /\d/.test(this.value);
+      }
     },
     isSymbolOk() {
-      return /\W|_/.test(this.value);
+      if (!this.checkStrength) {
+        return true;
+      } else {
+        return /\W|_/.test(this.value);
+      }
     },
     isEqualOk() {
       return this.value.length && this.value === this.confirmPassword;
