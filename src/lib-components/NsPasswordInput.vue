@@ -23,6 +23,7 @@
       </NsTextInput>
       <div class="password-meter">
         <span
+          v-if="minLength !== 0"
           :class="[
             'requirement',
             {
@@ -34,6 +35,7 @@
           >{{ lengthLabel }}</span
         >
         <span
+          v-if="checkComplexity"
           :class="[
             'requirement',
             {
@@ -45,6 +47,7 @@
           >{{ lowercaseLabel }}</span
         >
         <span
+          v-if="checkComplexity"
           :class="[
             'requirement',
             {
@@ -56,6 +59,7 @@
           >{{ uppercaseLabel }}</span
         >
         <span
+          v-if="checkComplexity"
           :class="[
             'requirement',
             {
@@ -67,6 +71,7 @@
           >{{ numberLabel }}</span
         >
         <span
+          v-if="checkComplexity"
           :class="[
             'requirement',
             {
@@ -138,6 +143,10 @@ export default {
       default: undefined,
     },
     light: Boolean,
+    checkComplexity: {
+      type: Boolean,
+      default: true,
+    },
     minLength: {
       type: Number,
       default: 8,
@@ -182,16 +191,32 @@ export default {
       return this.value.length >= this.minLength;
     },
     isLowercaseOk() {
-      return /[a-z]/.test(this.value);
+      if (!this.checkComplexity) {
+        return true;
+      } else {
+        return /[a-z]/.test(this.value);
+      }
     },
     isUppercaseOk() {
-      return /[A-Z]/.test(this.value);
+      if (!this.checkComplexity) {
+        return true;
+      } else {
+        return /[A-Z]/.test(this.value);
+      }
     },
     isNumberOk() {
-      return /\d/.test(this.value);
+      if (!this.checkComplexity) {
+        return true;
+      } else {
+        return /\d/.test(this.value);
+      }
     },
     isSymbolOk() {
-      return /\W|_/.test(this.value);
+      if (!this.checkComplexity) {
+        return true;
+      } else {
+        return /\W|_/.test(this.value);
+      }
     },
     isEqualOk() {
       return this.value.length && this.value === this.confirmPassword;
