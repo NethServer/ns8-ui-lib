@@ -54,57 +54,57 @@ export default {
   props: {
     isShown: {
       type: Boolean,
-      default: true,
+      default: true
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     title: {
       type: String,
-      default: "Confirm deletion",
+      default: "Confirm deletion"
     },
     warning: {
       type: String,
-      default: "Please read carefully",
+      default: "Please read carefully"
     },
     description: {
       type: String,
       default:
-        "Do you really want to delete this object? This action is irreversible",
+        "Do you really want to delete this object? This action is irreversible"
     },
     typeToConfirm: {
       type: String,
-      default: "",
+      default: ""
     },
     cancelLabel: {
       type: String,
-      default: "Cancel",
+      default: "Cancel"
     },
     deleteLabel: {
       type: String,
-      default: "I understand, delete",
+      default: "I understand, delete"
     },
     isErrorShown: {
       type: Boolean,
-      default: false,
+      default: false
     },
     errorTitle: {
       type: String,
-      default: "",
+      default: ""
     },
     errorDescription: {
       type: String,
-      default: "",
+      default: ""
     },
     loading: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
-      userInput: "",
+      userInput: ""
     };
   },
   computed: {
@@ -125,7 +125,7 @@ export default {
           this.focusElement("userInput");
         }, 300);
       }
-    },
+    }
   },
   methods: {
     onModalHidden() {
@@ -135,8 +135,8 @@ export default {
       if (this.name == this.userInput) {
         this.$emit("confirmDelete");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

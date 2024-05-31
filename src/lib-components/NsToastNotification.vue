@@ -11,7 +11,7 @@
         `${carbonPrefix}--toast-notification--${kind.toLowerCase()}`,
         { [`${carbonPrefix}--toast-notification--low-contrast`]: lowContrast },
         `notification`,
-        { 'notification-read': isRead },
+        { 'notification-read': isRead }
       ]"
       v-on="$listeners"
       :role="isAlert ? 'alert' : undefined"
@@ -30,7 +30,7 @@
             `${carbonPrefix}--toast-notification__subtitle`,
             `notification-description-and-progress`,
             `row`,
-            { 'fix-margin-bottom': actionLabel || isProgressShown },
+            { 'fix-margin-bottom': actionLabel || isProgressShown }
           ]"
         >
           <span v-html="description"></span>
@@ -48,7 +48,7 @@
           :class="[
             `${carbonPrefix}--toast-notification__caption`,
             `action`,
-            `row`,
+            `row`
           ]"
         >
           <button
@@ -58,7 +58,7 @@
               `${carbonPrefix}--btn`,
               `${carbonPrefix}--btn--sm`,
               { 'bx--btn--ghost': !isConfirmCancelShown },
-              { 'bx--btn--danger': isConfirmCancelShown },
+              { 'bx--btn--danger': isConfirmCancelShown }
             ]"
             :disabled="isCancelButtonDisabled"
             type="button"
@@ -73,7 +73,7 @@
           :class="[
             `${carbonPrefix}--toast-notification__caption`,
             `action`,
-            `row`,
+            `row`
           ]"
         >
           <button
@@ -82,7 +82,7 @@
               `${carbonPrefix}--inline-notification__action-button`,
               `${carbonPrefix}--btn`,
               `${carbonPrefix}--btn--sm`,
-              `${carbonPrefix}--btn--ghost`,
+              `${carbonPrefix}--btn--ghost`
             ]"
             type="button"
           >
@@ -98,7 +98,7 @@
           >
             {{
               formatDateDistance(timestamp, new Date(), {
-                addSuffix: true,
+                addSuffix: true
               })
             }}
           </cv-tooltip>
@@ -133,23 +133,23 @@ export default {
     description: String,
     showCloseButton: {
       type: Boolean,
-      default: true,
+      default: true
     },
     actionLabel: String,
     action: Object,
     isRead: {
       type: Boolean,
-      default: false,
+      default: false
     },
     progress: Number,
     timestamp: Date,
     isProgressShown: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isCancelShown: {
       type: Boolean,
-      default: false,
+      default: false
     },
     cancelLabel: { type: String, default: "Abort" },
     confirmCancelLabel: { type: String, default: "Confirm abort" },
@@ -157,14 +157,14 @@ export default {
     kind: {
       type: String,
       default: "info",
-      validator: (val) => ["error", "info", "warning", "success"].includes(val),
+      validator: (val) => ["error", "info", "warning", "success"].includes(val)
     },
-    lowContrast: Boolean,
+    lowContrast: Boolean
   },
   data() {
     return {
       isConfirmCancelShown: false,
-      isCancelButtonDisabled: false,
+      isCancelButtonDisabled: false
     };
   },
   methods: {
@@ -181,8 +181,8 @@ export default {
         this.$emit("cancelTask", this.id);
         this.isCancelButtonDisabled = true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

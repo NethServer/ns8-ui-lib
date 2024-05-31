@@ -10,8 +10,8 @@
       `${carbonPrefix}--inline-notification`,
       `${carbonPrefix}--inline-notification--${kind.toLowerCase()}`,
       {
-        [`${carbonPrefix}--inline-notification--low-contrast`]: lowContrast,
-      },
+        [`${carbonPrefix}--inline-notification--low-contrast`]: lowContrast
+      }
     ]"
     v-on="$listeners"
     :role="isAlert ? 'alert' : false"
@@ -32,7 +32,7 @@
           v-if="description"
           :class="[
             `${carbonPrefix}--inline-notification__subtitle`,
-            { 'mg-right': loading || timer },
+            { 'mg-right': loading || timer }
           ]"
           v-html="description"
         ></p>
@@ -55,7 +55,7 @@
         `${carbonPrefix}--btn`,
         `${carbonPrefix}--btn--sm`,
         `${carbonPrefix}--btn--ghost`,
-        'action-button',
+        'action-button'
       ]"
       type="button"
     >
@@ -85,7 +85,7 @@ export default {
   props: {
     showCloseButton: {
       type: Boolean,
-      default: false,
+      default: false
     },
     description: String,
     actionLabel: { type: String, default: "" },
@@ -93,17 +93,17 @@ export default {
     kind: {
       type: String,
       default: "info",
-      validator: (val) => ["error", "info", "warning", "success"].includes(val),
+      validator: (val) => ["error", "info", "warning", "success"].includes(val)
     },
     lowContrast: Boolean,
     loading: {
       type: Boolean,
-      default: false,
+      default: false
     },
     timer: {
-      type: Number,
-    },
-  },
+      type: Number
+    }
+  }
 };
 </script>
 
