@@ -43,7 +43,8 @@
         ]"
       >
         <div class="label-with-tooltip">
-          <span v-html="label"></span>
+          <slot v-if="$slots.label" name="label"></slot>
+          <span v-else>{{ label }}</span>
           <!-- tooltip -->
           <cv-interactive-tooltip
             v-if="hasTooltipSlot"

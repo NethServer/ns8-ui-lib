@@ -18,9 +18,10 @@
         :title="warning"
         :showCloseButton="false"
       />
-      <div v-html="description"></div>
+      <slot v-if="$slots.description" name="description"></slot>
+      <div v-else>{{ description }}</div>
       <slot name="explanation"></slot>
-      <div class="type-to-confirm" v-html="typeToConfirmMessage"></div>
+      <div class="type-to-confirm">{{ typeToConfirmMessage }}</div>
       <cv-form @submit.prevent="confirmDelete">
         <cv-text-input
           v-model="userInput"
@@ -112,9 +113,9 @@ export default {
       if (this.typeToConfirm) {
         return this.typeToConfirm;
       } else {
-        return `Type <strong>${this.name}</strong> to confirm deletion`;
+        return `Type '${this.name}' to confirm deletion`;
       }
-    },
+    }
   },
   watch: {
     isShown: function () {

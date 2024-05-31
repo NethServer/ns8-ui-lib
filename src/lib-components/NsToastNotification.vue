@@ -33,7 +33,8 @@
             { 'fix-margin-bottom': actionLabel || isProgressShown }
           ]"
         >
-          <span v-html="description"></span>
+          <slot v-if="$slots.description" name="description"></slot>
+          <span v-else>{{ description }}</span>
 
           <div v-if="isProgressShown" class="progress">
             <NsProgressBar :value="progress" :indeterminate="!progress" />

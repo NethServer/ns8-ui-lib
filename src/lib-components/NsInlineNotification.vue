@@ -24,18 +24,22 @@
       />
       <div :class="`${carbonPrefix}--inline-notification__text-wrapper`">
         <p
-          v-if="title"
+          v-if="$slots.title || title"
           :class="`${carbonPrefix}--inline-notification__title title`"
-          v-html="title"
-        ></p>
+        >
+          <slot v-if="$slots.title" name="title"></slot>
+          <span v-else>{{ title }}</span>
+        </p>
         <p
-          v-if="description"
+          v-if="$slots.description || description"
           :class="[
             `${carbonPrefix}--inline-notification__subtitle`,
             { 'mg-right': loading || timer }
           ]"
-          v-html="description"
-        ></p>
+        >
+          <slot v-if="$slots.description" name="description"></slot>
+          <span v-else>{{ description }}</span>
+        </p>
         <p v-if="loading" class="loader"></p>
         <p v-if="timer">
           <NsCircleTimer

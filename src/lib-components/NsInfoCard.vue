@@ -30,7 +30,7 @@
       <div v-if="title" class="row">
         <h3 class="title">{{ title }}</h3>
         <cv-interactive-tooltip
-          v-if="titleTooltip"
+          v-if="$slots.titleTooltip || titleTooltip"
           :alignment="titleTooltipAlignment"
           :direction="titleTooltipDirection"
           class="info title-tooltip"
@@ -39,7 +39,8 @@
             <Information16 />
           </template>
           <template slot="content">
-            <div v-html="titleTooltip"></div>
+            <slot v-if="$slots.titleTooltip" name="titleTooltip"></slot>
+            <div v-else>{{ titleTooltip }}</div>
           </template>
         </cv-interactive-tooltip>
       </div>
