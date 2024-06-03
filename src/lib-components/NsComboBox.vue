@@ -70,7 +70,7 @@
       />
       <WarningAltFilled16
         v-if="isWarn && !isInvalid"
-        :class="`${carbonPrefix}--text-input__invalid-icon ${carbonPrefix}--text-input__invalid-icon--warning warn-icon`"
+        :class="`${carbonPrefix}--list-box__invalid-icon ${carbonPrefix}--list-box__invalid-icon--warning warn-icon`"
       />
       <div
         role="button"
@@ -617,5 +617,20 @@ export default {
 
 .ns-combo-box .bx--tooltip__label .bx--tooltip__trigger {
   margin-left: 0.25rem;
+}
+
+.ns-combo-box .bx--list-box__invalid-icon--warning {
+  position: absolute;
+  top: 50%;
+  right: 3rem;
+  fill: #f1c21b;
+  transform: translateY(-50%);
+}
+
+.ns-combo-box
+  .bx--list-box__invalid-icon--warning
+  + .bx--list-box__field
+  .bx--list-box__selection {
+  right: 4rem !important;
 }
 </style>

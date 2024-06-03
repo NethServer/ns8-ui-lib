@@ -1,6 +1,6 @@
 {
   "name": "@nethserver/ns8-ui-lib",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue.js library for NethServer 8 UI",
   "keywords": [
     "nethserver",
