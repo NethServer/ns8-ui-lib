@@ -43,7 +43,8 @@
         ]"
       >
         <div class="label-with-tooltip">
-          <span v-html="label"></span>
+          <slot v-if="$slots.label" name="label"></slot>
+          <span v-else>{{ label }}</span>
           <!-- tooltip -->
           <cv-interactive-tooltip
             v-if="hasTooltipSlot"
@@ -76,19 +77,19 @@ export default {
     tooltipAlignment: {
       type: String,
       default: "start",
-      validator: (val) => ["start", "center", "end"].includes(val),
+      validator: (val) => ["start", "center", "end"].includes(val)
     },
     tooltipDirection: {
       type: String,
       default: "bottom",
-      validator: (val) => ["top", "left", "bottom", "right".includes(val)],
-    },
+      validator: (val) => ["top", "left", "bottom", "right".includes(val)]
+    }
   },
   computed: {
     hasTooltipSlot() {
       return !!this.$slots.tooltip;
-    },
-  },
+    }
+  }
 };
 </script>
 

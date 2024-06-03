@@ -18,9 +18,10 @@
         :title="warning"
         :showCloseButton="false"
       />
-      <div v-html="description"></div>
+      <slot v-if="$slots.description" name="description"></slot>
+      <div v-else>{{ description }}</div>
       <slot name="explanation"></slot>
-      <div class="type-to-confirm" v-html="typeToConfirmMessage"></div>
+      <div class="type-to-confirm">{{ typeToConfirmMessage }}</div>
       <cv-form @submit.prevent="confirmDelete">
         <cv-text-input
           v-model="userInput"
@@ -54,57 +55,57 @@ export default {
   props: {
     isShown: {
       type: Boolean,
-      default: true,
+      default: true
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     title: {
       type: String,
-      default: "Confirm deletion",
+      default: "Confirm deletion"
     },
     warning: {
       type: String,
-      default: "Please read carefully",
+      default: "Please read carefully"
     },
     description: {
       type: String,
       default:
-        "Do you really want to delete this object? This action is irreversible",
+        "Do you really want to delete this object? This action is irreversible"
     },
     typeToConfirm: {
       type: String,
-      default: "",
+      default: ""
     },
     cancelLabel: {
       type: String,
-      default: "Cancel",
+      default: "Cancel"
     },
     deleteLabel: {
       type: String,
-      default: "I understand, delete",
+      default: "I understand, delete"
     },
     isErrorShown: {
       type: Boolean,
-      default: false,
+      default: false
     },
     errorTitle: {
       type: String,
-      default: "",
+      default: ""
     },
     errorDescription: {
       type: String,
-      default: "",
+      default: ""
     },
     loading: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
-      userInput: "",
+      userInput: ""
     };
   },
   computed: {
@@ -112,9 +113,9 @@ export default {
       if (this.typeToConfirm) {
         return this.typeToConfirm;
       } else {
-        return `Type <strong>${this.name}</strong> to confirm deletion`;
+        return `Type '${this.name}' to confirm deletion`;
       }
-    },
+    }
   },
   watch: {
     isShown: function () {
@@ -125,7 +126,7 @@ export default {
           this.focusElement("userInput");
         }, 300);
       }
-    },
+    }
   },
   methods: {
     onModalHidden() {
@@ -135,8 +136,8 @@ export default {
       if (this.name == this.userInput) {
         this.$emit("confirmDelete");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
