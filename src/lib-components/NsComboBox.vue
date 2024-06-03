@@ -9,6 +9,10 @@
       'cv-combo-box',
       `${carbonPrefix}--list-box__wrapper`,
       { 'margin-bottom-on-open': marginBottomOnOpenEnabled },
+      {
+        [`${carbonPrefix}--text-input__field-wrapper--warning`]:
+          !isInvalid && isWarn,
+      },
     ]"
     @focusout="onFocusOut"
   >
@@ -62,7 +66,11 @@
     >
       <WarningFilled16
         v-if="isInvalid"
-        :class="[`${carbonPrefix}--list-box__invalid-icon`]"
+        :class="[`${carbonPrefix}--list-box__invalid-icon invalid-icon`]"
+      />
+      <WarningAltFilled16
+        v-if="isWarn && !isInvalid"
+        :class="`${carbonPrefix}--text-input__invalid-icon ${carbonPrefix}--text-input__invalid-icon--warning warn-icon`"
       />
       <div
         role="button"
@@ -156,7 +164,13 @@
       <slot name="invalid-message">{{ invalidMessage }}</slot>
     </div>
     <div
-      v-if="!isInvalid && isHelper"
+      v-if="isWarn && !isInvalid"
+      :class="`${carbonPrefix}--form__requirement warn-text`"
+    >
+      <slot name="warn-text">{{ warnText }}</slot>
+    </div>
+    <div
+      v-if="isHelper && !isInvalid && !isWarn"
       :class="[
         `${carbonPrefix}--form__helper-text`,
         { [`${carbonPrefix}--form__helper-text--disabled`]: disabled },
@@ -174,7 +188,7 @@ import {
   carbonPrefixMixin,
   methodsMixin,
 } from "@carbon/vue/src/mixins";
-import WarningFilled16 from "@carbon/icons-vue/es/warning--filled/16";
+import { WarningFilled16, WarningAltFilled16 } from "@carbon/icons-vue";
 import ChevronDown16 from "@carbon/icons-vue/es/chevron--down/16";
 import Close16 from "@carbon/icons-vue/es/close/16";
 import _cloneDeep from "lodash/cloneDeep";
@@ -188,12 +202,13 @@ export default {
     carbonPrefixMixin,
     methodsMixin({ input: ["focus", "blur"] }),
   ],
-  components: { WarningFilled16, ChevronDown16, Close16 },
+  components: { WarningFilled16, WarningAltFilled16, ChevronDown16, Close16 },
   props: {
     autoFilter: Boolean,
     autoHighlight: Boolean,
     disabled: Boolean,
     invalidMessage: { type: String, default: undefined },
+    warnText: { type: String, default: undefined },
     helperText: { type: String, default: undefined },
     title: String,
     label: {
@@ -248,6 +263,7 @@ export default {
       dataFilter: null,
       isHelper: false,
       isInvalid: false,
+      isWarn: false,
       // includes user input items
       internalOptions: [],
       marginBottomOnOpenEnabled: false,
@@ -346,6 +362,10 @@ export default {
       this.isHelper = !!(
         this.$slots["helper-text"] ||
         (this.helperText && this.helperText.length)
+      );
+      this.isWarn = !!(
+        this.$slots["warn-text"] ||
+        (this.warnText && this.warnText.length)
       );
     },
     clearFilter() {
@@ -580,6 +600,15 @@ export default {
 .label-with-tooltip {
   display: flex;
   align-items: baseline;
+}
+
+.ns-combo-box .warn-text {
+  margin-top: 0.25rem;
+}
+
+.warn-icon,
+.invalid-icon {
+  right: 3rem;
 }
 </style>
 
