@@ -95,7 +95,7 @@
           <cv-tooltip
             alignment="center"
             direction="bottom"
-            :tip="formatDate(timestamp, 'yyyy-MM-dd HH:mm:ss')"
+            :tip="formatDate(timestamp, 'Pp')"
           >
             {{
               formatDateDistance(timestamp, new Date(), {
@@ -240,7 +240,6 @@ export default {
 
 .notification-drawer .cv-notifiation.bx--toast-notification.notification {
   width: 100%;
-  cursor: pointer;
 }
 
 .notification-read {
