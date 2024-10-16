@@ -18,6 +18,7 @@
           :hide-clear-button="hideClearButton"
           v-bind="$attrs"
           :value="value"
+          drop-direction="auto"
           @input="$emit('input', $event)"
           :class="[
             `time-picker-field ${carbonPrefix}--time-picker__input-field ${carbonPrefix}--text-input`,
