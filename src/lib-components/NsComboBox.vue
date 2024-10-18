@@ -251,7 +251,7 @@ export default {
     tooltipDirection: {
       type: String,
       default: "bottom",
-      validator: (val) => ["top", "left", "bottom", "right".includes(val)],
+      validator: (val) => ["top", "left", "bottom", "right"].includes(val),
     },
   },
   data() {
