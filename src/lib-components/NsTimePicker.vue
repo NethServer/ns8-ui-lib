@@ -18,7 +18,7 @@
           :hide-clear-button="hideClearButton"
           v-bind="$attrs"
           :value="value"
-          drop-direction="auto"
+          :drop-direction="dropDirection"
           @input="$emit('input', $event)"
           :class="[
             `time-picker-field ${carbonPrefix}--time-picker__input-field ${carbonPrefix}--text-input`,
@@ -55,6 +55,11 @@ export default {
       type: String,
       default: "",
     },
+    dropDirection: {
+      type: String,
+      default: "down",
+      validator: (val) => ["up", "down", "auto"].includes(val),
+    }
   },
   data() {
     return {
@@ -125,10 +130,14 @@ export default {
   padding-right: 1rem;
 }
 
-// adjust position of dropdown
-.ns-time-picker .vue__time-picker-dropdown,
-.ns-time-picker .vue__time-picker .dropdown {
+// adjust position of dropdown - direction down
+.ns-time-picker .vue__time-picker .dropdown.drop-down {
   top: 2.5rem;
+}
+
+// adjust position of dropdown - direction up
+.ns-time-picker .vue__time-picker .dropdown.drop-up {
+  bottom: 2.5rem;
 }
 
 // hide HH and mm labels inside dropdown

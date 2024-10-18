@@ -105,7 +105,7 @@ export default {
     tipPosition: {
       type: String,
       default: "right",
-      validator: (val) => ["top", "left", "bottom", "right".includes(val)],
+      validator: (val) => ["top", "left", "bottom", "right"].includes(val),
     },
     tipAlignment: {
       type: String,
