@@ -1,6 +1,6 @@
 {
   "name": "@nethserver/ns8-ui-lib",
-  "version": "1.2.2",
+  "version": "1.2.10",
   "description": "Vue.js library for NethServer 8 UI",
   "keywords": [
     "nethserver",
@@ -31,7 +31,13 @@
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
-    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
+    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
+    "build-pack": "npm version patch --no-git-tag-version && npm run build && npm pack",
+    "publish:minor": "npm version minor --allow-same-version -m v%s --force && npm run push-tags",
+    "publish:major": "npm version major --allow-same-version -m v%s --force && npm run push-tags",
+    "publish:patch": "npm version patch --allow-same-version -m v%s --force && npm run push-tags",
+    "push-tags": "git push origin main --tags",
+    "npm-publish": "npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

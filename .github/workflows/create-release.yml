@@ -1,0 +1,33 @@
+name: Publish to NPM and create release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  npm-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v3"
+        with:
+          ref: ${{ github.ref }}
+          persist-credentials: false
+      - name: "Prepare node setup"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies
+        run: npm ci
+      - name: Run build
+        run: npm run build
+      - name: Publish module
+        run: npm run npm-publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Create Release
+        run: gh release create ${{ github.ref }} --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
