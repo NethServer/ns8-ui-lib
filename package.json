@@ -36,7 +36,8 @@
     "publish:minor": "npm version minor --allow-same-version -m v%s --force && npm run push-tags",
     "publish:major": "npm version major --allow-same-version -m v%s --force && npm run push-tags",
     "publish:patch": "npm version patch --allow-same-version -m v%s --force && npm run push-tags",
-    "push-tags": "git push origin main --tags"
+    "push-tags": "git push origin main --tags",
+    "npm-publish": "npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
