@@ -1,6 +1,6 @@
 {
   "name": "@nethserver/ns8-ui-lib",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Vue.js library for NethServer 8 UI",
   "keywords": [
     "nethserver",
@@ -33,9 +33,9 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
     "build-pack": "npm version patch --no-git-tag-version && npm run build && npm pack",
-    "publish:minor": "npm version minor --allow-same-version -m v%s --force && npm run build && npm publish && npm run push-tags",
-    "publish:major": "npm version major --allow-same-version -m v%s --force && npm publish && npm run push-tags",
-    "publish:patch": "npm version patch --allow-same-version -m v%s --force && npm publish && npm run push-tags",
+    "publish:minor": "npm version minor --allow-same-version -m v%s --force && npm run push-tags",
+    "publish:major": "npm version major --allow-same-version -m v%s --force && npm run push-tags",
+    "publish:patch": "npm version patch --allow-same-version -m v%s --force && npm run push-tags",
     "push-tags": "git push origin main --tags"
   },
   "devDependencies": {
