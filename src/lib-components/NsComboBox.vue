@@ -101,6 +101,7 @@
           :aria-expanded="open ? 'true' : 'false'"
           autocomplete="off"
           :disabled="disabled"
+          :readonly="readonly"
           :placeholder="label"
           v-model="filter"
           @input="onInput"
@@ -110,7 +111,10 @@
         <div
           v-if="filter"
           role="button"
-          :class="[`${carbonPrefix}--list-box__selection`]"
+          :class="[
+            `${carbonPrefix}--list-box__selection`,
+            { 'cursor-not-allowed': readonly },
+          ]"
           tabindex="0"
           :title="clearFilterLabel"
           @click.stop="clearFilter"
@@ -125,6 +129,7 @@
           :class="[
             `${carbonPrefix}--list-box__menu-icon`,
             { [`${carbonPrefix}--list-box__menu-icon--open`]: open },
+            { 'cursor-not-allowed': readonly },
           ]"
           role="button"
         >
@@ -207,6 +212,7 @@ export default {
     autoFilter: Boolean,
     autoHighlight: Boolean,
     disabled: Boolean,
+    readonly: Boolean,
     invalidMessage: { type: String, default: undefined },
     warnText: { type: String, default: undefined },
     helperText: { type: String, default: undefined },
@@ -369,7 +375,7 @@ export default {
       );
     },
     clearFilter() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       this.internalUpdateValue("");
       this.filter = "";
       this.$refs.input.focus();
@@ -472,7 +478,7 @@ export default {
       }
     },
     onInput() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       this.doOpen(true);
 
       this.updateOptions();
@@ -487,7 +493,7 @@ export default {
       this.open = newVal;
     },
     onDown() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       if (!this.open) {
         this.doOpen(true);
       } else {
@@ -495,18 +501,18 @@ export default {
       }
     },
     onUp() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       if (this.open) {
         this.doMove(true);
       }
     },
     onEsc() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       this.doOpen(false);
       this.$el.focus();
     },
     onEnter() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       this.doOpen(!this.open);
       if (!this.open) {
         this.onItemClick(this.highlighted);
@@ -514,7 +520,7 @@ export default {
       }
     },
     onClick() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       this.doOpen(!this.open);
       if (this.open) {
         this.$refs.input.focus();
@@ -567,13 +573,13 @@ export default {
       this.$emit("change", this.dataValue);
     },
     inputClick() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       if (!this.open) {
         this.doOpen(true);
       }
     },
     inputFocus() {
-      if (this.disabled) return;
+      if (this.disabled || this.readonly) return;
       this.doOpen(true);
     },
     getItemLabel(item) {
@@ -609,6 +615,10 @@ export default {
 .warn-icon,
 .invalid-icon {
   right: 3rem;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 </style>
 
