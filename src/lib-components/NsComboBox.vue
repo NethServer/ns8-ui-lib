@@ -209,8 +209,8 @@ export default {
   ],
   components: { WarningFilled16, WarningAltFilled16, ChevronDown16, Close16 },
   props: {
-    autoFilter: Boolean,
-    autoHighlight: Boolean,
+    autoFilter: { type: Boolean, default: true },
+    autoHighlight: { type: Boolean, default: true },
     disabled: Boolean,
     readonly: Boolean,
     invalidMessage: { type: String, default: undefined },
