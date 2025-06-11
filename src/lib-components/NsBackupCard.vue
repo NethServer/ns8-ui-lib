@@ -29,28 +29,20 @@
     </template>
     <template v-else>
       <div class="backups">
-        <div
-          v-for="backup in backupsContainingInstance"
-          :key="backup.id"
-          class="backup"
-        >
-          <div v-if="backupsContainingInstance.length > 1" class="row">
-            <h5 class="title">
-              {{ backup.name }}
-            </h5>
-          </div>
+        <div v-if="backupsContainingInstance.length == 1" class="backup">
           <div class="table-wrapper">
             <div class="table">
               <!-- status -->
               <div class="tr">
                 <div class="td label">{{ statusLabel }}</div>
                 <div class="td status">
-                  <span v-if="!backup.enabled" class="ns-warning">
+                  <span v-if="!singleBackup.enabled" class="ns-warning">
                     {{ backupDisabledLabel }}
                   </span>
                   <span
                     v-else-if="
-                      status[backup.id] && status[backup.id].success == true
+                      status[singleBackup.id] &&
+                      status[singleBackup.id].success == true
                     "
                     class="ns-success"
                   >
@@ -58,7 +50,8 @@
                   </span>
                   <span
                     v-else-if="
-                      status[backup.id] && status[backup.id].success == false
+                      status[singleBackup.id] &&
+                      status[singleBackup.id].success == false
                     "
                     class="ns-error"
                   >
@@ -70,8 +63,7 @@
                 </div>
               </div>
               <NsBackupCardDetails
-                v-if="backupsContainingInstance.length == 1"
-                :backup="backup"
+                :backup="singleBackup"
                 :status="status"
                 :repositoryLabel="repositoryLabel"
                 :completedLabel="completedLabel"
@@ -81,27 +73,32 @@
               />
             </div>
           </div>
-          <div
-            v-if="backupsContainingInstance.length > 1"
-            class="table-wrapper"
-          >
+        </div>
+        <div v-else>
+          <!-- multiple backups for this instance -->
+          <div class="table-wrapper">
             <div class="table">
-              <cv-accordion ref="accordion">
-                <cv-accordion-item :open="toggleAccordion[0]">
-                  <template slot="title">{{ showMoreLabel }}</template>
-                  <template slot="content">
-                    <NsBackupCardDetails
-                      :backup="backup"
-                      :status="status"
-                      :repositoryLabel="repositoryLabel"
-                      :completedLabel="completedLabel"
-                      :durationLabel="durationLabel"
-                      :totalSizeLabel="totalSizeLabel"
-                      :totalFileCountLabel="totalFileCountLabel"
-                    />
-                  </template>
-                </cv-accordion-item>
-              </cv-accordion>
+              <!-- status -->
+              <div class="tr">
+                <div class="td label">{{ statusLabel }}</div>
+                <div class="td status">
+                  <span
+                    v-if="summaryStatus && summaryStatus.success == true"
+                    class="ns-success"
+                  >
+                    <span>{{ statusSuccessLabel }}</span>
+                  </span>
+                  <span
+                    v-else-if="summaryStatus && summaryStatus.success == false"
+                    class="ns-error"
+                  >
+                    {{ statusErrorLabel }}
+                  </span>
+                  <span v-else class="ns-warning">
+                    {{ multipleUncertainStatusLabel }}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -186,6 +183,10 @@ export default {
       type: String,
       default: "Show more",
     },
+    multipleUncertainStatusLabel: {
+      type: String,
+      default: "Some backups failed or are pending",
+    },
     moduleId: {
       type: String,
       required: true,
@@ -215,8 +216,16 @@ export default {
   data() {
     return {
       backupsContainingInstance: [],
-      status: [],
+      status: {},
+      summaryStatus: undefined,
     };
+  },
+  computed: {
+    singleBackup() {
+      return this.backupsContainingInstance.length === 1
+        ? this.backupsContainingInstance[0]
+        : null;
+    },
   },
   watch: {
     repositories: function () {
@@ -247,8 +256,22 @@ export default {
         const instance = backup.instances.find(
           (i) => i.module_id == this.moduleId
         );
-        const status = instance.status;
-        this.status[backup.id] = status;
+        const instanceStatus = instance.status;
+        this.status[backup.id] = instanceStatus;
+
+        // overwrite summary status if:
+        // - it is undefined (first time loading)
+        // - the status is not successful
+        // - the status is null (not run yet) and the previous status was true (successful)
+        if (
+          this.summaryStatus === undefined ||
+          (instanceStatus && instanceStatus.success === false) ||
+          (instanceStatus &&
+            instanceStatus.success === null &&
+            this.summaryStatus === true)
+        ) {
+          this.summaryStatus = instanceStatus;
+        }
       }
     },
     goToBackup() {
