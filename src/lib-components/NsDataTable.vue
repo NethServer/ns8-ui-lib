@@ -274,6 +274,7 @@
         :backwardText="backwardText"
         :forwardText="forwardText"
         :pageNumberLabel="pageNumberLabel"
+        :page="pageNumber"
         @change="paginateTable($event)"
       >
         <template v-slot:range-text="{ scope }">
@@ -457,6 +458,7 @@ export default {
       // workaround to detect click on clear search button; search is handled by filterRows() with debounce
       if (!this.searchFilter) {
         this.filteredRows = this.allRows;
+        this.goToFirstPage();
         this.focusElement("tableSearch");
       }
     },
@@ -466,6 +468,16 @@ export default {
         this.filteredRows = this.filterRowsCallback(this.searchFilter);
       } else {
         this.filteredRows = this.defaultFilterRows();
+      }
+      this.goToFirstPage();
+    },
+    goToFirstPage() {
+      if (this.pageNumber !== 1) {
+        this.paginateTable({
+          start: 1,
+          page: 1,
+          length: this.pageLength,
+        });
       }
     },
     searchMatch(target, cleanRegex, queryText) {
