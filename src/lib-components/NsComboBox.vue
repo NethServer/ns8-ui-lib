@@ -383,6 +383,11 @@ export default {
       this.updateOptions();
       this.$emit("change", this.dataValue);
     },
+    resetValue() {
+      this.internalUpdateValue("");
+      this.filter = "";
+      this.$emit("change", this.dataValue);
+    },
     checkHighlightPosition(newHiglight) {
       if (
         this.$refs.list &&
