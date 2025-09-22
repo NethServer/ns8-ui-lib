@@ -14,6 +14,7 @@
     <template slot="title">{{ title }}</template>
     <template slot="content">
       <NsInlineNotification
+        v-if="isWarningShown"
         kind="warning"
         :title="warning"
         :showCloseButton="false"
@@ -68,6 +69,10 @@ export default {
     warning: {
       type: String,
       default: "Please read carefully"
+    },
+    isWarningShown: {
+      type: Boolean,
+      default: true
     },
     description: {
       type: String,
