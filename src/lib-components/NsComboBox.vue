@@ -383,9 +383,10 @@ export default {
       this.updateOptions();
       this.$emit("change", this.dataValue);
     },
-    resetValue() {
+    clearValue() {
       this.internalUpdateValue("");
       this.filter = "";
+      this.updateOptions();
       this.$emit("change", this.dataValue);
     },
     checkHighlightPosition(newHiglight) {
