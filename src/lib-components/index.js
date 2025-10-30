@@ -56,6 +56,7 @@ export { default as UserProfilePictogram } from "./pictograms/UserProfilePictogr
 export { default as FolderPictogram } from "./pictograms/FolderPictogram.vue";
 export { default as FaceSatisfiedPictogram } from "./pictograms/FaceSatisfiedPictogram.vue";
 export { default as DocumentSecurityPictogram } from "./pictograms/DocumentSecurityPictogram.vue";
+export { default as CircleCheckPictogram } from "./pictograms/CircleCheckPictogram.vue";
 
 // Mixins
 export { default as UtilService } from "../lib-mixins/util.js";
