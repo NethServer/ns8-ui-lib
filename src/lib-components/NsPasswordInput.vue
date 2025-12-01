@@ -278,7 +278,7 @@ export default {
 
 <style scoped lang="scss">
 .new-password-container {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .new-password {
