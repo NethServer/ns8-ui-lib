@@ -58,6 +58,7 @@ export { default as FaceSatisfiedPictogram } from "./pictograms/FaceSatisfiedPic
 export { default as DocumentSecurityPictogram } from "./pictograms/DocumentSecurityPictogram.vue";
 export { default as CircleCheckPictogram } from "./pictograms/CircleCheckPictogram.vue";
 export { default as AppsPictogram } from "./pictograms/AppsPictogram.vue";
+export { default as ServerRackPictogram } from "./pictograms/ServerRackPictogram.vue";
 
 // Mixins
 export { default as UtilService } from "../lib-mixins/util.js";
