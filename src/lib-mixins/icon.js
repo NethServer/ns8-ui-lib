@@ -9,7 +9,6 @@ import ArrowRight32 from "@carbon/icons-vue/es/arrow--right/32";
 import Notification20 from "@carbon/icons-vue/es/notification/20";
 import UserAvatar20 from "@carbon/icons-vue/es/user--avatar/20";
 import UserAvatar32 from "@carbon/icons-vue/es/user--avatar/32";
-import AppSwitcher20 from "@carbon/icons-vue/es/app-switcher/20";
 import Search20 from "@carbon/icons-vue/es/search/20";
 import RowExpand20 from "@carbon/icons-vue/es/row--expand/20";
 import RowCollapse20 from "@carbon/icons-vue/es/row--collapse/20";
@@ -166,7 +165,6 @@ export default {
       Notification20,
       UserAvatar20, // account
       UserAvatar32,
-      AppSwitcher20,
       Search20,
       RowExpand20,
       RowCollapse20,
