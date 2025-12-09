@@ -1,0 +1,23 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["local>NethServer/.github:base", ":automergePatch"],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "ignoreDeps": ["vue"]
+  },
+  "rebaseWhen": "never",
+  "keepUpdatedLabel": "auto-update",
+  "packageRules": [
+    {
+      "matchDatasources": ["npm"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false,
+      "description": "Disable major version upgrades for all npm packages. Useful to avoid major updates of Vue ecosystem."
+    },
+    {
+      "description": "Disable updates for Vue CLI monorepo packages to avoid node and @achrinza/node-ipc compatibility issues",
+      "matchPackagePatterns": ["^@vue/cli-", "@vue/cli"],
+      "enabled": false
+    }
+  ]
+}
