@@ -18,7 +18,6 @@
 </template>
 
 <script>
-// import { UtilService, IconService } from "@nethserver/ns8-ui-lib"; ////
 import {
   CircleFilled16,
   CheckmarkOutline16,
@@ -32,7 +31,6 @@ export default {
     CircleFilled16,
     RadioButton16,
   },
-  //   mixins: [UtilService, IconService], ////
   props: {
     stepId: {
       type: String,
