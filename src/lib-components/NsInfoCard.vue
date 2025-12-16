@@ -28,7 +28,9 @@
     </div>
     <template v-else>
       <div v-if="title" class="row">
-        <h3 class="title">{{ title }}</h3>
+        <h3 :class="['title', wrapTitle ? 'wrap-text' : 'ellipsis']">
+          {{ title }}
+        </h3>
         <cv-interactive-tooltip
           v-if="$slots.titleTooltip || titleTooltip"
           :alignment="titleTooltipAlignment"
@@ -102,6 +104,7 @@ export default {
     isErrorShown: false,
     errorTitle: String,
     errorDescription: String,
+    wrapTitle: Boolean,
     light: Boolean,
   },
   computed: {
@@ -119,7 +122,6 @@ export default {
 .info-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 7rem;
   // needed for abosulute positioning of overflow menu
   position: relative;
@@ -142,9 +144,17 @@ export default {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
   margin-bottom: 0.5rem;
-  overflow: hidden;
+  text-align: center;
+}
+
+.ellipsis {
   text-overflow: ellipsis;
+  overflow: hidden;
   white-space: nowrap;
+}
+
+.wrap-text {
+  overflow-wrap: anywhere;
 }
 
 .title-tooltip {
