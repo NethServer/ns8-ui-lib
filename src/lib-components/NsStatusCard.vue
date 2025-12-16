@@ -102,7 +102,6 @@ export default {
 .status-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .row {

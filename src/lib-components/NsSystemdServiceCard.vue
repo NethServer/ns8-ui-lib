@@ -78,7 +78,6 @@ export default {
 .service-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .row {
@@ -92,6 +91,8 @@ export default {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
   margin-bottom: 0.5rem;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .success-icon {

@@ -42,6 +42,7 @@ export { default as NsByteSlider } from "./NsByteSlider.vue";
 export { default as NsTabs } from "./NsTabs.vue";
 export { default as NsSlider } from "./NsSlider.vue";
 export { default as NsComboSearchBox } from "./NsComboSearchBox.vue";
+export { default as NsProgress } from "./NsProgress.vue";
 
 // Pictograms
 export { default as ExclamationMarkPictogram } from "./pictograms/ExclamationMarkPictogram.vue";

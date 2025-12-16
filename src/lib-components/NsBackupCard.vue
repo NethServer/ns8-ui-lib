@@ -287,7 +287,6 @@ export default {
 .ns-backup-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 7rem;
 }
 
