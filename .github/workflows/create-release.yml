@@ -1,4 +1,4 @@
-name: Publish to NPM and create release
+name: Release
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - "v*"
 
 jobs:
-  npm-publish:
+  release:
+    name: Publish to NPM, create release and attach SBOM
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout source code"
@@ -31,3 +32,20 @@ jobs:
         run: gh release create ${{ github.ref }} --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
+      - name: Generate CycloneDX SBOM
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: cyclonedx
+          output: sbom.cdx.json
+      - name: Get tag name
+        id: extract_tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_REF: ${{ github.ref }}
+      - name: Attach SBOM to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ steps.extract_tag.outputs.TAG_NAME }}" sbom.cdx.json --clobber
