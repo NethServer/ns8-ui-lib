@@ -9,7 +9,7 @@
         :value="value"
         @input="onInput"
         type="password"
-        :helperText="newPaswordHelperText"
+        :helperText="newPasswordHelperText"
         :invalidMessage="newPasswordInvalidMessage"
         :label="newPasswordLabel"
         :passwordHideLabel="passwordHideLabel"
@@ -88,7 +88,7 @@
       <NsTextInput
         v-model="confirmPassword"
         type="password"
-        :helperText="confirmPaswordHelperText"
+        :helperText="confirmPasswordHelperText"
         :invalidMessage="confirmPasswordInvalidMessage"
         :label="confirmPasswordLabel"
         :passwordHideLabel="passwordHideLabel"
@@ -127,8 +127,8 @@ export default {
   mixins: [UtilService],
   props: {
     value: String,
-    newPaswordHelperText: { type: String, default: undefined },
-    confirmPaswordHelperText: { type: String, default: undefined },
+    newPasswordHelperText: { type: String, default: undefined },
+    confirmPasswordHelperText: { type: String, default: undefined },
     newPasswordInvalidMessage: { type: String, default: undefined },
     confirmPasswordInvalidMessage: { type: String, default: undefined },
     newPasswordLabel: { type: String, default: "New password" },
