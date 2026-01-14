@@ -63,10 +63,14 @@
       <cv-button-set
         :class="[
           `${carbonPrefix}--modal-footer`,
-          `${carbonPrefix}--modal-footer--three-button`,
+          {
+            [`${carbonPrefix}--modal-footer--three-button`]:
+              isPreviousShown && isCancelShown,
+          },
         ]"
       >
         <NsButton
+          v-show="isCancelShown"
           kind="secondary"
           :icon="Close20"
           @click="$emit('cancel')"
@@ -77,6 +81,7 @@
           >{{ cancelLabel }}
         </NsButton>
         <NsButton
+          v-show="isPreviousShown"
           kind="secondary"
           :icon="ChevronLeft20"
           @click="$emit('previousStep')"
@@ -125,6 +130,8 @@ export default {
     isNextDisabled: Boolean,
     isCancelDisabled: Boolean,
     isNextLoading: Boolean,
+    isPreviousShown: { type: Boolean, default: true },
+    isCancelShown: { type: Boolean, default: true },
     closeAriaLabel: { type: String, default: "Close modal" },
     autoHideOff: Boolean,
     visible: Boolean,
