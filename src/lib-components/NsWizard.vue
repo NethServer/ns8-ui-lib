@@ -93,7 +93,7 @@
         </NsButton>
         <NsButton
           kind="primary"
-          :icon="ChevronRight20"
+          :icon="lastStep ? null : ChevronRight20"
           @click="$emit('nextStep')"
           :disabled="isNextDisabled"
           :loading="isNextLoading"
@@ -136,6 +136,7 @@ export default {
     autoHideOff: Boolean,
     visible: Boolean,
     size: String,
+    lastStep: { type: Boolean, default: false },
   },
   methods: {
     focusBeforeContent() {
