@@ -99,7 +99,10 @@ export default {
       default: "info",
       validator: (val) => ["error", "info", "warning", "success"].includes(val)
     },
-    lowContrast: Boolean,
+    lowContrast: {
+      type: Boolean,
+      default: true
+    },
     loading: {
       type: Boolean,
       default: false
