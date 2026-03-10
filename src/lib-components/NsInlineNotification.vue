@@ -46,7 +46,7 @@
             :timeLimit="timer"
             :size="16"
             :strokeWidth="20"
-            :color="lowContrast ? '#00a2de' : 'white'"
+            :color="lowContrast ? undefined : 'white'"
           />
         </p>
       </div>
