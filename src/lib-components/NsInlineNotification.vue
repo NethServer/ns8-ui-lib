@@ -51,22 +51,19 @@
         </p>
       </div>
     </div>
-    <button
+    <NsButton
       v-if="actionLabel"
       @click="$emit('action')"
-      :disabled="loadingAction"
+      :loading="loadingAction"
+      kind="ghost"
+      size="sm"
       :class="[
         `${carbonPrefix}--inline-notification__action-button`,
-        `${carbonPrefix}--btn`,
-        `${carbonPrefix}--btn--sm`,
-        `${carbonPrefix}--btn--ghost`,
         'action-button'
       ]"
-      type="button"
     >
-      <span v-if="loadingAction" class="action-button__loader"></span>
       {{ actionLabel }}
-    </button>
+    </NsButton>
     <button
       v-if="showCloseButton"
       type="button"
@@ -83,11 +80,12 @@
 <script>
 import { CvInlineNotification } from "@carbon/vue";
 import NsCircleTimer from "./NsCircleTimer.vue";
+import NsButton from "./NsButton.vue";
 
 export default {
   name: "NsInlineNotification",
   extends: CvInlineNotification,
-  components: { NsCircleTimer },
+  components: { NsCircleTimer, NsButton },
   props: {
     showCloseButton: {
       type: Boolean,
@@ -134,24 +132,6 @@ export default {
 
 .action-button {
   margin-right: 0.5rem;
-}
-
-.action-button__loader {
-  display: inline-block;
-  width: 0.875rem;
-  height: 0.875rem;
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: ns-spin 0.6s linear infinite;
-  margin-right: 0.4rem;
-  vertical-align: middle;
-}
-
-@keyframes ns-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .bx--inline-notification__text-wrapper p {
