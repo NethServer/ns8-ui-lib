@@ -60,8 +60,7 @@
         `${carbonPrefix}--btn`,
         `${carbonPrefix}--btn--sm`,
         `${carbonPrefix}--btn--ghost`,
-        'action-button',
-        { 'action-button--loading': loadingAction }
+        'action-button'
       ]"
       type="button"
     >
@@ -135,11 +134,6 @@ export default {
 
 .action-button {
   margin-right: 0.5rem;
-}
-
-.action-button--loading {
-  cursor: not-allowed;
-  opacity: 0.7;
 }
 
 .action-button__loader {
