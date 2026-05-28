@@ -54,15 +54,18 @@
     <button
       v-if="actionLabel"
       @click="$emit('action')"
+      :disabled="loadingAction"
       :class="[
         `${carbonPrefix}--inline-notification__action-button`,
         `${carbonPrefix}--btn`,
         `${carbonPrefix}--btn--sm`,
         `${carbonPrefix}--btn--ghost`,
-        'action-button'
+        'action-button',
+        { 'action-button--loading': loadingAction }
       ]"
       type="button"
     >
+      <span v-if="loadingAction" class="action-button__loader"></span>
       {{ actionLabel }}
     </button>
     <button
@@ -107,6 +110,10 @@ export default {
       type: Boolean,
       default: false
     },
+    loadingAction: {
+      type: Boolean,
+      default: false
+    },
     timer: {
       type: Number
     }
@@ -128,6 +135,29 @@ export default {
 
 .action-button {
   margin-right: 0.5rem;
+}
+
+.action-button--loading {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.action-button__loader {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: ns-spin 0.6s linear infinite;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
+@keyframes ns-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .bx--inline-notification__text-wrapper p {
