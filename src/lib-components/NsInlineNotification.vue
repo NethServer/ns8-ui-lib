@@ -51,20 +51,20 @@
         </p>
       </div>
     </div>
-    <button
+    <NsButton
       v-if="actionLabel"
       @click="$emit('action')"
+      :loading="loadingAction"
+      kind="ghost"
+      size="sm"
+      type="button"
       :class="[
         `${carbonPrefix}--inline-notification__action-button`,
-        `${carbonPrefix}--btn`,
-        `${carbonPrefix}--btn--sm`,
-        `${carbonPrefix}--btn--ghost`,
         'action-button'
       ]"
-      type="button"
     >
       {{ actionLabel }}
-    </button>
+    </NsButton>
     <button
       v-if="showCloseButton"
       type="button"
@@ -81,11 +81,12 @@
 <script>
 import { CvInlineNotification } from "@carbon/vue";
 import NsCircleTimer from "./NsCircleTimer.vue";
+import NsButton from "./NsButton.vue";
 
 export default {
   name: "NsInlineNotification",
   extends: CvInlineNotification,
-  components: { NsCircleTimer },
+  components: { NsCircleTimer, NsButton },
   props: {
     showCloseButton: {
       type: Boolean,
@@ -104,6 +105,10 @@ export default {
       default: true
     },
     loading: {
+      type: Boolean,
+      default: false
+    },
+    loadingAction: {
       type: Boolean,
       default: false
     },
