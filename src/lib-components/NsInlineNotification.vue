@@ -57,6 +57,7 @@
       :loading="loadingAction"
       kind="ghost"
       size="sm"
+      type="button"
       :class="[
         `${carbonPrefix}--inline-notification__action-button`,
         'action-button'
