@@ -45,7 +45,7 @@
 
         <!-- cancel button -->
         <div
-          v-if="isCancelShown && isProgressShown"
+          v-if="isCancelShown && isProgressShown && !isConfirmCancelShown"
           :class="[
             `${carbonPrefix}--toast-notification__caption`,
             `action`,
@@ -58,14 +58,48 @@
               `${carbonPrefix}--inline-notification__action-button`,
               `${carbonPrefix}--btn`,
               `${carbonPrefix}--btn--sm`,
-              { 'bx--btn--ghost': !isConfirmCancelShown },
-              { 'bx--btn--danger': isConfirmCancelShown }
+              `bx--btn--ghost`,
             ]"
-            :disabled="isCancelButtonDisabled"
             type="button"
           >
-            {{ isConfirmCancelShown ? confirmCancelLabel : cancelLabel }}
+            {{ cancelLabel }}
           </button>
+        </div>
+
+        <!-- cancel confirmation -->
+        <div
+          v-else-if="isCancelShown && isProgressShown && isConfirmCancelShown"
+          class="cancel-confirmation"
+        >
+          <p class="cancel-confirmation__text">{{ confirmCancelText }}</p>
+          <div class="cancel-confirmation__buttons">
+            <button
+              @click="handleKeepRunning"
+              :class="[
+                `${carbonPrefix}--inline-notification__action-button`,
+                `${carbonPrefix}--btn`,
+                `${carbonPrefix}--btn--sm`,
+                `bx--btn--ghost`,
+              ]"
+              type="button"
+              :disabled="isKeepRunningButtonDisabled"
+            >
+              {{ keepRunningLabel }}
+            </button>
+            <button
+              @click="confirmCancelTask"
+              :class="[
+                `${carbonPrefix}--inline-notification__action-button`,
+                `${carbonPrefix}--btn`,
+                `${carbonPrefix}--btn--sm`,
+                `bx--btn--danger`,
+              ]"
+              :disabled="isCancelButtonDisabled"
+              type="button"
+            >
+              {{ cancelLabel }}
+            </button>
+          </div>
         </div>
 
         <!-- action button -->
@@ -153,7 +187,11 @@ export default {
       default: false
     },
     cancelLabel: { type: String, default: "Abort" },
-    confirmCancelLabel: { type: String, default: "Confirm abort" },
+    confirmCancelText: {
+      type: String,
+      default: "Abort this task? This action can't be undone",
+    },
+    keepRunningLabel: { type: String, default: "Keep running" },
     closeAriaLabel: { type: String, default: "Dismiss notification" },
     kind: {
       type: String,
@@ -165,25 +203,23 @@ export default {
   data() {
     return {
       isConfirmCancelShown: false,
-      isCancelButtonDisabled: false
+      isCancelButtonDisabled: false,
+      isKeepRunningButtonDisabled: false,
     };
   },
   methods: {
     cancelTask() {
-      if (!this.isConfirmCancelShown) {
-        // show confirmation
-        this.isConfirmCancelShown = true;
-
-        setTimeout(() => {
-          this.isConfirmCancelShown = false;
-        }, 5000);
-      } else {
-        // cancel task
-        this.$emit("cancelTask", this.id);
-        this.isCancelButtonDisabled = true;
-      }
-    }
-  }
+      this.isConfirmCancelShown = true;
+    },
+    handleKeepRunning() {
+      this.isConfirmCancelShown = false;
+    },
+    confirmCancelTask() {
+      this.$emit("cancelTask", this.id);
+      this.isCancelButtonDisabled = true;
+      this.isKeepRunningButtonDisabled = true;
+    },
+  },
 };
 </script>
 
@@ -196,6 +232,17 @@ export default {
 .action {
   padding-top: 0;
   margin-bottom: 0;
+}
+
+.cancel-confirmation {
+  margin-top: 1rem;
+}
+
+.cancel-confirmation__buttons {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 2rem;
 }
 
 .bx--toast-notification .bx--inline-notification__action-button {
