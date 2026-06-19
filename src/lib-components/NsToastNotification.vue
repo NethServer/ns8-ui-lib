@@ -97,7 +97,7 @@
               :disabled="isCancelButtonDisabled"
               type="button"
             >
-              {{ cancelLabel }}
+              {{ confirmCancelLabel }}
             </button>
           </div>
         </div>
@@ -192,6 +192,7 @@ export default {
       default: "Abort this task? This action can't be undone",
     },
     keepRunningLabel: { type: String, default: "Keep running" },
+    confirmCancelLabel: { type: String, default: "Yes, abort" },
     closeAriaLabel: { type: String, default: "Dismiss notification" },
     kind: {
       type: String,
