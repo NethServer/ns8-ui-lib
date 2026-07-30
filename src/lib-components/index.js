@@ -60,6 +60,7 @@ export { default as DocumentSecurityPictogram } from "./pictograms/DocumentSecur
 export { default as CircleCheckPictogram } from "./pictograms/CircleCheckPictogram.vue";
 export { default as AppsPictogram } from "./pictograms/AppsPictogram.vue";
 export { default as ServerRackPictogram } from "./pictograms/ServerRackPictogram.vue";
+export { default as NetworkPictogram } from "./pictograms/NetworkPictogram.vue";
 
 // Mixins
 export { default as UtilService } from "../lib-mixins/util.js";
