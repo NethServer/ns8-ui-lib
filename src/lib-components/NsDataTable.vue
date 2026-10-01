@@ -313,6 +313,11 @@ import Close16 from "@carbon/icons-vue/es/close/16";
 import ChevronRight16 from "@carbon/icons-vue/es/chevron--right/16";
 import UtilService from "../lib-mixins/util.js";
 import LottieService from "../lib-mixins/lottie.js";
+import StorageService from "../lib-mixins/storage.js";
+
+// localStorage entry holding the page sizes chosen by the user, grouped by
+// page sizes set (e.g. {"10,25,50,100": 50}) or by pageSizeStorageKey prop
+const PAGE_SIZES_STORAGE_KEY = "nsDataTablePageSizes";
 
 export default {
   name: "NsDataTable",
@@ -329,7 +334,7 @@ export default {
     ChevronRight16,
     NsPagination,
   },
-  mixins: [UtilService, LottieService],
+  mixins: [UtilService, LottieService, StorageService],
   props: {
     actionBarAriaLabel: { type: String, default: "Table Action Bar" },
     collapseAllAriaLabel: { type: String, default: "Collapse all rows" },
@@ -343,6 +348,11 @@ export default {
       type: Array,
       default: () => [10, 25, 50, 100],
     },
+    // remember the page size chosen by the user in localStorage
+    persistPageSize: { type: Boolean, default: true },
+    // key used to store the page size; tables with the same key share the same page size.
+    // If empty, tables are grouped by their page sizes set
+    pageSizeStorageKey: { type: String, default: "" },
     rowSize: {
       type: String,
       default: "standard",
@@ -395,6 +405,7 @@ export default {
       pageStart: 0,
       pageNumber: 0,
       pageLength: 0,
+      selectedPageSize: null,
     };
   },
   watch: {
@@ -404,8 +415,12 @@ export default {
     filteredRows: function () {
       this.$emit("updatePage", this.tablePage);
     },
+    pageSizeGroup: function () {
+      this.selectedPageSize = this.getStoredPageSize();
+    },
   },
   created() {
+    this.selectedPageSize = this.getStoredPageSize();
     this.filterRows();
   },
   computed: {
@@ -413,11 +428,37 @@ export default {
       if (this.pageSizes.length) {
         return {
           numberOfItems: this.filteredRows.length,
-          pageSizes: this.pageSizes,
+          pageSizes: this.paginationPageSizes,
         };
       } else {
         return false;
       }
+    },
+    isPageSizePersisted() {
+      return (
+        this.persistPageSize &&
+        this.pageSizes.length > 1 &&
+        this.pageSizes.every((size) => typeof size === "number")
+      );
+    },
+    pageSizeGroup() {
+      if (!this.isPageSizePersisted) {
+        return "";
+      }
+      return this.pageSizeStorageKey || this.pageSizes.join(",");
+    },
+    paginationPageSizes() {
+      if (
+        this.selectedPageSize === null ||
+        !this.pageSizes.includes(this.selectedPageSize)
+      ) {
+        return this.pageSizes;
+      }
+      // preselect page size in NsPagination
+      return this.pageSizes.map((size) => ({
+        value: size,
+        selected: size === this.selectedPageSize,
+      }));
     },
     tablePage() {
       if (this.pageSizes.length) {
@@ -526,7 +567,56 @@ export default {
         return searchResults;
       }
     },
+    readStoredPageSizes() {
+      try {
+        const storedPageSizes = this.getFromStorage(PAGE_SIZES_STORAGE_KEY);
+
+        if (
+          storedPageSizes &&
+          typeof storedPageSizes === "object" &&
+          !Array.isArray(storedPageSizes)
+        ) {
+          return storedPageSizes;
+        }
+      } catch (e) {
+        // corrupted value or storage not available
+      }
+      return {};
+    },
+    getStoredPageSize() {
+      if (!this.pageSizeGroup) {
+        return null;
+      }
+      const pageSize = this.readStoredPageSizes()[this.pageSizeGroup];
+
+      if (this.pageSizes.includes(pageSize)) {
+        return pageSize;
+      }
+      return null;
+    },
+    storePageSize(pageSize) {
+      if (!this.pageSizeGroup) {
+        return;
+      }
+      const storedPageSizes = this.readStoredPageSizes();
+      storedPageSizes[this.pageSizeGroup] = pageSize;
+
+      try {
+        this.saveToStorage(PAGE_SIZES_STORAGE_KEY, storedPageSizes);
+      } catch (e) {
+        // storage not available or full
+      }
+    },
     paginateTable(ev) {
+      if (
+        this.isPageSizePersisted &&
+        this.pageLength !== 0 &&
+        ev.length !== this.pageLength
+      ) {
+        // page size changed by the user
+        this.selectedPageSize = ev.length;
+        this.storePageSize(ev.length);
+      }
       this.pageStart = ev.start - 1;
       this.pageNumber = ev.page;
       this.pageLength = ev.length;
