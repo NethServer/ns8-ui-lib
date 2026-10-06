@@ -164,7 +164,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../lib-styles/utilities";
+@import "../lib-styles/tooltip";
 
 .label-with-tooltip {
   display: flex;

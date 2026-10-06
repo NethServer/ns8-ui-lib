@@ -26,7 +26,7 @@
       <cv-form @submit.prevent="confirmDelete">
         <cv-text-input
           v-model="userInput"
-          class="mg-bottom-md"
+          class="confirm-input"
           ref="userInput"
         ></cv-text-input>
       </cv-form>
@@ -147,7 +147,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../lib-styles/utilities";
+@import "../lib-styles/tokens";
+
+.confirm-input {
+  margin-bottom: $spacing-05;
+}
 
 .type-to-confirm {
   margin-top: 2rem;

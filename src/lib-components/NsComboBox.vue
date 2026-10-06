@@ -605,7 +605,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../lib-styles/utilities";
+@import "../lib-styles/tooltip";
 
 .margin-bottom-on-open {
   margin-bottom: 14rem;

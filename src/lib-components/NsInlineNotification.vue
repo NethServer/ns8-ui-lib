@@ -120,6 +120,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/tokens";
+
+.cv-inline-notification {
+  margin-bottom: $spacing-07;
+}
+
 .title {
   margin-right: 0.75rem;
   margin-bottom: 0.2rem;
