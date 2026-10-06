@@ -1,0 +1,88 @@
+// Global styles for Storybook and the playground only, never shipped with the
+// library. They replace what ns8-core loads on every page: the Carbon v10
+// theme with NS8 branding, a few page conventions, and the utility classes
+// used by stories markup. Do not add rules needed by library components here:
+// components must carry their own (scoped) styles, see src/lib-styles.
+
+$feature-flags: (
+  grid-columns-16: true,
+);
+
+@import "../src/lib-styles/tokens";
+@import "carbon-components/scss/globals/scss/styles";
+
+// Carbon fixes, from ns8-core core/ui/src/styles/_carbon-fixes.scss
+
+/// Need grid option to not add page gutters at large viewports, to also use when nesting grids
+/// @link https://github.com/carbon-design-system/carbon/issues/2792
+@media (min-width: 42rem) {
+  .bx--grid--no-gutter {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/// Padding was introduced in 10.3.0, needs an option to let grid set the viewport gutter
+/// @link https://github.com/carbon-design-system/carbon/issues/3010
+.bx--content {
+  padding: 0;
+}
+
+// Page conventions applied by ns8-core to every page, from _core.scss
+
+body {
+  background-color: $ui-01;
+}
+
+p {
+  font-size: 100%;
+}
+
+// limit form fields width on large devices
+@media (min-width: $breakpoint-medium) {
+  .bx--text-input,
+  .bx--text-input__field-wrapper,
+  .cv-text-area,
+  .cv-select,
+  .cv-multi-select,
+  .cv-combo-box {
+    max-width: 38rem;
+  }
+}
+
+// Utility classes used by stories markup, from ns8-core _core.scss
+
+.mg-top-sm {
+  margin-top: $spacing-03 !important;
+}
+
+.mg-top-xlg {
+  margin-top: $spacing-07 !important;
+}
+
+.mg-bottom-md {
+  margin-bottom: $spacing-05 !important;
+}
+
+.top-right-overflow-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3rem;
+  height: 3rem;
+}
+
+.top-right-overflow-menu .bx--overflow-menu__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.table-overflow-menu-cell {
+  position: relative;
+}
+
+.table-overflow-menu {
+  position: absolute;
+  top: 4px;
+  right: 1rem;
+}

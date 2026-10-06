@@ -72,11 +72,18 @@ const baseConfig = {
 
 // ESM/UMD/IIFE shared settings: externals
 // Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
-const external = [
-  // list external dependencies, exactly the way it is written in the import statement.
-  // eg. 'jquery'
+// Packages provided by the consumer app (core and modules UI). They are installed
+// here as dev dependencies only for Storybook and the playground, so they must
+// be excluded explicitly, including deep imports like '@carbon/icons-vue/es/...'
+const externalPackages = [
   'vue',
+  '@carbon/vue',
+  '@carbon/icons-vue',
+  'vuex',
+  'lottie-web-vue',
 ];
+const external = (id) =>
+  externalPackages.some((pkg) => id === pkg || id.startsWith(`${pkg}/`));
 
 // UMD/IIFE shared settings: output.globals
 // Refer to https://rollupjs.org/guide/en#output-globals for details

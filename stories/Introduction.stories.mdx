@@ -1,0 +1,76 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Welcome/Introduction" />
+
+# NS8 UI library
+
+This Storybook shows the reusable Vue.js components of
+[@nethserver/ns8-ui-lib](https://www.npmjs.com/package/@nethserver/ns8-ui-lib),
+used by the [NethServer 8](https://github.com/NethServer/ns8-core) core and
+applications UI. Component names start with the `Ns` prefix, e.g. `NsButton`.
+
+Stories are built from the latest release, see the
+[source repository](https://github.com/NethServer/ns8-ui-lib).
+
+## Usage
+
+Install the library:
+
+```bash
+npm install @nethserver/ns8-ui-lib
+```
+
+To globally include NS8 components, edit `main.js` of the project importing
+the library:
+
+```js
+// main.js
+
+import ns8Lib from "@nethserver/ns8-ui-lib";
+Vue.use(ns8Lib);
+```
+
+The project must also register the dependencies used by the components, e.g.
+[Carbon Components Vue](https://vue.carbondesignsystem.com/vue2/),
+`vue-date-fns`, `vue2-timepicker` and `vue-debounce`, as done in the
+`main.js` of NS8 core and modules.
+
+To import a specific mixin inside a component (e.g. `TaskService` mixin):
+
+```js
+// ComponentName.vue
+
+import { TaskService } from "@nethserver/ns8-ui-lib";
+
+export default {
+  name: "ComponentName",
+  mixins: [TaskService],
+  ...
+}
+```
+
+More information is available in the
+[UI library section](https://nethserver.github.io/ns8-core/ui/library/)
+of the developer manual.
+
+## Carbon Design System v10
+
+The library is built on [Carbon Design System v10](https://v10.carbondesignsystem.com/)
+and [Carbon Components Vue](https://vue.carbondesignsystem.com/vue2/) (Vue 2).
+Refer to the v10 documentation: the main Carbon website describes v11, whose
+tokens and components differ.
+
+## Styles
+
+Stories load only the Carbon v10 theme with NS8 branding. In NS8, pages also
+load the global stylesheet of the core UI, so some details (e.g. margins of
+form fields) can differ slightly from the actual UI.
+
+## Run locally
+
+```bash
+npm install
+NODE_OPTIONS=--openssl-legacy-provider npm run storybook
+```
+
+`NODE_OPTIONS` is needed with Node.js 17 or later, since Storybook 6 uses webpack 4.
