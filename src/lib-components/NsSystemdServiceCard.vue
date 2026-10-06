@@ -75,6 +75,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/tokens";
+
 .service-card {
   display: flex;
   flex-direction: column;
@@ -96,20 +98,17 @@ export default {
 }
 
 .success-icon {
-  // following rule uses variable color so it's inside core _core.scss
-  // color: $support-02;
+  color: $support-02;
   margin-right: 0.25rem;
 }
 
 .error-icon {
-  // following rule uses variable color so it's inside core _core.scss
-  // color: $danger-01;
+  color: $danger-01;
   margin-right: 0.25rem;
 }
 
 .warning-icon {
-  // following rule uses variable color so it's inside core _core.scss
-  // color: $support-03;
+  color: $ns-warning-status-color;
   margin-right: 0.25rem;
 }
 

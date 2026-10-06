@@ -23,7 +23,8 @@
   "unpkg": "dist/ns8-ui-lib.min.js",
   "files": [
     "dist/*",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "src/lib-styles/*.scss"
   ],
   "sideEffects": false,
   "scripts": {
@@ -50,6 +51,7 @@
     "@rollup/plugin-terser": "^0.4.0",
     "@vue/cli-plugin-babel": "^4.5.19",
     "@vue/cli-service": "^4.5.19",
+    "carbon-components": "^10.59.2",
     "cross-env": "^7.0.3",
     "mark.js": "^8.11.1",
     "minimist": "^1.2.5",

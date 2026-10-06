@@ -88,6 +88,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/utilities";
+
 .tooltip {
   display: inline-block;
   position: absolute;

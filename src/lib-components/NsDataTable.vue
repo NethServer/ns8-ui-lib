@@ -646,3 +646,25 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+// show data table pagination in smaller screens too
+.cv-data-table
+  ::v-deep
+  .bx--pagination__left
+  .cv-select.bx--form-item.bx--select__item-count {
+  display: flex;
+}
+
+.cv-data-table ::v-deep .bx--pagination__right .bx--pagination__button {
+  display: flex;
+}
+
+.cv-data-table ::v-deep .bx--pagination__right .bx--select__page-number {
+  display: flex;
+}
+
+.cv-data-table ::v-deep .bx--pagination__right .bx--pagination__text {
+  display: inline-block;
+}
+</style>

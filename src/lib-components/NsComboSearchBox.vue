@@ -593,6 +593,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/utilities";
+
 .combo-search-box {
   max-width: none;
   position: relative;

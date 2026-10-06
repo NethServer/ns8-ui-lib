@@ -46,6 +46,14 @@ const baseConfig = {
       template: {
         isProduction: true,
       },
+      style: {
+        preprocessOptions: {
+          scss: {
+            // resolve Carbon SCSS imports, e.g. carbon-components/scss/...
+            includePaths: [path.resolve(projectRoot, 'node_modules')],
+          },
+        },
+      },
     },
     postVue: [
       resolve({

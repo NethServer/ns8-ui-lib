@@ -674,6 +674,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/utilities";
+
 .bx--multi-select--filterable .bx--tag.selected-item {
   margin-left: 0;
   margin-bottom: 0.25rem;

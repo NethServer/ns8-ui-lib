@@ -117,6 +117,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/utilities";
+
 .ns-backup-card-details {
   // do not render root div, only table rows
   display: contents;
@@ -135,5 +137,12 @@ export default {
   font-weight: bold;
   text-align: right;
   padding-bottom: 0.5rem;
+}
+
+.tooltip-with-text-trigger
+  ::v-deep
+  .bx--tooltip__trigger:not(.bx--btn--icon-only) {
+  font-size: 14px;
+  color: $interactive-01;
 }
 </style>

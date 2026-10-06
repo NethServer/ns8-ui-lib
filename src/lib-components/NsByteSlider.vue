@@ -458,6 +458,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/utilities";
+
 .range-input {
   margin-top: 0.5rem !important;
 }

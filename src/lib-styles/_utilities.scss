@@ -1,0 +1,49 @@
+// Utility classes used by library components, from ns8-core _core.scss.
+// Import this file only inside a scoped <style> block: rules then apply only
+// to the elements of the importing component and never leak to the page.
+
+@import "./tokens";
+
+.mg-top-sm {
+  margin-top: $spacing-03;
+}
+
+.mg-bottom-md {
+  margin-bottom: $spacing-05;
+}
+
+.no-mg-bottom {
+  margin-bottom: 0;
+}
+
+.ns-success {
+  color: $support-02;
+  fill: $support-02;
+}
+
+.ns-error {
+  color: $danger-01;
+  fill: $danger-01;
+}
+
+.ns-warning {
+  color: $ns-warning-color;
+  fill: $ns-warning-color;
+}
+
+.icon-and-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-and-text .icon {
+  margin-right: $spacing-03;
+}
+
+// info tooltip icon color (class "info" on cv-interactive-tooltip)
+.info ::v-deep .bx--tooltip__trigger svg,
+.info ::v-deep .bx--tooltip__trigger:hover svg,
+.info ::v-deep .bx--tooltip__trigger:focus svg {
+  fill: $support-04;
+}

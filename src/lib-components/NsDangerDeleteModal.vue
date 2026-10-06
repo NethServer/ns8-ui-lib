@@ -147,6 +147,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/utilities";
+
 .type-to-confirm {
   margin-top: 2rem;
 }

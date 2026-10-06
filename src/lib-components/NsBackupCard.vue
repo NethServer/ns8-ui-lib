@@ -284,6 +284,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/utilities";
+
 .ns-backup-card {
   display: flex;
   flex-direction: column;
@@ -317,6 +319,7 @@ export default {
 .table-wrapper {
   display: flex;
   justify-content: center;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
