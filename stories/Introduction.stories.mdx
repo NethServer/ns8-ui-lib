@@ -4,10 +4,22 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # NS8 UI library
 
-This Storybook shows the reusable Vue.js components of
-[@nethserver/ns8-ui-lib](https://www.npmjs.com/package/@nethserver/ns8-ui-lib),
-used by the [NethServer 8](https://github.com/NethServer/ns8-core) core and
-applications UI. Component names start with the `Ns` prefix, e.g. `NsButton`.
+The [NethServer 8](https://github.com/NethServer/ns8-core) core and
+applications UI are built with two component libraries, each with its own
+Storybook:
+
+- **NS8 UI library** (this Storybook): the `Ns*` components of
+  [@nethserver/ns8-ui-lib](https://www.npmjs.com/package/@nethserver/ns8-ui-lib),
+  specific to NethServer 8, e.g. `NsButton`, `NsTextInput`, `NsInfoCard`.
+- **Carbon Components Vue**
+  ([Storybook](https://vue.carbondesignsystem.com/vue2/?path=/story/welcome--default)):
+  the `cv-*` components of `@carbon/vue` for Vue 2, implementing the Carbon
+  Design System v10, e.g. `cv-tile`, `cv-dropdown`.
+
+Many `Ns*` components extend a Carbon component and add NS8 features, e.g.
+`NsTextInput` extends `CvTextInput` and `NsModal` extends `CvModal`, while
+others combine several Carbon components, e.g. `NsInfoCard`. Use an `Ns*`
+component when it exists, and a `cv-*` component otherwise.
 
 Stories are built from the latest release, see the
 [source repository](https://github.com/NethServer/ns8-ui-lib).
