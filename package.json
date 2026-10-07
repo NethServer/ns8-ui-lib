@@ -28,7 +28,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "serve": "vue-cli-service serve dev/serve.js",
+    "playground": "vue-cli-service serve",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
