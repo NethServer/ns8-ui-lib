@@ -18,11 +18,9 @@
 </template>
 
 <script>
-import {
-  CircleFilled16,
-  CheckmarkOutline16,
-  RadioButton16,
-} from "@carbon/icons-vue";
+import CircleFilled16 from "@carbon/icons-vue/es/circle--filled/16";
+import CheckmarkOutline16 from "@carbon/icons-vue/es/checkmark--outline/16";
+import RadioButton16 from "@carbon/icons-vue/es/radio-button/16";
 
 export default {
   name: "NsProgress",

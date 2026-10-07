@@ -238,7 +238,8 @@ import {
   carbonPrefixMixin,
   methodsMixin
 } from "@carbon/vue/src/mixins";
-import { WarningFilled16, WarningAltFilled16 } from "@carbon/icons-vue";
+import WarningFilled16 from "@carbon/icons-vue/es/warning--filled/16";
+import WarningAltFilled16 from "@carbon/icons-vue/es/warning--alt--filled/16";
 import ChevronDown16 from "@carbon/icons-vue/es/chevron--down/16";
 import Close16 from "@carbon/icons-vue/es/close/16";
 import UtilService from "../lib-mixins/util.js";
