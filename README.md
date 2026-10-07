@@ -34,6 +34,6 @@ NODE_OPTIONS=--openssl-legacy-provider npm run playground
 
 Edit `playground/App.vue` for your tests, but do not commit your changes.
 
-`NODE_OPTIONS` is needed with Node.js 17 or later, since Storybook and the playground use webpack 4.
+`NODE_OPTIONS` is needed with recent Node.js versions, since Storybook and the playground use webpack 4.
 
 See the [Developer manual](https://nethserver.github.io/ns8-core/ui/library/) for development containers, releases and testing a development version inside NS8 core or modules.
