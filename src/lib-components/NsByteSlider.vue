@@ -18,7 +18,7 @@
       </label>
       <!-- unlimited/limited radio buttons -->
       <template v-if="showUnlimited">
-        <cv-radio-group vertical :class="{ 'no-mg-bottom': internalUnlimited }">
+        <cv-radio-group vertical :class="{ 'unlimited-group': internalUnlimited }">
           <cv-radio-button
             :name="'radio-group-' + uid"
             :label="unlimitedLabel"
@@ -458,6 +458,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.unlimited-group {
+  margin-bottom: 0;
+}
+
 .range-input {
   margin-top: 0.5rem !important;
 }

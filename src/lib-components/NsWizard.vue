@@ -151,3 +151,15 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+@import "../lib-styles/tokens";
+@import "../lib-styles/modal";
+
+// reduce width of wizard buttons on small screens
+@media (max-width: $breakpoint-medium) {
+  .bx--btn-set .bx--btn.wizard-button {
+    width: 33%;
+  }
+}
+</style>

@@ -85,6 +85,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/tokens";
+
 .ns-time-picker .time-picker-field {
   padding: 0;
   width: 6rem;
@@ -93,6 +95,40 @@ export default {
 // reduce width if clear button is hidden
 .ns-time-picker .time-picker-field.narrow-width {
   width: 4.875rem;
+}
+
+// brand color outline on focus
+.ns-time-picker .time-picker-field ::v-deep input:active,
+.ns-time-picker .time-picker-field ::v-deep input:focus {
+  outline: 2px solid $interactive-01;
+  outline-offset: -2px;
+}
+
+// hover color for clear button
+.ns-time-picker .time-picker-field ::v-deep .clear-btn:hover {
+  color: $ui-05;
+}
+
+// background color of selected time inside dropdown
+.ns-time-picker
+  .time-picker-field
+  ::v-deep
+  .dropdown
+  ul
+  li:not([disabled]).active,
+.ns-time-picker
+  .time-picker-field
+  ::v-deep
+  .dropdown
+  ul
+  li:not([disabled]).active:focus,
+.ns-time-picker
+  .time-picker-field
+  ::v-deep
+  .dropdown
+  ul
+  li:not([disabled]).active:hover {
+  background-color: $interactive-01;
 }
 </style>
 

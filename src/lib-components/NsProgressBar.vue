@@ -108,6 +108,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/tokens";
+
 .progress-bar-container {
   width: 100%;
   position: relative;
@@ -122,31 +124,56 @@ export default {
 .line {
   position: absolute;
   opacity: 0.4;
-  // branding color CSS rules are inside core: _core.scss
   width: 100%;
 }
 
 .progress-line {
   position: absolute;
-  // branding color CSS rules are inside core: _core.scss
 }
 
 .indeterminate-line {
   position: absolute;
   opacity: 0.4;
-  // branding color CSS rules are inside core: _core.scss
   width: 150%;
 }
 
 .indeterminate-subline {
   position: absolute;
-  // branding color CSS rules are inside core: _core.scss
 }
 .inc {
   animation: increase 2s infinite;
 }
 .dec {
   animation: decrease 2s 0.5s infinite;
+}
+
+// branding colors
+.line,
+.progress-line,
+.indeterminate-line,
+.indeterminate-subline {
+  background: $interactive-01;
+}
+
+.line.healthy,
+.progress-line.healthy,
+.indeterminate-line.healthy,
+.indeterminate-subline.healthy {
+  background: $support-02;
+}
+
+.line.warning,
+.progress-line.warning,
+.indeterminate-line.warning,
+.indeterminate-subline.warning {
+  background: $ns-warning-status-color;
+}
+
+.line.danger,
+.progress-line.danger,
+.indeterminate-line.danger,
+.indeterminate-subline.danger {
+  background: $danger-01;
 }
 
 @keyframes increase {

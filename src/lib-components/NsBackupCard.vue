@@ -15,13 +15,13 @@
       <cv-skeleton-text
         :paragraph="true"
         :line-count="2"
-        class="mg-top-sm"
+        class="loading-skeleton"
       ></cv-skeleton-text>
     </div>
     <template v-else-if="!backupsContainingInstance.length">
-      <div class="row icon-and-text">
+      <div class="row no-backup">
         <!-- no backup -->
-        <NsSvg :svg="Warning16" class="icon ns-warning" />
+        <NsSvg :svg="Warning16" class="icon status-warning" />
         <span>
           {{ noBackupMessage }}
         </span>
@@ -36,7 +36,7 @@
               <div class="tr">
                 <div class="td label">{{ statusLabel }}</div>
                 <div class="td status">
-                  <span v-if="!singleBackup.enabled" class="ns-warning">
+                  <span v-if="!singleBackup.enabled" class="status-warning">
                     {{ backupDisabledLabel }}
                   </span>
                   <span
@@ -44,7 +44,7 @@
                       status[singleBackup.id] &&
                       status[singleBackup.id].success == true
                     "
-                    class="ns-success"
+                    class="status-success"
                   >
                     <span>{{ statusSuccessLabel }}</span>
                   </span>
@@ -53,11 +53,11 @@
                       status[singleBackup.id] &&
                       status[singleBackup.id].success == false
                     "
-                    class="ns-error"
+                    class="status-error"
                   >
                     {{ statusErrorLabel }}
                   </span>
-                  <span v-else class="ns-warning">
+                  <span v-else class="status-warning">
                     {{ statusNotRunLabel }}
                   </span>
                 </div>
@@ -84,17 +84,17 @@
                 <div class="td status">
                   <span
                     v-if="summaryStatus && summaryStatus.success == true"
-                    class="ns-success"
+                    class="status-success"
                   >
                     <span>{{ statusSuccessLabel }}</span>
                   </span>
                   <span
                     v-else-if="summaryStatus && summaryStatus.success == false"
-                    class="ns-error"
+                    class="status-error"
                   >
                     {{ statusErrorLabel }}
                   </span>
-                  <span v-else class="ns-warning">
+                  <span v-else class="status-warning">
                     {{ multipleUncertainStatusLabel }}
                   </span>
                 </div>
@@ -105,7 +105,7 @@
       </div>
     </template>
     <div>
-      <div class="row mg-top-sm">
+      <div class="row footer">
         <NsButton
           kind="ghost"
           :icon="ArrowRight20"
@@ -284,6 +284,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/tokens";
+
 .ns-backup-card {
   display: flex;
   flex-direction: column;
@@ -317,6 +319,7 @@ export default {
 .table-wrapper {
   display: flex;
   justify-content: center;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
@@ -345,6 +348,30 @@ export default {
 
 .backup-status-icon {
   margin-right: 0.25rem;
+}
+
+.loading-skeleton,
+.footer {
+  margin-top: $spacing-03;
+}
+
+.no-backup .icon {
+  margin-right: $spacing-03;
+}
+
+.status-success {
+  color: $support-02;
+  fill: $support-02;
+}
+
+.status-error {
+  color: $danger-01;
+  fill: $danger-01;
+}
+
+.status-warning {
+  color: $ns-warning-color;
+  fill: $ns-warning-color;
 }
 </style>
 

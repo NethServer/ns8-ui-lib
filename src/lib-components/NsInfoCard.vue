@@ -119,6 +119,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/tooltip";
+
 .info-card {
   display: flex;
   flex-direction: column;
@@ -169,5 +171,14 @@ export default {
 
 .slot {
   margin-top: 0.5rem;
+}
+
+// interactive tooltip layout, from ns8-core _core.scss
+.cv-interactive-tooltip {
+  display: inline-block;
+}
+
+.cv-interactive-tooltip ::v-deep .bx--tooltip__label .bx--tooltip__trigger {
+  margin-left: 0;
 }
 </style>

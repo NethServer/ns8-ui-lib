@@ -120,6 +120,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/tokens";
+
+.cv-inline-notification {
+  margin-bottom: $spacing-07;
+}
+
 .title {
   margin-right: 0.75rem;
   margin-bottom: 0.2rem;
@@ -138,5 +144,25 @@ export default {
 .bx--inline-notification__text-wrapper p {
   // needed for inline notifications inside modal
   padding-right: 0 !important;
+}
+
+.loader {
+  width: 1rem;
+  height: 1rem;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  border-top: 3px solid currentColor;
+  border-right: 3px solid currentColor;
+  border-bottom: 3px solid currentColor;
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

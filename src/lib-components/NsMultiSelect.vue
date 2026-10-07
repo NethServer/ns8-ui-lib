@@ -202,7 +202,7 @@
       <slot name="helper-text">{{ helperText }}</slot>
     </div>
     <!-- show selected items -->
-    <div v-if="showSelectedItems && dataValue.length" class="mg-top-sm">
+    <div v-if="showSelectedItems && dataValue.length" class="selected-items">
       <NsTag
         v-for="(item, index) in selectedItems"
         filter
@@ -674,6 +674,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../lib-styles/tooltip";
+
+.selected-items {
+  margin-top: $spacing-03;
+}
+
 .bx--multi-select--filterable .bx--tag.selected-item {
   margin-left: 0;
   margin-bottom: 0.25rem;
