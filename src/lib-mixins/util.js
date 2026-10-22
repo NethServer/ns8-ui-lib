@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { v4 as uuidv4 } from "uuid";
-
 export default {
   name: "UtilService",
   data() {
@@ -279,7 +277,7 @@ export default {
      * Generate a universally unique identifier
      */
     getUuid() {
-      return uuidv4();
+      return crypto.randomUUID();
     },
     /**
      * Get a readable label for a node
