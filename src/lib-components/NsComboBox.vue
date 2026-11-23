@@ -291,7 +291,17 @@ export default {
     },
     options() {
       this.internalOptions = _cloneDeep(this.options);
-      this.updateOptions();
+      // While the list is closed, the text in the field is the label of the
+      // value, not a filter typed by the user: list all the options, where
+      // the value is looked up below
+      this.updateOptions(this.open);
+
+      // When value and options change together, the value watcher runs first
+      // and cannot find the option of the new value: show its label now.
+      // Skipped while the list is open, not to overwrite what the user types
+      if (!this.open) {
+        this.internalUpdateValue(this.dataValue);
+      }
     },
     open() {
       if (this.marginBottomOnOpen) {
@@ -312,7 +322,17 @@ export default {
     this.updateOptions();
   },
   mounted() {
-    this.filter = this.value;
+    // Show the label of the initial value; a value without an option, such
+    // as user input, is shown as it is
+    const option = this.internalOptions.find(
+      (item) => item.value === this.value
+    );
+    this.filter = option ? option.label : this.value;
+    if (!option && this.value) {
+      // the options were built before the field had a text: add the user
+      // input among them
+      this.updateOptions(false);
+    }
     this.highlighted = this.value ? this.value : this.highlight; // override highlight with value if provided
     this.checkSlots();
   },
@@ -437,8 +457,8 @@ export default {
         // this.checkHighlightPosition(newHiglight);
       }
     },
-    updateOptions() {
-      if (this.autoFilter && this.filter) {
+    updateOptions(applyFilter = true) {
+      if (this.autoFilter && this.filter && applyFilter) {
         const escFilter = this.filter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         const pat = new RegExp(escFilter, "iu");
         this.dataOptions = this.internalOptions
@@ -455,8 +475,10 @@ export default {
       if (this.acceptUserInput && this.filter && this.filter.trim()) {
         // suggest user input
         const trimmedFilter = this.filter.trim();
+        // the text can be the label of the selected option, too
         const itemFound = this.internalOptions.find(
-          (o) => o.value.trim() === trimmedFilter
+          (o) =>
+            o.value.trim() === trimmedFilter || o.label.trim() === trimmedFilter
         );
 
         if (!itemFound) {
