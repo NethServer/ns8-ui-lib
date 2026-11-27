@@ -345,16 +345,13 @@ export default {
       this.highlighted = this.highlight;
     },
     value() {
-      // Keep all the values, also those without an option: the options can
-      // arrive later than the value, as when a page loads its configuration,
-      // and dropping them would lose them at the next change. Copy the
-      // array, not to change the one of the parent
+      // Copy the array, not to change the one of the parent
       this.dataValue = [...this.value];
-      this.addUserInputOptions();
+      this.syncValueWithOptions();
     },
     options() {
       this.internalOptions = _cloneDeep(this.options);
-      this.addUserInputOptions();
+      this.syncValueWithOptions();
     },
     open() {
       if (this.marginBottomOnOpen) {
@@ -372,9 +369,9 @@ export default {
   },
   created() {
     this.internalOptions = _cloneDeep(this.options);
-    // keep all the values, see the value watcher
+    // copy the array, not to change the one of the parent
     this.dataValue = [...this.value];
-    this.addUserInputOptions();
+    this.syncValueWithOptions();
   },
   mounted() {
     // the value is a list, it cannot be highlighted: without the highlight
@@ -429,7 +426,7 @@ export default {
       return this.dataValue.map(
         (val) =>
           this.internalOptions.find((opt) => opt.value === val) || {
-            // a value without an option, e.g. the options are not loaded
+            // a value without an option, as the options are not loaded
             // yet: show the value itself
             name: val,
             label: val,
@@ -592,18 +589,18 @@ export default {
     },
     onEnter() {
       if (this.open) {
-        // the options can have changed since the option was highlighted: if
-        // it is no longer listed, nothing is highlighted on screen, so do not
-        // pick anything, just highlight the first listed option
-        if (
-          !this.filteredOptions.some(
-            (item) => item.value === this.dataHighlighted
-          )
-        ) {
-          this.highlighted = this.dataHighlighted;
-          return;
+        const options = this.filteredOptions;
+        if (options.length) {
+          // the options can have changed since the option was highlighted:
+          // if it is no longer listed, nothing is highlighted on screen, so
+          // do not pick anything, just highlight the first listed option
+          if (!options.some((item) => item.value === this.dataHighlighted)) {
+            this.highlighted = this.dataHighlighted;
+            return;
+          }
+          this.onItemClick(this.highlighted);
         }
-        this.onItemClick(this.highlighted);
+        // nothing listed: pick nothing, clear the text and close the list
         // without filterable there is no input, only the button
         this.inputOrButtonFocus();
         // clear the text only when there is one, not to emit a needless
@@ -676,10 +673,23 @@ export default {
       // emit a copy, not to share the array with the parent
       this.$emit("change", [...this.dataValue]);
     },
-    addUserInputOptions() {
-      if (!this.acceptUserInput) {
+    syncValueWithOptions() {
+      if (this.acceptUserInput) {
+        this.addUserInputOptions();
         return;
       }
+      // Without user input, every value must be an option: drop the values
+      // without one, such as an option deleted in the meantime, not to send
+      // them back at the next change. Not while there are no options: they
+      // can arrive later than the value, as when a page loads its
+      // configuration
+      if (this.internalOptions.length) {
+        this.dataValue = this.dataValue.filter((val) =>
+          this.internalOptions.some((item) => item.value === val)
+        );
+      }
+    },
+    addUserInputOptions() {
       // list the values without an option as user input, to show their
       // label and to unselect them
       for (const val of this.dataValue) {
