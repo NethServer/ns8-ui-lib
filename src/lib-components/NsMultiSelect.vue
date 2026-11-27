@@ -345,16 +345,13 @@ export default {
       this.highlighted = this.highlight;
     },
     value() {
-      if (this.acceptUserInput) {
-        this.dataValue = this.value;
-      } else {
-        this.dataValue = this.value.filter((item) =>
-          this.internalOptions.some((opt) => opt.value === item.trim())
-        );
-      }
+      // Copy the array, not to change the one of the parent
+      this.dataValue = [...this.value];
+      this.syncValueWithOptions();
     },
     options() {
       this.internalOptions = _cloneDeep(this.options);
+      this.syncValueWithOptions();
     },
     open() {
       if (this.marginBottomOnOpen) {
@@ -372,12 +369,14 @@ export default {
   },
   created() {
     this.internalOptions = _cloneDeep(this.options);
-    this.dataValue = this.value.filter((item) =>
-      this.internalOptions.some((opt) => opt.value === item.trim())
-    );
+    // copy the array, not to change the one of the parent
+    this.dataValue = [...this.value];
+    this.syncValueWithOptions();
   },
   mounted() {
-    this.highlighted = this.value ? this.value : this.highlight; // override highlight with value if provided
+    // the value is a list, it cannot be highlighted: without the highlight
+    // prop, the first option is highlighted
+    this.highlighted = this.highlight;
     this.checkSlots();
   },
   updated() {
@@ -389,13 +388,13 @@ export default {
         return this.dataHighlighted;
       },
       set(val) {
-        let firstMatchIndex = this.internalOptions.findIndex(
-          (item) => item.value === val
-        );
+        // only a listed option can be highlighted: the list is filtered by
+        // the text typed by the user
+        const options = this.filteredOptions;
+        let firstMatchIndex = options.findIndex((item) => item.value === val);
         if (firstMatchIndex < 0) {
-          firstMatchIndex = this.internalOptions.length ? 0 : -1;
-          this.dataHighlighted =
-            firstMatchIndex >= 0 ? this.internalOptions[0].value : "";
+          firstMatchIndex = options.length ? 0 : -1;
+          this.dataHighlighted = firstMatchIndex >= 0 ? options[0].value : "";
         } else {
           this.dataHighlighted = val;
         }
@@ -424,8 +423,15 @@ export default {
       return this.internalOptions.slice(0, this.maxDisplayOptions);
     },
     selectedItems() {
-      return this.dataValue.map((val) =>
-        this.internalOptions.find((opt) => opt.value === val)
+      return this.dataValue.map(
+        (val) =>
+          this.internalOptions.find((opt) => opt.value === val) || {
+            // a value without an option, as the options are not loaded
+            // yet: show the value itself
+            name: val,
+            label: val,
+            value: val,
+          }
       );
     },
     hasTooltipSlot() {
@@ -436,20 +442,26 @@ export default {
         return this.limitedDataOptions;
       }
 
-      let results = this.internalOptions.filter((option) => {
-        return option.label
-          .trim()
-          .toLowerCase()
-          .includes(this.filter.trim().toLowerCase());
-      });
+      const trimmedFilter = this.filter.trim();
+      const lowerCaseFilter = trimmedFilter.toLowerCase();
+
+      let results = this.internalOptions.filter(
+        (option) =>
+          option.label.trim().toLowerCase().includes(lowerCaseFilter) ||
+          // list also the option whose value is the text, even if its label
+          // does not match
+          option.value.trim() === trimmedFilter
+      );
 
       // user input
 
-      if (this.acceptUserInput && this.filter.trim()) {
-        // suggest user input if not already present among options
-        const trimmedFilter = this.filter.trim();
-        const optionFound = results.find(
-          (option) => option.label === trimmedFilter
+      if (this.acceptUserInput && trimmedFilter) {
+        // suggest user input, unless the text is the label of an option, in
+        // any case, or its value: that option is listed above
+        const optionFound = this.internalOptions.find(
+          (option) =>
+            option.label.trim().toLowerCase() === lowerCaseFilter ||
+            option.value.trim() === trimmedFilter
         );
 
         if (!optionFound) {
@@ -507,43 +519,42 @@ export default {
       }
     },
     doMove(up) {
-      if (this.internalOptions.length > 0) {
+      // move among the listed options, filtered by the text typed by the user
+      const options = this.filteredOptions;
+      if (options.length > 0) {
         // requery could have changed
-        const currentHighlight = this.internalOptions.findIndex(
+        const currentHighlight = options.findIndex(
           (item) => item.value === this.highlighted
         );
         let newHiglight;
 
         if (up) {
           if (currentHighlight <= 0) {
-            newHiglight = this.internalOptions.length - 1;
+            newHiglight = options.length - 1;
           } else {
             newHiglight = currentHighlight - 1;
           }
         } else {
-          if (currentHighlight >= this.internalOptions.length - 1) {
+          if (currentHighlight >= options.length - 1) {
             newHiglight = 0;
           } else {
             newHiglight = currentHighlight + 1;
           }
         }
-        this.highlighted = this.internalOptions[newHiglight].value;
+        this.highlighted = options[newHiglight].value;
         // this.checkHighlightPosition(newHiglight);
       }
     },
     updateHighlight() {
-      let firstMatchIndex;
-      if (this.autoHighlight && this.internalOptions.length > 0) {
-        // then highlight first match
-        const filterRegex = new RegExp(this.filter, "iu");
-        firstMatchIndex = this.internalOptions.findIndex((item) =>
-          filterRegex.test(item.label)
-        );
-        if (firstMatchIndex < 0) {
-          firstMatchIndex = 0;
-        }
-        this.highlighted = this.internalOptions[firstMatchIndex].value;
-        // this.checkHighlightPosition(firstMatchIndex);
+      // The list is filtered by the text: with autoHighlight, highlight the
+      // first listed option; otherwise keep the highlighted option if it is
+      // still listed. The setter falls back to the first listed option, so
+      // that Enter never picks a hidden one
+      const options = this.filteredOptions;
+      if (this.autoHighlight && options.length > 0) {
+        this.highlighted = options[0].value;
+      } else {
+        this.highlighted = this.dataHighlighted;
       }
     },
     onInput() {
@@ -578,9 +589,25 @@ export default {
     },
     onEnter() {
       if (this.open) {
-        this.onItemClick(this.highlighted);
-        this.$refs.input.focus();
-        this.filter = "";
+        const options = this.filteredOptions;
+        if (options.length) {
+          // the options can have changed since the option was highlighted:
+          // if it is no longer listed, nothing is highlighted on screen, so
+          // do not pick anything, just highlight the first listed option
+          if (!options.some((item) => item.value === this.dataHighlighted)) {
+            this.highlighted = this.dataHighlighted;
+            return;
+          }
+          this.onItemClick(this.highlighted);
+        }
+        // nothing listed: pick nothing, clear the text and close the list
+        // without filterable there is no input, only the button
+        this.inputOrButtonFocus();
+        // clear the text only when there is one, not to emit a needless
+        // filter event
+        if (this.filter) {
+          this.filter = "";
+        }
         this.doOpen(false);
       } else {
         this.doOpen(true);
@@ -605,7 +632,8 @@ export default {
     clearValues() {
       this.dataValue = [];
       this.inputOrButtonFocus();
-      this.$emit("change", this.dataValue);
+      // emit a copy, not to share the array with the parent
+      this.$emit("change", [...this.dataValue]);
     },
     onFocusOut(ev) {
       if (
@@ -633,12 +661,7 @@ export default {
           this.acceptUserInput &&
           !this.internalOptions.find((item) => item.value === val)
         ) {
-          this.internalOptions.push({
-            name: val,
-            label: val,
-            value: val,
-            type: this.userInputLabel,
-          });
+          this.addUserInputOptions();
 
           this.$nextTick(() => {
             this.clearFilter();
@@ -647,7 +670,38 @@ export default {
       }
 
       this.$refs.button.focus();
-      this.$emit("change", this.dataValue);
+      // emit a copy, not to share the array with the parent
+      this.$emit("change", [...this.dataValue]);
+    },
+    syncValueWithOptions() {
+      if (this.acceptUserInput) {
+        this.addUserInputOptions();
+        return;
+      }
+      // Without user input, every value must be an option: drop the values
+      // without one, such as an option deleted in the meantime, not to send
+      // them back at the next change. Not while there are no options: they
+      // can arrive later than the value, as when a page loads its
+      // configuration
+      if (this.internalOptions.length) {
+        this.dataValue = this.dataValue.filter((val) =>
+          this.internalOptions.some((item) => item.value === val)
+        );
+      }
+    },
+    addUserInputOptions() {
+      // list the values without an option as user input, to show their
+      // label and to unselect them
+      for (const val of this.dataValue) {
+        if (!this.internalOptions.some((item) => item.value === val)) {
+          this.internalOptions.push({
+            name: val,
+            label: val,
+            value: val,
+            type: this.userInputLabel,
+          });
+        }
+      }
     },
     inputClick() {
       if (!this.open) {

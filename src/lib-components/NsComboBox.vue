@@ -285,13 +285,52 @@ export default {
       this.highlighted = this.highlight;
     },
     value() {
+      // The value can come back from the parent after a change emitted by the
+      // component, e.g. at every keystroke with user input: keep the text
+      // typed by the user
+      const isOwnChange = this.value === this.dataValue;
       this.dataValue = this.value;
+
+      if (!isOwnChange) {
+        // a new value from the parent: show the label of its option, or the
+        // value itself when it has no option (e.g. user input); an empty
+        // value clears the field
+        const option = this.internalOptions.find(
+          (item) => item.value === this.value
+        );
+        const text = option ? option.label : this.value || "";
+        // set the text only when it changes, not to emit a needless filter
+        // event
+        if (text !== (this.filter || "")) {
+          this.filter = text;
+        }
+        // the text is not a filter typed by the user: list all the options
+        this.updateOptions(false);
+      }
       this.highlighted = this.value;
-      this.internalUpdateValue(this.value);
     },
     options() {
       this.internalOptions = _cloneDeep(this.options);
-      this.updateOptions();
+
+      // When value and options change together, the value watcher runs first
+      // and cannot find the option of the new value: show its label now,
+      // before building the list, so that the previous label is not suggested
+      // as user input. Skipped while the list is open, not to overwrite what
+      // the user types
+      if (!this.open) {
+        const option = this.internalOptions.find(
+          (item) => item.value === this.dataValue
+        );
+        // set the text only when it changes, not to emit a filter event at
+        // every options reload
+        if (option && option.label !== this.filter) {
+          this.filter = option.label;
+        }
+      }
+
+      // While the list is closed, the text in the field is the label of the
+      // value, not a filter typed by the user: list all the options
+      this.updateOptions(this.open);
     },
     open() {
       if (this.marginBottomOnOpen) {
@@ -312,7 +351,17 @@ export default {
     this.updateOptions();
   },
   mounted() {
-    this.filter = this.value;
+    // Show the label of the initial value; a value without an option, such
+    // as user input, is shown as it is
+    const option = this.internalOptions.find(
+      (item) => item.value === this.value
+    );
+    this.filter = option ? option.label : this.value;
+    if (!option && this.value) {
+      // the options were built before the field had a text: add the user
+      // input among them
+      this.updateOptions(false);
+    }
     this.highlighted = this.value ? this.value : this.highlight; // override highlight with value if provided
     this.checkSlots();
   },
@@ -437,12 +486,17 @@ export default {
         // this.checkHighlightPosition(newHiglight);
       }
     },
-    updateOptions() {
-      if (this.autoFilter && this.filter) {
+    updateOptions(applyFilter = true) {
+      if (this.autoFilter && this.filter && applyFilter) {
         const escFilter = this.filter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         const pat = new RegExp(escFilter, "iu");
+        const trimmedFilter = this.filter.trim();
+        // list also the option whose value is the text: it is selected by
+        // typing its value, even if its label does not match
         this.dataOptions = this.internalOptions
-          .filter((opt) => pat.test(opt.label))
+          .filter(
+            (opt) => pat.test(opt.label) || opt.value.trim() === trimmedFilter
+          )
           .slice(0);
       } else {
         this.dataOptions = this.internalOptions.slice(0);
@@ -455,8 +509,12 @@ export default {
       if (this.acceptUserInput && this.filter && this.filter.trim()) {
         // suggest user input
         const trimmedFilter = this.filter.trim();
+        // the text can be the label of the selected option, too; the label
+        // of another option is user input, because it is not its value
         const itemFound = this.internalOptions.find(
-          (o) => o.value.trim() === trimmedFilter
+          (o) =>
+            o.value.trim() === trimmedFilter ||
+            (o.value === this.dataValue && o.label.trim() === trimmedFilter)
         );
 
         if (!itemFound) {
@@ -492,7 +550,9 @@ export default {
       this.updateHighlight();
 
       if (this.acceptUserInput) {
-        this.internalUpdateValue(this.filter);
+        // the text is the value: keep what the user types, even when it is
+        // the value of an option, not to replace it with its label
+        this.dataValue = this.filter;
         this.$emit("change", this.dataValue);
       }
     },
@@ -551,7 +611,8 @@ export default {
     internalUpdateValue(val) {
       this.dataValue = val;
       const filterOption = this.dataOptions.find((item) => item.value === val);
-      if (filterOption) {
+      // set the text only when it changes, not to emit a needless filter event
+      if (filterOption && filterOption.label !== this.filter) {
         this.filter = filterOption.label;
       }
     },
@@ -575,6 +636,10 @@ export default {
       }
 
       this.internalUpdateValue(val);
+      // the list is closed below: its text is now the label of the value,
+      // not a filter typed by the user, so list all the options
+      this.updateOptions(false);
+      this.highlighted = val;
       this.$refs.input.focus();
       this.open = false; // close after user makes a selection
       this.$emit("change", this.dataValue);
